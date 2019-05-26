@@ -1,0 +1,12 @@
+/* CSS Framework */
+@import "../node_modules/bulma/css/bulma.min.css";
+
+/* Custom styles */
+@import "../src/custom.css";
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+
+body, button, input, select, textarea {
+    font-family: "Questrial", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
