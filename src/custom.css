@@ -15,3 +15,7 @@
     background: linear-gradient(to bottom, #8e44ad 0%, #683280 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8e44ad', endColorstr='#683280', GradientType=0); /* IE6-9 */
 }
+
+.padding-2 {
+    padding: 2rem;
+}
