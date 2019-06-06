@@ -3,6 +3,13 @@
     font-size: -webkit-xxx-large;
 }
 
+.higo-banner-bg {
+    background-image: url("../media/images/higo-banner-comp.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .higo-bg {
     background: #8e44ad;
 }

@@ -5,7 +5,7 @@ export default class VehicleSearchPage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <section className="hero is-medium higo-bg">
+                <section className="hero is-medium higo-banner-bg">
                     <div className="hero-body">
                         <div className="container">
                             <div className="box padding-2">
