@@ -7,14 +7,17 @@ export default class VehicleSearchPage extends React.Component {
         return (
             <React.Fragment>
                 <Navbar/>
-                <div className="section higo-bg">
-                    <div className="container">
-                        <div className="box padding-2">
-                            <p className="title">Busc&aacute; un veh&iacute;culo</p>
-                            <VehicleSearchForm/>
+
+                <section className="hero is-medium higo-bg">
+                    <div className="hero-body">
+                        <div className="container">
+                            <div className="box padding-2">
+                                <p className="title">Busc&aacute; un veh&iacute;culo</p>
+                                <VehicleSearchForm/>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </React.Fragment>
         );
     }
