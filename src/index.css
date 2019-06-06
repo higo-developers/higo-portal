@@ -2,7 +2,10 @@
 @import "../node_modules/bulma/css/bulma.min.css";
 
 /* Custom styles */
-@import "../src/custom.css";
+@import "styles/custom.css";
+
+/* Calendar custom styles */
+@import "styles/calendar.custom.css";
 
 /* Fonts */
 @import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
