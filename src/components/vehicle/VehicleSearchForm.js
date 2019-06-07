@@ -10,6 +10,14 @@ export default class VehicleSearchForm extends React.Component {
             minDesde: new Date(),
             fechaDesde: undefined,
             fechaHasta: undefined,
+            locationData: {
+                address: undefined,
+                city: undefined,
+                area: undefined,
+                state: undefined,
+                latitude: undefined,
+                longitude: undefined
+            }
         }
     }
 
@@ -84,7 +92,10 @@ export default class VehicleSearchForm extends React.Component {
                             <div className="field">
                                 <label className="label is-hidden-mobile">&nbsp;</label>
                                 <div className="control">
-                                    <button name="Confirm" type="button" className="button is-light is-fullwidth" disabled={this.searchButtonIsDisabled()} onClick={this.handleClick}>Buscar</button>
+                                    <button name="Confirm" type="button" className="button is-dark is-fullwidth" disabled={this.searchButtonIsDisabled()} onClick={this.handleClick}>
+                                        <span className="icon"><i className="fas fa-search"/></span>
+                                        <span>Buscar</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>

@@ -11,7 +11,7 @@ export default class Navbar extends React.Component {
                             <span className="is-size-3 has-text-weight-bold">higo</span>
                         </Link>
 
-                        <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="higo-navbar-menu">
+                        <a href="/" role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="higo-navbar-menu">
                             <span aria-hidden="true"></span>
                             <span aria-hidden="true"></span>
                             <span aria-hidden="true"></span>
