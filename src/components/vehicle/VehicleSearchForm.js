@@ -46,10 +46,6 @@ export default class VehicleSearchForm extends React.Component {
         return maxHasta;
     };
 
-    disableFechaHasta = () => {
-        return isNullOrUndefined(this.state.fechaDesde);
-    };
-
     handleClick = () => {
       console.log(this.state);
     };
@@ -77,15 +73,17 @@ export default class VehicleSearchForm extends React.Component {
         let addressComponents = place[ADDRESS_COMPONENTS];
 
         if ( validAddressComponents(addressComponents) ) {
-            addressComponents.forEach((component) => {
-               if ( validAddressComponentType(component) ) {
-                   this.setState({
-                       locacion: {
-                           ...this.state.locacion,
-                           [getAddressComponentTypeName(component)] : getAddressComponentValue(component)
-                       }
-                   });
-               }
+            addressComponents.forEach((component) => { this.addAddressComponent(component) });
+        }
+    };
+
+    addAddressComponent = (component) => {
+        if (validAddressComponentType(component)) {
+            this.setState({
+                locacion: {
+                    ...this.state.locacion,
+                    [getAddressComponentTypeName(component)]: getAddressComponentValue(component)
+                }
             });
         }
     };
@@ -119,7 +117,7 @@ export default class VehicleSearchForm extends React.Component {
                             <div className="field">
                                 <label className="label">Fecha hasta <span className="has-text-grey-light">*</span></label>
                                 <div className="control">
-                                    <DateTimePicker name="fechaHasta" className="input" disabled={this.disableFechaHasta()} onChange={this.handleFechaHasta} minDate={this.getMinHasta()} maxDate={this.getMaxHasta()} value={this.state.fechaHasta} />
+                                    <DateTimePicker name="fechaHasta" className="input" disabled={isNullOrUndefined(this.state.fechaDesde)} onChange={this.handleFechaHasta} minDate={this.getMinHasta()} maxDate={this.getMaxHasta()} value={this.state.fechaHasta} />
                                 </div>
                             </div>
                         </div>
