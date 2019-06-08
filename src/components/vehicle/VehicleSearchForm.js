@@ -1,5 +1,8 @@
+/* global google */
+
 import React from 'react';
 import DateTimePicker from 'react-datetime-picker';
+import Script from 'react-load-script';
 
 export default class VehicleSearchForm extends React.Component {
 
@@ -10,14 +13,7 @@ export default class VehicleSearchForm extends React.Component {
             minDesde: new Date(),
             fechaDesde: undefined,
             fechaHasta: undefined,
-            locationData: {
-                address: undefined,
-                city: undefined,
-                area: undefined,
-                state: undefined,
-                latitude: undefined,
-                longitude: undefined
-            }
+            location: { query: '' }
         }
     }
 
@@ -56,9 +52,33 @@ export default class VehicleSearchForm extends React.Component {
         return invalidFechaDesde || invalidFechaHasta;
     };
 
+    handleScriptLoad = () => {
+        let options = { types: ['geocode'] };
+
+        this.autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('query'),
+            options,
+        );
+
+        this.autocomplete.setFields(['address_component']);
+        this.autocomplete.addListener('place_changed', this.handlePlaceSelect);
+    };
+
+    handlePlaceSelect = () => {
+        var place = this.autocomplete.getPlace();
+
+        console.log(place);
+    };
+
     render() {
+        const API_KEY = `AIzaSyC4ge6wVwBew3G-SovR6E0tvOlsmgcFKqQ`;
+
         return (
             <React.Fragment>
+                <Script
+                    url={`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`}
+                    onLoad={this.handleScriptLoad}
+                />
                 <form>
                     <div className="columns">
                         <div className="column is-one-quarter">
@@ -83,7 +103,7 @@ export default class VehicleSearchForm extends React.Component {
                             <div className="field">
                                 <label className="label">Localidad</label>
                                 <div className="control">
-                                    <input name="localidad" className="input" type="text" placeholder="Localidad"/>
+                                    <input name="query" id="query" className="input" type="text" placeholder="Buscar por ciudad o localidad"/>
                                 </div>
                             </div>
                         </div>
