@@ -9,7 +9,14 @@ export default class VehicleSearchPage extends React.Component {
                     <div className="hero-body">
                         <div className="container">
                             <div className="box padding-2">
-                                <p className="title">Busc&aacute; un veh&iacute;culo</p>
+                                <div className="level">
+                                    <div className="level-left">
+                                        <p className="title">Busc&aacute; un veh&iacute;culo</p>
+                                    </div>
+                                    <div className="level-right">
+                                        <p className="has-text-grey-light">* Campos obligatorios</p>
+                                    </div>
+                                </div>
                                 <VehicleSearchForm/>
                             </div>
                         </div>
