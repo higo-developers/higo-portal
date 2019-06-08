@@ -3,17 +3,22 @@
 import React from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import Script from 'react-load-script';
+import { isNullOrUndefined } from "../../utils/Utils";
+
+const API_KEY = "AIzaSyC4ge6wVwBew3G-SovR6E0tvOlsmgcFKqQ";
+const MAXIMUM_DAYS_TO_RESERVE = 30;
 
 export default class VehicleSearchForm extends React.Component {
 
     constructor(props) {
         super(props);
 
+        this.minDesde = new Date();
+
         this.state = {
-            minDesde: new Date(),
             fechaDesde: undefined,
             fechaHasta: undefined,
-            location: { query: '' }
+            location: undefined
         }
     }
 
@@ -28,12 +33,12 @@ export default class VehicleSearchForm extends React.Component {
     };
 
     getMinHasta = () => {
-        return (this.state.fechaDesde) ? new Date(this.state.fechaDesde.getTime()) : new Date(this.state.minDesde.getTime());
+        return (this.state.fechaDesde) ? new Date(this.state.fechaDesde.getTime()) : new Date(this.minDesde.getTime());
     };
 
     getMaxHasta = () => {
         let maxHasta = this.getMinHasta();
-        maxHasta.setDate(maxHasta.getDate() + 30);
+        maxHasta.setDate(maxHasta.getDate() + MAXIMUM_DAYS_TO_RESERVE);
         return maxHasta;
     };
 
@@ -46,31 +51,40 @@ export default class VehicleSearchForm extends React.Component {
     };
 
     searchButtonIsDisabled = () => {
-        let invalidFechaDesde = this.state.fechaDesde === null || this.state.fechaDesde === undefined;
-        let invalidFechaHasta = this.state.fechaHasta === null || this.state.fechaHasta === undefined;
+        let invalidFechaDesde = isNullOrUndefined(this.state.fechaDesde);
+        let invalidFechaHasta = isNullOrUndefined(this.state.fechaHasta);
+        let invalidLocation = isNullOrUndefined(this.state.location);
 
-        return invalidFechaDesde || invalidFechaHasta;
+        return invalidFechaDesde || invalidFechaHasta || invalidLocation;
     };
 
     initializeAutocomplete = () => {
-        let options = { types: ['geocode'] };
+        let options = { types: ["geocode"] };
 
         this.autocomplete = new google.maps.places.Autocomplete(
-            document.getElementById('query'),
+            document.getElementById("query"),
             options,
         );
 
-        this.autocomplete.addListener('place_changed', this.handlePlaceSelect);
+        this.autocomplete.setFields(["address_components"]);
+        this.autocomplete.addListener("place_changed", this.handlePlaceSelect);
     };
 
     handlePlaceSelect = () => {
         var place = this.autocomplete.getPlace();
         console.log(place);
+        console.log(typeof place.address_components);
+
+    };
+
+    handleChangeQuery = (event) => {
+        let query = event.target.value;
+
+        if (!query)
+            this.setState({ location: undefined });
     };
 
     render() {
-        const API_KEY = `AIzaSyC4ge6wVwBew3G-SovR6E0tvOlsmgcFKqQ`;
-
         return (
             <React.Fragment>
                 <Script
@@ -78,17 +92,17 @@ export default class VehicleSearchForm extends React.Component {
                     onLoad={this.initializeAutocomplete}
                 />
                 <form>
-                    <div className="columns">
-                        <div className="column is-one-quarter">
+                    <div className="columns is-multiline">
+                        <div className="column is-6">
                             <div className="field">
                                 <label className="label">Fecha desde</label>
                                 <div className="control">
-                                    <DateTimePicker name="fechaDesde" className="input" onChange={this.handleFechaDesde} minDate={this.state.minDesde} value={this.state.fechaDesde} />
+                                    <DateTimePicker name="fechaDesde" className="input" onChange={this.handleFechaDesde} minDate={this.minDesde} value={this.state.fechaDesde} />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="column is-one-quarter">
+                        <div className="column is-6">
                             <div className="field">
                                 <label className="label">Fecha hasta</label>
                                 <div className="control">
@@ -97,20 +111,19 @@ export default class VehicleSearchForm extends React.Component {
                             </div>
                         </div>
 
-                        <div className="column is-one-quarter">
+                        <div className="column is-12">
                             <div className="field">
                                 <label className="label">Localidad</label>
                                 <div className="control">
-                                    <input name="query" id="query" className="input" type="text" placeholder="Buscar por ciudad o localidad"/>
+                                    <input name="query" id="query" className="input" type="text" placeholder="Buscar por ciudad o localidad" onChange={this.handleChangeQuery} />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="column is-one-quarter">
+                        <div className="column is-6 is-offset-3">
                             <div className="field">
-                                <label className="label is-hidden-mobile">&nbsp;</label>
                                 <div className="control">
-                                    <button name="Confirm" type="button" className="button is-dark is-fullwidth" disabled={this.searchButtonIsDisabled()} onClick={this.handleClick}>
+                                    <button name="Confirm" type="button" className="button is-dark is-fullwidth is-medium" disabled={this.searchButtonIsDisabled()} onClick={this.handleClick}>
                                         <span className="icon"><i className="fas fa-search"/></span>
                                         <span>Buscar</span>
                                     </button>
