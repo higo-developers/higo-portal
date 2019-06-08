@@ -52,7 +52,7 @@ export default class VehicleSearchForm extends React.Component {
         return invalidFechaDesde || invalidFechaHasta;
     };
 
-    handleScriptLoad = () => {
+    initializeAutocomplete = () => {
         let options = { types: ['geocode'] };
 
         this.autocomplete = new google.maps.places.Autocomplete(
@@ -60,13 +60,11 @@ export default class VehicleSearchForm extends React.Component {
             options,
         );
 
-        this.autocomplete.setFields(['address_component']);
         this.autocomplete.addListener('place_changed', this.handlePlaceSelect);
     };
 
     handlePlaceSelect = () => {
         var place = this.autocomplete.getPlace();
-
         console.log(place);
     };
 
@@ -77,7 +75,7 @@ export default class VehicleSearchForm extends React.Component {
             <React.Fragment>
                 <Script
                     url={`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`}
-                    onLoad={this.handleScriptLoad}
+                    onLoad={this.initializeAutocomplete}
                 />
                 <form>
                     <div className="columns">
