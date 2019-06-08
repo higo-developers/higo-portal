@@ -4,7 +4,14 @@ import React from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import Script from 'react-load-script';
 import { isNullOrUndefined } from "../../utils/Utils";
+import {
+    getAddressComponentTypeName,
+    getAddressComponentValue,
+    validAddressComponents,
+    validAddressComponentType
+} from "../../utils/VehicleSearchFormUtils";
 
+const ADDRESS_COMPONENTS = "address_components";
 const API_KEY = "AIzaSyC4ge6wVwBew3G-SovR6E0tvOlsmgcFKqQ";
 const MAXIMUM_DAYS_TO_RESERVE = 30;
 
@@ -15,17 +22,14 @@ export default class VehicleSearchForm extends React.Component {
 
         this.minDesde = new Date();
 
-        this.state = {
-            fechaDesde: undefined,
-            fechaHasta: undefined,
-            location: undefined
-        }
+        this.state = { fechaDesde: undefined, fechaHasta: undefined, locacion: undefined }
     }
 
     handleFechaDesde = (fechaDesde) => {
         this.setState({ fechaDesde: fechaDesde });
 
-        if (!fechaDesde) this.setState({ fechaHasta: undefined });
+        if (!fechaDesde)
+            this.setState({ fechaHasta: undefined });
     };
 
     handleFechaHasta = (fechaHasta) => {
@@ -43,7 +47,7 @@ export default class VehicleSearchForm extends React.Component {
     };
 
     disableFechaHasta = () => {
-        return this.state.fechaDesde === null || this.state.fechaDesde === undefined;
+        return isNullOrUndefined(this.state.fechaDesde);
     };
 
     handleClick = () => {
@@ -53,35 +57,44 @@ export default class VehicleSearchForm extends React.Component {
     searchButtonIsDisabled = () => {
         let invalidFechaDesde = isNullOrUndefined(this.state.fechaDesde);
         let invalidFechaHasta = isNullOrUndefined(this.state.fechaHasta);
-        let invalidLocation = isNullOrUndefined(this.state.location);
+        let invalidLocation = isNullOrUndefined(this.state.locacion);
 
         return invalidFechaDesde || invalidFechaHasta || invalidLocation;
     };
 
     initializeAutocomplete = () => {
+        let queryInput = document.getElementById("query");
         let options = { types: ["geocode"] };
+        let autocompleteFields = [ ADDRESS_COMPONENTS ];
 
-        this.autocomplete = new google.maps.places.Autocomplete(
-            document.getElementById("query"),
-            options,
-        );
-
-        this.autocomplete.setFields(["address_components"]);
+        this.autocomplete = new google.maps.places.Autocomplete(queryInput, options);
+        this.autocomplete.setFields(autocompleteFields);
         this.autocomplete.addListener("place_changed", this.handlePlaceSelect);
     };
 
     handlePlaceSelect = () => {
-        var place = this.autocomplete.getPlace();
-        console.log(place);
-        console.log(typeof place.address_components);
+        let place = this.autocomplete.getPlace();
+        let addressComponents = place[ADDRESS_COMPONENTS];
 
+        if ( validAddressComponents(addressComponents) ) {
+            addressComponents.forEach((component) => {
+               if ( validAddressComponentType(component) ) {
+                   this.setState({
+                       locacion: {
+                           ...this.state.locacion,
+                           [getAddressComponentTypeName(component)] : getAddressComponentValue(component)
+                       }
+                   });
+               }
+            });
+        }
     };
 
     handleChangeQuery = (event) => {
         let query = event.target.value;
 
         if (!query)
-            this.setState({ location: undefined });
+            this.setState({ locacion: undefined });
     };
 
     render() {
@@ -95,7 +108,7 @@ export default class VehicleSearchForm extends React.Component {
                     <div className="columns is-multiline">
                         <div className="column is-6">
                             <div className="field">
-                                <label className="label">Fecha desde</label>
+                                <label className="label">Fecha desde <span className="has-text-grey-light">*</span></label>
                                 <div className="control">
                                     <DateTimePicker name="fechaDesde" className="input" onChange={this.handleFechaDesde} minDate={this.minDesde} value={this.state.fechaDesde} />
                                 </div>
@@ -104,7 +117,7 @@ export default class VehicleSearchForm extends React.Component {
 
                         <div className="column is-6">
                             <div className="field">
-                                <label className="label">Fecha hasta</label>
+                                <label className="label">Fecha hasta <span className="has-text-grey-light">*</span></label>
                                 <div className="control">
                                     <DateTimePicker name="fechaHasta" className="input" disabled={this.disableFechaHasta()} onChange={this.handleFechaHasta} minDate={this.getMinHasta()} maxDate={this.getMaxHasta()} value={this.state.fechaHasta} />
                                 </div>
@@ -113,7 +126,7 @@ export default class VehicleSearchForm extends React.Component {
 
                         <div className="column is-12">
                             <div className="field">
-                                <label className="label">Localidad</label>
+                                <label className="label">Localidad <span className="has-text-grey-light">*</span></label>
                                 <div className="control">
                                     <input name="query" id="query" className="input" type="text" placeholder="Buscar por ciudad o localidad" onChange={this.handleChangeQuery} />
                                 </div>
