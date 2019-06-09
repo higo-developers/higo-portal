@@ -4,7 +4,7 @@ import VehicleSearchForm from "../components/vehicle/VehicleSearchForm";
 export default class VehicleSearchPage extends React.Component {
 
     handleSearch = (encodedSearch) => {
-        console.log(encodedSearch);
+        this.props.history.push(`/vehicles?search=${encodedSearch}`);
     };
 
     render() {
