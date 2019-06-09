@@ -5,6 +5,7 @@ import DateTimePicker from 'react-datetime-picker';
 import Script from 'react-load-script';
 import {isNullOrUndefined} from "../../utils/Utils";
 import {
+    encodePreparedSearchParams,
     getAddressComponentTypeName,
     getAddressComponentValue,
     validAddressComponents,
@@ -12,7 +13,6 @@ import {
 } from "../../utils/VehicleSearchFormUtils";
 
 const ADDRESS_COMPONENTS = "address_components";
-const MAXIMUM_DAYS_TO_RESERVE = 30;
 
 export default class VehicleSearchForm extends React.Component {
 
@@ -41,12 +41,8 @@ export default class VehicleSearchForm extends React.Component {
 
     getMaxHasta = () => {
         let maxHasta = this.getMinHasta();
-        maxHasta.setDate(maxHasta.getDate() + MAXIMUM_DAYS_TO_RESERVE);
+        maxHasta.setDate(maxHasta.getDate() + parseInt(process.env.REACT_APP_MAXIMUM_DAYS_TO_RESERVE));
         return maxHasta;
-    };
-
-    handleClick = () => {
-        console.log(this.state);
     };
 
     searchButtonIsDisabled = () => {
@@ -92,6 +88,11 @@ export default class VehicleSearchForm extends React.Component {
 
         if (!query)
             this.setState({ locacion: undefined });
+    };
+
+    handleClick = (event) => {
+        event.preventDefault();
+        this.props.onSearch(encodePreparedSearchParams(this.state));
     };
 
     render() {

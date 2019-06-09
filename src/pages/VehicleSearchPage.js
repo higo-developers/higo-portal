@@ -2,6 +2,11 @@ import React from 'react';
 import VehicleSearchForm from "../components/vehicle/VehicleSearchForm";
 
 export default class VehicleSearchPage extends React.Component {
+
+    handleSearch = (encodedSearch) => {
+        console.log(encodedSearch);
+    };
+
     render() {
         return (
             <React.Fragment>
@@ -17,7 +22,7 @@ export default class VehicleSearchPage extends React.Component {
                                         <p className="has-text-grey-light">* Campos obligatorios</p>
                                     </div>
                                 </div>
-                                <VehicleSearchForm/>
+                                <VehicleSearchForm onSearch={this.handleSearch}/>
                             </div>
                         </div>
                     </div>
