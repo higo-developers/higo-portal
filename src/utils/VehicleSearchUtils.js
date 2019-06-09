@@ -1,4 +1,4 @@
-import {encodeBase64, isNotNullOrUndefined} from './Utils';
+import {decodeBase64, encodeBase64, isNotNullOrUndefined} from './Utils';
 import dateFormat from 'dateformat';
 
 const ISO_UTC_FORMAT = "isoUtcDateTime";
@@ -15,6 +15,7 @@ export const getAddressComponentValue = (addressComponent) => { return addressCo
 export const validAddressComponentType = (addressComponent) => { return isNotNullOrUndefined(namesObjectMap[addressComponent.types[0]]) };
 export const validAddressComponents = (addressComponents) => { return isNotNullOrUndefined(addressComponents) };
 export const encodePreparedSearchParams = (params) => { return encodeBase64(JSON.stringify(toPreparedSearchParams(params))) };
+export const decodeSearchParams = (encodedParams) => { return JSON.parse(decodeBase64(encodedParams)) };
 
 function toPreparedSearchParams(params) {
     let preparedParams = {};

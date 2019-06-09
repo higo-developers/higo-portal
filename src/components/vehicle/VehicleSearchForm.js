@@ -10,7 +10,7 @@ import {
     getAddressComponentValue,
     validAddressComponents,
     validAddressComponentType
-} from "../../utils/VehicleSearchFormUtils";
+} from "../../utils/VehicleSearchUtils";
 
 const ADDRESS_COMPONENTS = "address_components";
 

@@ -1,4 +1,8 @@
 /* CLASS */
+a.navbar-item-logo.is-active, a.navbar-item-logo:focus, a.navbar-item-logo:focus-within, a.navbar-item-logo:hover {
+    color: #4a4a4a;
+}
+
 .large-font-size {
     font-size: -webkit-xxx-large;
 }
