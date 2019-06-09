@@ -3,7 +3,7 @@
 import React from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import Script from 'react-load-script';
-import { isNullOrUndefined } from "../../utils/Utils";
+import {isNullOrUndefined} from "../../utils/Utils";
 import {
     getAddressComponentTypeName,
     getAddressComponentValue,
@@ -12,7 +12,6 @@ import {
 } from "../../utils/VehicleSearchFormUtils";
 
 const ADDRESS_COMPONENTS = "address_components";
-const API_KEY = "AIzaSyC4ge6wVwBew3G-SovR6E0tvOlsmgcFKqQ";
 const MAXIMUM_DAYS_TO_RESERVE = 30;
 
 export default class VehicleSearchForm extends React.Component {
@@ -47,7 +46,7 @@ export default class VehicleSearchForm extends React.Component {
     };
 
     handleClick = () => {
-      console.log(this.state);
+        console.log(this.state);
     };
 
     searchButtonIsDisabled = () => {
@@ -99,7 +98,7 @@ export default class VehicleSearchForm extends React.Component {
         return (
             <React.Fragment>
                 <Script
-                    url={`https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`}
+                    url={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`}
                     onLoad={this.initializeAutocomplete}
                 />
                 <form>
