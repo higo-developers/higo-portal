@@ -1,0 +1,17 @@
+.react-calendar__month-view__days__day--weekend {
+    color: #8e44ad !important;
+}
+
+.react-calendar__tile--active {
+    background: #8e44ad !important;
+    color: white !important;
+}
+
+.react-datetime-picker__inputGroup__input:invalid {
+    background: rgba(142, 68, 173, 0.1) !important;
+}
+
+.react-datetime-picker__wrapper {
+    border: none !important;
+    width: 100%;
+}

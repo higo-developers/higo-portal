@@ -1,19 +1,21 @@
 import React from "react";
-import "./App.css";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import VehicleSearchPage from "../pages/VehicleSearchPage";
+import Layout from "./layout/Layout";
+import NotFoundPage from "../pages/NotFoundPage";
+import FilteredVehiclesPage from "../pages/FilteredVehiclesPage";
 
-class App extends React.Component {
-  render() {
+export default function App() {
     return (
-      <section className="hero is-fullheight higo-gradient-bg">
-        <div className="hero-body">
-          <div className="container has-text-centered">
-            <h1 className="title has-text-white large-font-size"><span className="has-text-grey-lighter">hi</span>go</h1>
-            <h2 className="subtitle has-text-white">Sitio en construcci&oacute;n</h2>
-          </div>
-        </div>
-      </section>
+        <BrowserRouter>
+            <Layout>
+                <Switch>
+                    <Route exact path="/" render={() => <Redirect to="/search"/>}/>
+                    <Route exact path="/search" component={VehicleSearchPage}/>
+                    <Route path="/vehicles" component={FilteredVehiclesPage}/>
+                    <Route component={NotFoundPage}/>
+                </Switch>
+            </Layout>
+        </BrowserRouter>
     );
-  }
 }
-
-export default App;

@@ -1,0 +1,32 @@
+/* CLASS */
+a.navbar-item-logo.is-active, a.navbar-item-logo:focus, a.navbar-item-logo:focus-within, a.navbar-item-logo:hover {
+    color: #4a4a4a;
+}
+
+.large-font-size {
+    font-size: -webkit-xxx-large;
+}
+
+.higo-banner-bg {
+    background-image: url("../media/images/higo-banner-comp.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.higo-bg {
+    background: #8e44ad;
+}
+
+.higo-gradient-bg {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#8e44ad+0,683280+100 */
+    background: #8e44ad; /* Old browsers */
+    background: -moz-linear-gradient(top, #8e44ad 0%, #683280 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #8e44ad 0%, #683280 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #8e44ad 0%, #683280 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8e44ad', endColorstr='#683280', GradientType=0); /* IE6-9 */
+}
+
+.padding-2 {
+    padding: 2rem;
+}
