@@ -3,7 +3,7 @@
 import React from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import Script from 'react-load-script';
-import {isNullOrUndefined} from "../../utils/Utils";
+import { isNullOrUndefined } from "../../utils/Utils";
 import {
     encodePreparedSearchParams,
     getAddressComponentTypeName,

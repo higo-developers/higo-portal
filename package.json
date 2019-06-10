@@ -6,6 +6,7 @@
     "@fortawesome/fontawesome-free": "^5.9.0",
     "base-64": "^0.1.0",
     "bulma": "^0.7.5",
+    "cryptr": "^4.0.2",
     "dateformat": "^3.0.3",
     "react": "^16.8.6",
     "react-datetime-picker": "^2.4.0",
