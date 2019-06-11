@@ -1,4 +1,5 @@
-import {decodeBase64, encodeBase64, isNotNullOrUndefined} from './Utils';
+import { isNotNullOrUndefined } from './Utils';
+import { decodeBase64, encodeBase64 } from "./EncryptionUtils";
 import dateFormat from 'dateformat';
 
 const ISO_UTC_FORMAT = "isoUtcDateTime";
