@@ -24,8 +24,7 @@ export default class FilteredVehiclesPage extends React.Component {
     fetchData = async (searchParams) => {
         try {
             const data = await VehicleResource.getByParams(searchParams);
-            console.log(data);
-            this.setState({loading: false, data: []});
+            this.setState({loading: false, data: data});
         } catch (error) {
             this.setState({loading: false, error: error});
         }
@@ -64,6 +63,19 @@ export default class FilteredVehiclesPage extends React.Component {
         return (
             <React.Fragment>
                 <h1 className="has-text-centered">Vehiculos filtrados</h1>
+
+                <div className="container">
+                        {
+                            this.state.data.length ?
+                                (
+                                    <ul>
+                                        { this.state.data.map((vehiculo) => { return <li key={vehiculo.id}>{vehiculo.marca} {vehiculo.modelo} {vehiculo.cilindrada}</li> }) }
+                                    </ul>
+                                ) : (
+                                    <p>No se encontraron datos</p>
+                                )
+                        }
+                </div>
             </React.Fragment>
         );
     }
