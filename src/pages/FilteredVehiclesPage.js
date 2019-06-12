@@ -1,5 +1,6 @@
 import React from 'react';
 import { decodeSearchParams } from "../utils/VehicleSearchUtils";
+import VehicleResource from "../resources/VehicleResource";
 
 const SEARCH_KEY = "search";
 
@@ -17,15 +18,18 @@ export default class FilteredVehiclesPage extends React.Component {
 
     componentDidMount() {
         const encodedSearch = new URLSearchParams(this.props.location.search).get(SEARCH_KEY);
+        this.fetchData(decodeSearchParams(encodedSearch));
+    }
 
+    fetchData = async (searchParams) => {
         try {
-            console.log(decodeSearchParams(encodedSearch));
-
+            const data = await VehicleResource.getByParams(searchParams);
+            console.log(data);
             this.setState({loading: false, data: []});
         } catch (error) {
             this.setState({loading: false, error: error});
         }
-    }
+    };
 
     render() {
         if (this.state.loading) {
