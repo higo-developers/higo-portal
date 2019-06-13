@@ -44,6 +44,13 @@ export default class FilteredVehiclesPage extends React.Component {
 
         return (
             <React.Fragment>
+                <section className="section padding-bottom-0">
+                    <div className="container">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium eos fugiat impedit placeat
+                        quam quibusdam? Ducimus ex excepturi expedita hic id nihil nobis nulla porro, quae, suscipit
+                        totam veniam voluptatum.
+                    </div>
+                </section>
                 <section className="section">
                     <div className="container">
                         {
