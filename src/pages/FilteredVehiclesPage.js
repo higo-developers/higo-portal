@@ -1,6 +1,7 @@
 import React from 'react';
 import { decodeSearchParams } from "../utils/VehicleSearchUtils";
 import VehicleResource from "../resources/VehicleResource";
+import VehicleThumbnailList from "../components/vehicle/VehicleThumbnailList";
 
 const SEARCH_KEY = "search";
 
@@ -62,24 +63,14 @@ export default class FilteredVehiclesPage extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="section">
+                <section className="section">
                     <div className="container">
                         {
-                            this.state.data.length ?
-                                (
-                                        this.state.data.map((vehiculo) => {
-                                            return (
-                                                <div className="box" key={vehiculo.id}>
-                                                    <p>{vehiculo.marca} {vehiculo.modelo} {vehiculo.cilindrada}</p>
-                                                </div>
-                                            )
-                                        })
-                                ) : (
-                                    <p>No se encontraron datos</p>
-                                )
+                            this.state.data.length  ? (<VehicleThumbnailList vehicles={this.state.data} /> )
+                                                    : ( <p>No se encontraron datos</p> )
                         }
                     </div>
-                </div>
+                </section>
             </React.Fragment>
         );
     }
