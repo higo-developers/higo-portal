@@ -62,19 +62,23 @@ export default class FilteredVehiclesPage extends React.Component {
 
         return (
             <React.Fragment>
-                <h1 className="has-text-centered">Vehiculos filtrados</h1>
-
-                <div className="container">
+                <div className="section">
+                    <div className="container">
                         {
                             this.state.data.length ?
                                 (
-                                    <ul>
-                                        { this.state.data.map((vehiculo) => { return <li key={vehiculo.id}>{vehiculo.marca} {vehiculo.modelo} {vehiculo.cilindrada}</li> }) }
-                                    </ul>
+                                        this.state.data.map((vehiculo) => {
+                                            return (
+                                                <div className="box" key={vehiculo.id}>
+                                                    <p>{vehiculo.marca} {vehiculo.modelo} {vehiculo.cilindrada}</p>
+                                                </div>
+                                            )
+                                        })
                                 ) : (
                                     <p>No se encontraron datos</p>
                                 )
                         }
+                    </div>
                 </div>
             </React.Fragment>
         );
