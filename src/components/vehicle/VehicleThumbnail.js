@@ -2,17 +2,22 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { toCurrency } from "../../utils/FormatUtils";
 
+import './VehicleThumbnail.css';
+import defaultBannerThumbnail from '../../media/images/higo-vehiculo-thumbnail-comp.png';
+
 const NO_INFORMA_PRECIO = "No informa precio";
 
 export default class VehicleThumbnail extends React.Component {
     render() {
         const vehicle = this.props.vehicle;
+        const vehicleImgSource = (vehicle.pathImagen) ? vehicle.pathImagen : defaultBannerThumbnail;
+
         return (
             <React.Fragment>
                 <div className="card">
                     <div className="card-image">
-                        <figure className="image is-3by2">
-                            <img src="https://bulma.io/images/placeholders/480x320.png" alt={vehicle.id}/>
+                        <figure className="image is-3by2 has-background-dark">
+                            <img src={vehicleImgSource} alt={vehicle.id}/>
                         </figure>
                     </div>
 
