@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { toCurrency } from "../../utils/FormatUtils";
+
+const NO_INFORMA_PRECIO = "No informa precio";
 
 export default class VehicleThumbnail extends React.Component {
-
     render() {
         const vehicle = this.props.vehicle;
-
         return (
             <React.Fragment>
                 <div className="card">
@@ -16,13 +17,27 @@ export default class VehicleThumbnail extends React.Component {
                     </div>
 
                     <div className="card-content">
-                        <div className="media">
-                            <div className="media-content">
-                                <p className="title is-4">{vehicle.marca} {vehicle.modelo}</p>
-                                { vehicle.locacion.localidad && (<p className="subtitle is-6">{vehicle.locacion.localidad}</p>) }
-                            </div>
+                        <p className="title">{vehicle.marca} {vehicle.modelo}</p>
+
+                        { vehicle.locacion.localidad && (<p className="subtitle">{vehicle.locacion.localidad}</p>) }
+
+                        { vehicle.locacion.provincia && vehicle.locacion.pais && (
+                            <p className="subtitle is-6">{vehicle.locacion.provincia} - {vehicle.locacion.pais}</p>
+                        )}
+
+                        <div className="content">
+                            {
+                                vehicle.precioHora ?
+                                    (
+                                        <p>
+                                            <span className="has-text-weight-semibold">Precio por hora: </span>
+                                            <span>{ toCurrency(vehicle.precioHora, "ARS", "es-AR") }</span>
+                                        </p>
+                                    ) : (
+                                        <span className="tag">{ NO_INFORMA_PRECIO }</span>
+                                    )
+                            }
                         </div>
-                        {/*<div className="content"></div>*/}
                     </div>
 
                     <footer className="card-footer">
