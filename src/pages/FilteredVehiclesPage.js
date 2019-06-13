@@ -2,6 +2,8 @@ import React from 'react';
 import { decodeSearchParams } from "../utils/VehicleSearchUtils";
 import VehicleResource from "../resources/VehicleResource";
 import VehicleThumbnailList from "../components/vehicle/VehicleThumbnailList";
+import Loading from "../components/commons/Loading";
+import Error from "../components/commons/Error";
 
 const SEARCH_KEY = "search";
 
@@ -33,32 +35,11 @@ export default class FilteredVehiclesPage extends React.Component {
 
     render() {
         if (this.state.loading) {
-            return (
-                <React.Fragment>
-                    <section className="hero is-large">
-                        <div className="hero-body">
-                            <div className="container has-text-centered">
-                                <h1 className="title">Cargando</h1>
-                            </div>
-                        </div>
-                    </section>
-                </React.Fragment>
-            );
+            return <Loading />;
         }
 
         if (this.state.error) {
-            return (
-                <React.Fragment>
-                    <section className="hero is-large">
-                        <div className="hero-body">
-                            <div className="container has-text-centered">
-                                <h1 className="title">Ha ocurrido un error</h1>
-                                <h2 className="subtitle">Por favor, intente m&aacute;s tarde.</h2>
-                            </div>
-                        </div>
-                    </section>
-                </React.Fragment>
-            );
+            return <Error />;
         }
 
         return (
@@ -67,7 +48,7 @@ export default class FilteredVehiclesPage extends React.Component {
                     <div className="container">
                         {
                             this.state.data.length  ? (<VehicleThumbnailList vehicles={this.state.data} /> )
-                                                    : ( <p>No se encontraron datos</p> )
+                                                    : ( <p className="has-text-centered">No se encontraron resultados</p> )
                         }
                     </div>
                 </section>
