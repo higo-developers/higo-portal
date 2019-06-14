@@ -48,17 +48,25 @@ export default class FilteredVehiclesPage extends React.Component {
 
         return (
             <React.Fragment>
-                {this.searchTags.length && (
-                    <section className="section padding-bottom-0">
-                        <div className="container">
-                            <div className="tags are-medium">
-                                {this.searchTags.map((tag) => {
-                                    return (<span key={tag} className="tag"><i className="fas fa-map-marked-alt"></i>&nbsp; {tag}</span>)
-                                })}
+
+                <section className="section padding-bottom-0">
+                    <div className="container">
+                        <nav className="level">
+                            <div className="level-left">
+                                <div className="tags are-medium">
+                                    {
+                                        this.searchTags.length && this.searchTags.map((tag) => {
+                                            return ( <span key={tag} className="tag"><i className="fas fa-map-marked-alt"></i>&nbsp; {tag}</span> )
+                                        })
+                                    }
+                                </div>
                             </div>
-                        </div>
-                    </section>
-                )}
+                            <div className="level-right">
+                                <button onClick={() => { this.props.history.goBack() }} className="button is-dark"><i className="fas fa-arrow-left"></i>&nbsp; Volver</button>
+                            </div>
+                        </nav>
+                    </div>
+                </section>
 
                 <section className="section">
                     <div className="container">
