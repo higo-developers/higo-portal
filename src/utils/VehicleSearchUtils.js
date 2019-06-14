@@ -1,8 +1,6 @@
 import { isNotNullOrUndefined } from './Utils';
 import { decodeBase64, encodeBase64 } from "./EncryptionUtils";
-import dateFormat from 'dateformat';
-
-const ISO_UTC_FORMAT = "isoUtcDateTime";
+import { dateToIsoUTC } from "./FormatUtils";
 
 const namesObjectMap = {
     administrative_area_level_1: "provincia",
@@ -18,11 +16,22 @@ export const validAddressComponents = (addressComponents) => { return isNotNullO
 export const encodePreparedSearchParams = (params) => { return encodeBase64(JSON.stringify(toPreparedSearchParams(params))) };
 export const decodeSearchParams = (encodedParams) => { return JSON.parse(decodeBase64(encodedParams)) };
 
+export function locationDataAsArray(data) {
+    const locationData = [];
+
+    Object.values(namesObjectMap).map((name) => {
+        if (isNotNullOrUndefined(data[name]))
+            locationData.push(data[name]);
+    });
+
+    return locationData;
+}
+
 function toPreparedSearchParams(params) {
     let preparedParams = {};
 
-    preparedParams.fechaDesde = dateFormat(params.fechaDesde, ISO_UTC_FORMAT);
-    preparedParams.fechaHasta = dateFormat(params.fechaHasta, ISO_UTC_FORMAT);
+    preparedParams.fechaDesde = dateToIsoUTC(params.fechaDesde);
+    preparedParams.fechaHasta = dateToIsoUTC(params.fechaHasta);
 
     extractLocationData(params, preparedParams);
 

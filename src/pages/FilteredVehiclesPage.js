@@ -1,5 +1,5 @@
 import React from 'react';
-import { decodeSearchParams } from "../utils/VehicleSearchUtils";
+import { decodeSearchParams, locationDataAsArray } from "../utils/VehicleSearchUtils";
 import VehicleResource from "../resources/VehicleResource";
 import VehicleThumbnailList from "../components/vehicle/VehicleThumbnailList";
 import Loading from "../components/commons/Loading";
@@ -20,8 +20,12 @@ export default class FilteredVehiclesPage extends React.Component {
     }
 
     componentDidMount() {
-        const encodedSearch = new URLSearchParams(this.props.location.search).get(SEARCH_KEY);
-        this.fetchData(decodeSearchParams(encodedSearch));
+        this.encodedSearch = new URLSearchParams(this.props.location.search).get(SEARCH_KEY);
+        const search = decodeSearchParams(this.encodedSearch);
+
+        this.searchTags = locationDataAsArray(search);
+
+        this.fetchData(search);
     }
 
     fetchData = async (searchParams) => {
@@ -44,18 +48,23 @@ export default class FilteredVehiclesPage extends React.Component {
 
         return (
             <React.Fragment>
-                <section className="section padding-bottom-0">
-                    <div className="container">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium eos fugiat impedit placeat
-                        quam quibusdam? Ducimus ex excepturi expedita hic id nihil nobis nulla porro, quae, suscipit
-                        totam veniam voluptatum.
-                    </div>
-                </section>
+                {this.searchTags.length && (
+                    <section className="section padding-bottom-0">
+                        <div className="container">
+                            <div className="tags are-medium">
+                                {this.searchTags.map((tag) => {
+                                    return (<span key={tag} className="tag"><i className="fas fa-map-marked-alt"></i>&nbsp; {tag}</span>)
+                                })}
+                            </div>
+                        </div>
+                    </section>
+                )}
+
                 <section className="section">
                     <div className="container">
                         {
                             this.state.data.length  ? (<VehicleThumbnailList vehicles={this.state.data} /> )
-                                                    : ( <p className="has-text-centered">No se encontraron resultados</p> )
+                                                    : ( <p className="title">No se encontraron resultados</p> )
                         }
                     </div>
                 </section>
