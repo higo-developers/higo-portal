@@ -1,6 +1,9 @@
 import React from 'react';
-import { decodeSearchParams } from "../utils/VehicleSearchUtils";
+import { decodeSearchParams, locationDataAsArray } from "../utils/VehicleSearchUtils";
 import VehicleResource from "../resources/VehicleResource";
+import VehicleThumbnailList from "../components/vehicle/VehicleThumbnailList";
+import Loading from "../components/commons/Loading";
+import Error from "../components/commons/Error";
 
 const SEARCH_KEY = "search";
 
@@ -17,15 +20,18 @@ export default class FilteredVehiclesPage extends React.Component {
     }
 
     componentDidMount() {
-        const encodedSearch = new URLSearchParams(this.props.location.search).get(SEARCH_KEY);
-        this.fetchData(decodeSearchParams(encodedSearch));
+        this.encodedSearch = new URLSearchParams(this.props.location.search).get(SEARCH_KEY);
+        const search = decodeSearchParams(this.encodedSearch);
+
+        this.searchTags = locationDataAsArray(search);
+
+        this.fetchData(search);
     }
 
     fetchData = async (searchParams) => {
         try {
             const data = await VehicleResource.getByParams(searchParams);
-            console.log(data);
-            this.setState({loading: false, data: []});
+            this.setState({loading: false, data: data});
         } catch (error) {
             this.setState({loading: false, error: error});
         }
@@ -33,37 +39,43 @@ export default class FilteredVehiclesPage extends React.Component {
 
     render() {
         if (this.state.loading) {
-            return (
-                <React.Fragment>
-                    <section className="hero is-large">
-                        <div className="hero-body">
-                            <div className="container has-text-centered">
-                                <h1 className="title">Cargando</h1>
-                            </div>
-                        </div>
-                    </section>
-                </React.Fragment>
-            );
+            return <Loading />;
         }
 
         if (this.state.error) {
-            return (
-                <React.Fragment>
-                    <section className="hero is-large">
-                        <div className="hero-body">
-                            <div className="container has-text-centered">
-                                <h1 className="title">Ha ocurrido un error</h1>
-                                <h2 className="subtitle">Por favor, intente m&aacute;s tarde.</h2>
-                            </div>
-                        </div>
-                    </section>
-                </React.Fragment>
-            );
+            return <Error />;
         }
 
         return (
             <React.Fragment>
-                <h1 className="has-text-centered">Vehiculos filtrados</h1>
+
+                <section className="section padding-bottom-0">
+                    <div className="container">
+                        <nav className="level">
+                            <div className="level-left">
+                                <div className="tags are-medium">
+                                    {
+                                        this.searchTags.length && this.searchTags.map((tag) => {
+                                            return ( <span key={tag} className="tag"><i className="fas fa-map-marked-alt"></i>&nbsp; {tag}</span> )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                            <div className="level-right">
+                                <button onClick={() => { this.props.history.goBack() }} className="button is-dark"><i className="fas fa-arrow-left"></i>&nbsp; Volver</button>
+                            </div>
+                        </nav>
+                    </div>
+                </section>
+
+                <section className="section">
+                    <div className="container">
+                        {
+                            this.state.data.length  ? (<VehicleThumbnailList vehicles={this.state.data} /> )
+                                                    : ( <p className="title">No se encontraron resultados</p> )
+                        }
+                    </div>
+                </section>
             </React.Fragment>
         );
     }
