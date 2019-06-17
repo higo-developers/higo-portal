@@ -5,6 +5,7 @@ import VehicleResource from "../resources/VehicleResource";
 import { locationDataAsArray } from "../utils/VehicleSearchUtils";
 
 import ThumbnailImage from "../components/layout/ThumbnailImage";
+import { toCurrency } from "../utils/FormatUtils";
 
 const LOCATION_DATA_SEPARATOR = " - ";
 
@@ -71,7 +72,23 @@ export default class VehicleDetailPage extends React.Component {
                                 <p className="subtitle is-6 has-text-grey">
                                     <i className="fas fa-map-marker-alt"></i>&nbsp; { locationDataAsArray(vehicle.locacion).join(LOCATION_DATA_SEPARATOR) }
                                 </p>
+
+                                {
+                                    vehicle.precioHora ?
+                                        (
+                                            <p>
+                                                <span className="has-text-weight-semibold">Precio por hora: </span>
+                                                <span>{toCurrency(vehicle.precioHora, "ARS", "es-AR")}</span>
+                                            </p>
+                                        ) : (
+                                            <span className="tag is-medium">No informa precio</span>
+                                        )
+                                }
                                 <hr/>
+
+                                <p className="title is-5">
+                                    <i className="fas fa-user-circle"></i>&nbsp; {vehicle.usuario.nombre}
+                                </p>
                             </div>
                         </div>
                     </div>

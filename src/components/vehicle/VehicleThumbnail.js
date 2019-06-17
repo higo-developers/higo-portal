@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { toCurrency } from "../../utils/FormatUtils";
 import ThumbnailImage from "../layout/ThumbnailImage";
 
-const NO_INFORMA_PRECIO = "No informa precio";
-
 export default class VehicleThumbnail extends React.Component {
     render() {
         const vehicle = this.props.vehicle;
@@ -34,7 +32,7 @@ export default class VehicleThumbnail extends React.Component {
                                             <span>{ toCurrency(vehicle.precioHora, "ARS", "es-AR") }</span>
                                         </p>
                                     ) : (
-                                        <span className="tag">{ NO_INFORMA_PRECIO }</span>
+                                        <span className="tag">No informa precio</span>
                                     )
                             }
                         </div>
