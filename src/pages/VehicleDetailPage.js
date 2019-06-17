@@ -1,8 +1,10 @@
 import React from 'react';
-import Error from "../components/commons/Error";
-import Loading from "../components/commons/Loading";
+import Error from "../components/layout/Error";
+import Loading from "../components/layout/Loading";
 import VehicleResource from "../resources/VehicleResource";
 import { locationDataAsArray } from "../utils/VehicleSearchUtils";
+
+import ThumbnailImage from "../components/layout/ThumbnailImage";
 
 const LOCATION_DATA_SEPARATOR = " - ";
 
@@ -42,6 +44,8 @@ export default class VehicleDetailPage extends React.Component {
             return <Error />;
         }
 
+        const vehicle = this.state.data;
+
         return (
             <React.Fragment>
                 <section className="section padding-bottom-0">
@@ -59,11 +63,15 @@ export default class VehicleDetailPage extends React.Component {
                     <div className="container">
                         <div className="columns">
                             <div className="column is-half">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci architecto asperiores cum delectus deleniti dignissimos dolore doloribus, esse ex facere ipsam ipsum laudantium neque nisi placeat quo recusandae sequi sunt tempore ut! Ab accusantium animi aut consequuntur iure quo, ullam.
+                                <ThumbnailImage src={vehicle.pathImagen} alt={`${vehicle.id} - ${vehicle.marca} - ${vehicle.modelo}`} />
                             </div>
                             <div className="column is-half">
-                                <p className="title">{this.state.data.marca} {this.state.data.modelo}</p>
-                                <span className="tag is-medium"><i className="fas fa-map-marker-alt"></i>&nbsp; { locationDataAsArray(this.state.data.locacion).join(LOCATION_DATA_SEPARATOR) }</span>
+                                <p className="title">{vehicle.marca} {vehicle.modelo}</p>
+
+                                <p className="subtitle is-6 has-text-grey">
+                                    <i className="fas fa-map-marker-alt"></i>&nbsp; { locationDataAsArray(vehicle.locacion).join(LOCATION_DATA_SEPARATOR) }
+                                </p>
+                                <hr/>
                             </div>
                         </div>
                     </div>
