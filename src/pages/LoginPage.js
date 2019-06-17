@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginResource from "../resources/LoginResource";
+import { isNotNullOrUndefined } from "../utils/Utils";
 
 export default class LoginPage extends React.Component {
     constructor(props) {
@@ -16,10 +17,12 @@ export default class LoginPage extends React.Component {
     }
 
     handleChange = (event) => {
+        const {name, value} = event.target;
+
         this.setState({
             formData: {
                 ...this.state.formData,
-                [event.target.name]: event.target.value
+                [name]: value
             }
         });
     };
@@ -27,15 +30,23 @@ export default class LoginPage extends React.Component {
     handleClick = async (event) => {
         event.preventDefault();
 
-        this.setState({ loading: true, error: undefined });
+        this.setState({loading: true, error: undefined});
 
         try {
-            const response = await LoginResource.doLogin(this.state.formData);
+            let response = await LoginResource.doLogin(this.state.formData);
+
+            if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
+
+            this.setState({ loading: false, error: undefined });
+
             console.log(response);
-        } catch (error) {
-            console.log(error);
-            this.setState({ loading: false, error: error });
+        } catch (e) {
+            this.setState({loading: false, error: e});
         }
+    };
+
+    invalidForm = () => {
+        return !this.state.formData.email || !this.state.formData.password;
     };
 
     render() {
@@ -52,7 +63,6 @@ export default class LoginPage extends React.Component {
                                                 <label className="label">E-Mail</label>
                                                 <div className="control">
                                                     <input className="input" type="email" name="email" placeholder="E-Mail" onChange={this.handleChange} value={this.state.formData.email} />
-                                                    { !this.state.formData.email && (<p className="help is-danger">Campo requerido</p>) }
                                                 </div>
                                             </div>
 
@@ -60,21 +70,20 @@ export default class LoginPage extends React.Component {
                                                 <label className="label">Password</label>
                                                 <div className="control">
                                                     <input className="input" type="password" name="password" placeholder="Password" onChange={this.handleChange} value={this.state.formData.password} />
-                                                    { !this.state.formData.password && (<p className="help is-danger">Campo requerido</p>) }
                                                 </div>
                                             </div>
 
                                             {
                                                 this.state.error && (
                                                     <article className="message is-danger">
-                                                        <div className="message-body">Ha ocurrido un error. Intente m&aacute;s tarde.</div>
+                                                        <div className="message-body">{ this.state.error.message }</div>
                                                     </article>
                                                 )
                                             }
 
                                             <div className="field">
                                                 <div className="control">
-                                                    <button className={`button is-dark is-fullwidth is-medium ${this.state.loading && 'is-loading'}`} onClick={this.handleClick}>Confirmar</button>
+                                                    <button className={`button is-dark is-fullwidth is-medium ${this.state.loading && 'is-loading'}`} onClick={this.handleClick} disabled={this.invalidForm()} >Confirmar</button>
                                                 </div>
                                             </div>
                                         </form>
