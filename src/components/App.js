@@ -4,6 +4,7 @@ import VehicleSearchPage from "../pages/VehicleSearchPage";
 import Layout from "./layout/Layout";
 import NotFoundPage from "../pages/NotFoundPage";
 import FilteredVehiclesPage from "../pages/FilteredVehiclesPage";
+import LoginPage from "../pages/LoginPage";
 
 export default function App() {
     return (
@@ -13,6 +14,7 @@ export default function App() {
                     <Route exact path="/" render={() => <Redirect to="/search"/>}/>
                     <Route exact path="/search" component={VehicleSearchPage}/>
                     <Route path="/vehicles" component={FilteredVehiclesPage}/>
+                    <Route exact path="/login" component={LoginPage}/>
                     <Route component={NotFoundPage}/>
                 </Switch>
             </Layout>
