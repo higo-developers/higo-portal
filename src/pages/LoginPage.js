@@ -1,11 +1,13 @@
 import React from 'react';
-import VehicleResource from "../resources/LoginResource";
+import LoginResource from "../resources/LoginResource";
 
 export default class LoginPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            loading: false,
+            error: undefined,
             formData: {
                 email: "",
                 password: ""
@@ -25,11 +27,14 @@ export default class LoginPage extends React.Component {
     handleClick = async (event) => {
         event.preventDefault();
 
+        this.setState({ loading: true, error: undefined });
+
         try {
-            const response = await VehicleResource.doLogin(this.state.formData);
+            const response = await LoginResource.doLogin(this.state.formData);
             console.log(response);
         } catch (error) {
             console.log(error);
+            this.setState({ loading: false, error: error });
         }
     };
 
@@ -59,9 +64,17 @@ export default class LoginPage extends React.Component {
                                                 </div>
                                             </div>
 
+                                            {
+                                                this.state.error && (
+                                                    <article className="message is-danger">
+                                                        <div className="message-body">Ha ocurrido un error. Intente m&aacute;s tarde.</div>
+                                                    </article>
+                                                )
+                                            }
+
                                             <div className="field">
                                                 <div className="control">
-                                                    <button className="button is-dark is-fullwidth is-medium" onClick={this.handleClick}>Confirmar</button>
+                                                    <button className={`button is-dark is-fullwidth is-medium ${this.state.loading && 'is-loading'}`} onClick={this.handleClick}>Confirmar</button>
                                                 </div>
                                             </div>
                                         </form>

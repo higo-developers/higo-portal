@@ -2,7 +2,7 @@ import RestClient from "../utils/RestClient";
 
 const ENDPOINT_LOGIN = "/login";
 
-const VehicleResource = {
+const LoginResource = {
     doLogin(requestBody) {
         const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_LOGIN}`;
 
@@ -18,4 +18,4 @@ const VehicleResource = {
     }
 };
 
-export default VehicleResource;
+export default LoginResource;
