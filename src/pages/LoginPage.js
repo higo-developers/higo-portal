@@ -5,20 +5,24 @@ export default class LoginPage extends React.Component {
         super(props);
 
         this.state = {
-            email: "",
-            password: ""
+            formData: {
+                email: "",
+                password: ""
+            }
         };
     }
 
     handleChange = (event) => {
         this.setState({
-            [event.target.name]: event.target.value
+            formData: {
+                ...this.state.formData,
+                [event.target.name]: event.target.value
+            }
         });
     };
 
     handleClick = (event) => {
         event.preventDefault();
-        console.log("Hace click");
     };
 
     render() {
@@ -34,16 +38,16 @@ export default class LoginPage extends React.Component {
                                             <div className="field">
                                                 <label className="label">E-Mail</label>
                                                 <div className="control">
-                                                    <input className="input" type="email" name="email" placeholder="E-Mail" onChange={this.handleChange} value={this.state.email} />
-                                                    { !this.state.email && (<p className="help is-danger">Campo requerido</p>) }
+                                                    <input className="input" type="email" name="email" placeholder="E-Mail" onChange={this.handleChange} value={this.state.formData.email} />
+                                                    { !this.state.formData.email && (<p className="help is-danger">Campo requerido</p>) }
                                                 </div>
                                             </div>
 
                                             <div className="field">
                                                 <label className="label">Password</label>
                                                 <div className="control">
-                                                    <input className="input" type="password" name="password" placeholder="Password" onChange={this.handleChange} value={this.state.password} />
-                                                    { !this.state.password && (<p className="help is-danger">Campo requerido</p>) }
+                                                    <input className="input" type="password" name="password" placeholder="Password" onChange={this.handleChange} value={this.state.formData.password} />
+                                                    { !this.state.formData.password && (<p className="help is-danger">Campo requerido</p>) }
                                                 </div>
                                             </div>
 
