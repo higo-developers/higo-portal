@@ -1,4 +1,5 @@
 import React from 'react';
+import VehicleResource from "../resources/LoginResource";
 
 export default class LoginPage extends React.Component {
     constructor(props) {
@@ -21,8 +22,15 @@ export default class LoginPage extends React.Component {
         });
     };
 
-    handleClick = (event) => {
+    handleClick = async (event) => {
         event.preventDefault();
+
+        try {
+            const response = await VehicleResource.doLogin(this.state.formData);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     render() {
