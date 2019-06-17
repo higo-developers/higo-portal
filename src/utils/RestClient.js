@@ -1,7 +1,14 @@
+const GENERIC_ERROR_MESSAGE = "Ocurrió un error. Intente más tarde";
+
 const RestClient = {
     async executeCall(url, options) {
-        const response = await fetch(url, options);
-        return await response.json();
+        try {
+            const response = await fetch(url, options);
+            return await response.json();
+        } catch (e) {
+            console.log(e);
+            throw new Error(GENERIC_ERROR_MESSAGE);
+        }
     },
     buildUrlWithParams(url, params) {
         url = new URL(url);
