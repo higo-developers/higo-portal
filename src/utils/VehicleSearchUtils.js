@@ -3,10 +3,10 @@ import { decodeBase64, encodeBase64 } from "./EncryptionUtils";
 import { dateToIsoUTC } from "./FormatUtils";
 
 const namesObjectMap = {
-    administrative_area_level_1: "provincia",
+    locality: "localidad",
     administrative_area_level_2: "partido",
-    country: "pais",
-    locality: "localidad"
+    administrative_area_level_1: "provincia",
+    country: "pais"
 };
 
 export const getAddressComponentTypeName = (addressComponent) => { return namesObjectMap[addressComponent.types[0]] };
