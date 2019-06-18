@@ -73,6 +73,10 @@ export default class VehicleDetailPage extends React.Component {
                                     <i className="fas fa-map-marker-alt"></i>&nbsp; { locationDataAsArray(vehicle.locacion).join(LOCATION_DATA_SEPARATOR) }
                                 </p>
 
+                                <p className="title is-5 margin-top-1">
+                                    <i className="fas fa-user-circle"></i>&nbsp; {vehicle.usuario.nombre}
+                                </p>
+
                                 {
                                     vehicle.precioHora ?
                                         (
@@ -84,11 +88,32 @@ export default class VehicleDetailPage extends React.Component {
                                             <span className="tag is-medium">No informa precio</span>
                                         )
                                 }
-                                <hr/>
 
-                                <p className="title is-5">
-                                    <i className="fas fa-user-circle"></i>&nbsp; {vehicle.usuario.nombre}
-                                </p>
+                                {
+                                    vehicle.equipamiento.length && (
+                                        <div className="margin-top-1">
+                                            <table className="table is-striped is-fullwidth">
+                                                <thead>
+                                                <tr>
+                                                    <th>Equipamiento</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {
+                                                    vehicle.equipamiento.map((eq) => {
+                                                        return (
+                                                            <tr key={eq}>
+                                                                <td>{eq}</td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    )
+                                }
+
                             </div>
                         </div>
                     </div>
