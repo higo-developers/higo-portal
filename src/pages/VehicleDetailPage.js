@@ -6,6 +6,7 @@ import { locationDataAsArray } from "../utils/VehicleSearchUtils";
 
 import ThumbnailImage from "../components/layout/ThumbnailImage";
 import { toCurrency } from "../utils/FormatUtils";
+import { Link } from "react-router-dom";
 
 const LOCATION_DATA_SEPARATOR = " - ";
 
@@ -64,7 +65,14 @@ export default class VehicleDetailPage extends React.Component {
                     <div className="container">
                         <div className="columns">
                             <div className="column is-half">
-                                <ThumbnailImage src={vehicle.pathImagen} alt={`${vehicle.id} - ${vehicle.marca} - ${vehicle.modelo}`} />
+                                <div className="card">
+                                    <div className="card-image">
+                                        <ThumbnailImage src={vehicle.pathImagen} alt={`${vehicle.id} - ${vehicle.marca} - ${vehicle.modelo}`} />
+                                    </div>
+                                    <footer className="card-footer">
+                                        <Link className="card-footer-item is-size-4 has-text-dark" to={`/vehicles/${vehicle.id}/reserve`}>Reservar</Link>
+                                    </footer>
+                                </div>
                             </div>
                             <div className="column is-half">
                                 <p className="title">{vehicle.marca} {vehicle.modelo}</p>
