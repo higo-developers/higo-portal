@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class Navbar extends React.Component {
     render() {
@@ -22,7 +22,7 @@ export default class Navbar extends React.Component {
                         <div className="navbar-end">
                             <div className="navbar-item">
                                 <div className="buttons">
-                                    <Link className="button is-dark" to="/">Ingresar</Link>
+                                    <Link className="button is-dark" to="/login">Ingresar</Link>
                                 </div>
                             </div>
                         </div>

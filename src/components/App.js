@@ -13,9 +13,8 @@ export default function App() {
             <Layout>
                 <Switch>
                     <Route exact path="/" render={() => <Redirect to="/search"/>}/>
-                    <Route exact path="/search" component={VehicleSearchPage}/>
-                    <Route path="/vehicles" component={FilteredVehiclesPage}/>
                     <Route exact path="/login" component={LoginPage}/>
+                    <Route exact path="/search" component={VehicleSearchPage}/>
                     <Route exact path="/vehicles" component={FilteredVehiclesPage}/>
                     <Route exact path="/vehicles/:id" component={VehicleDetailPage}/>
                     <Route component={NotFoundPage}/>
