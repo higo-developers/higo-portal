@@ -22,8 +22,7 @@ export default class Navbar extends React.Component {
                         <div className="navbar-end">
                             <div className="navbar-item">
                                 <div className="buttons">
-                                    <Link className="button is-light" to="/">Registrarse</Link>
-                                    <Link className="button is-dark" to="/login">Ingresar</Link>
+                                    <Link className="button is-dark" to="/">Ingresar</Link>
                                 </div>
                             </div>
                         </div>

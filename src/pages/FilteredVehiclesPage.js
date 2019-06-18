@@ -2,8 +2,8 @@ import React from 'react';
 import { decodeSearchParams, locationDataAsArray } from "../utils/VehicleSearchUtils";
 import VehicleResource from "../resources/VehicleResource";
 import VehicleThumbnailList from "../components/vehicle/VehicleThumbnailList";
-import Loading from "../components/commons/Loading";
-import Error from "../components/commons/Error";
+import Loading from "../components/layout/Loading";
+import Error from "../components/layout/Error";
 
 const SEARCH_KEY = "search";
 
@@ -56,7 +56,7 @@ export default class FilteredVehiclesPage extends React.Component {
                                 <div className="tags are-medium">
                                     {
                                         this.searchTags.length && this.searchTags.map((tag) => {
-                                            return ( <span key={tag} className="tag"><i className="fas fa-map-marked-alt"></i>&nbsp; {tag}</span> )
+                                            return ( <span key={tag} className="tag"><i className="fas fa-map-marker-alt"></i>&nbsp; {tag}</span> )
                                         })
                                     }
                                 </div>
@@ -71,7 +71,7 @@ export default class FilteredVehiclesPage extends React.Component {
                 <section className="section">
                     <div className="container">
                         {
-                            this.state.data.length  ? (<VehicleThumbnailList vehicles={this.state.data} /> )
+                            this.state.data.length  ? ( <VehicleThumbnailList vehicles={this.state.data} /> )
                                                     : ( <p className="title">No se encontraron resultados</p> )
                         }
                     </div>
