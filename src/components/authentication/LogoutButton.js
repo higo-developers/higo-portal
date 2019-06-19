@@ -4,7 +4,7 @@ import { isAuthenticated, logout } from "../../utils/AuthenticationUtils";
 
 const LogoutButton = withRouter(({history}) => (
     isAuthenticated() && (
-        <button className="button is-danger" onClick={() => logout( () => { history.push("/") })}>
+        <button className="button is-dark" onClick={() => logout( () => { history.push("/") })}>
             Salir
         </button>
     )
