@@ -5,7 +5,7 @@ import { isAuthenticated, logout } from "../../utils/AuthenticationUtils";
 const LogoutButton = withRouter(({history}) => (
     isAuthenticated() && (
         <button className="button is-dark" onClick={() => logout( () => { history.push("/") })}>
-            Salir
+            <i className="fas fa-sign-out-alt"></i>&nbsp; Salir
         </button>
     )
 ));
