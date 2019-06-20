@@ -37,9 +37,9 @@ export default class LoginPage extends React.Component {
 
             if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
 
-            this.setState({ loading: false, error: undefined });
+            // login(response);
 
-            console.log(response);
+            this.setState({loading: false, error: undefined});
         } catch (e) {
             this.setState({loading: false, error: e});
         }
@@ -62,28 +62,36 @@ export default class LoginPage extends React.Component {
                                             <div className="field">
                                                 <label className="label">E-Mail</label>
                                                 <div className="control">
-                                                    <input className="input" type="email" name="email" placeholder="E-Mail" onChange={this.handleChange} value={this.state.formData.email} />
+                                                    <input className="input" type="email" name="email"
+                                                           placeholder="E-Mail" onChange={this.handleChange}
+                                                           value={this.state.formData.email}/>
                                                 </div>
                                             </div>
 
                                             <div className="field">
                                                 <label className="label">Password</label>
                                                 <div className="control">
-                                                    <input className="input" type="password" name="password" placeholder="Password" onChange={this.handleChange} value={this.state.formData.password} />
+                                                    <input className="input" type="password" name="password"
+                                                           placeholder="Password" onChange={this.handleChange}
+                                                           value={this.state.formData.password}/>
                                                 </div>
                                             </div>
 
                                             {
                                                 this.state.error && (
                                                     <article className="message is-danger">
-                                                        <div className="message-body">{ this.state.error.message }</div>
+                                                        <div className="message-body">{this.state.error.message}</div>
                                                     </article>
                                                 )
                                             }
 
                                             <div className="field">
                                                 <div className="control">
-                                                    <button className={`button is-dark is-fullwidth is-medium ${this.state.loading && 'is-loading'}`} onClick={this.handleClick} disabled={this.invalidForm()} >Confirmar</button>
+                                                    <button
+                                                        className={`button is-dark is-fullwidth is-medium ${this.state.loading && 'is-loading'}`}
+                                                        onClick={this.handleClick}
+                                                        disabled={this.invalidForm()}>Confirmar
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>

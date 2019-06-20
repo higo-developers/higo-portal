@@ -6,7 +6,6 @@ const RestClient = {
             const response = await fetch(url, options);
             return await response.json();
         } catch (e) {
-            console.log(e);
             throw new Error(GENERIC_ERROR_MESSAGE);
         }
     },
