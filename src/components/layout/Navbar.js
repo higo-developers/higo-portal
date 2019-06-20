@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import LogoutButton from "../authentication/LogoutButton";
+import LoginButton from "../authentication/LoginButton";
 
 export default function Navbar() {
     return (
@@ -11,7 +12,8 @@ export default function Navbar() {
                         <span className="is-size-3 has-text-weight-bold">higo</span>
                     </Link>
 
-                    <a href="/" role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="higo-navbar-menu">
+                    <a href="/" role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                       data-target="higo-navbar-menu">
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
@@ -22,8 +24,8 @@ export default function Navbar() {
                     <div className="navbar-end">
                         <div className="navbar-item">
                             <div className="buttons">
-                                <LogoutButton />
-                                <Link className="button is-dark" to="/login">Ingresar</Link>
+                                <LogoutButton/>
+                                <LoginButton/>
                             </div>
                         </div>
                     </div>
