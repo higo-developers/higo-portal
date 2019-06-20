@@ -30,6 +30,14 @@ export default class VehicleSearchPage extends React.Component {
                         </div>
                     </div>
                 </section>
+
+                <section className="hero is-light">
+                    <div className="hero-body">
+                        <div className="container">
+                            <p className="title">Veh&iacute;culos cercanos</p>
+                        </div>
+                    </div>
+                </section>
             </React.Fragment>
         );
     }
