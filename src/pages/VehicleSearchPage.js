@@ -1,5 +1,6 @@
 import React from 'react';
 import VehicleSearchForm from "../components/vehicle/VehicleSearchForm";
+import VehicleSearchMap from "../components/vehicle/VehicleSearchMap";
 
 export default class VehicleSearchPage extends React.Component {
 
@@ -35,6 +36,8 @@ export default class VehicleSearchPage extends React.Component {
                     <div className="hero-body">
                         <div className="container">
                             <p className="title">Veh&iacute;culos cercanos</p>
+
+                            <VehicleSearchMap/>
                         </div>
                     </div>
                 </section>
