@@ -15,6 +15,16 @@ export default class LoginPage extends React.Component {
                 password: ""
             }
         };
+
+        this._isMounted = false;
+    }
+
+    componentDidMount() {
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     handleChange = (event) => {
@@ -30,7 +40,6 @@ export default class LoginPage extends React.Component {
 
     handleClick = async (event) => {
         event.preventDefault();
-
         this.setState({loading: true, error: undefined});
 
         try {
@@ -38,11 +47,9 @@ export default class LoginPage extends React.Component {
 
             if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
 
-            login(response, () => {
-                this.props.history.push("/")
-            });
+            login(response, () => { this.props.history.push("/") });
 
-            this.setState({loading: false, error: undefined});
+            this._isMounted && this.setState({loading: false, error: undefined});
         } catch (e) {
             this.setState({loading: false, error: e});
         }
