@@ -1,5 +1,7 @@
 import React from 'react';
 import { GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
+import VehicleResource from "../../resources/VehicleResource";
+import { toPreparedSearchParams } from "../../utils/VehicleSearchUtils";
 
 class Map extends React.Component {
 
@@ -15,15 +17,23 @@ class Map extends React.Component {
                 fechaDesde: minDate,
                 fechaHasta: maxDate
             },
-            loading: false,
-            error: null,
             data: []
         };
     }
 
     componentDidMount() {
-        console.log(this.state);
+        this.fetchData(toPreparedSearchParams(this.state.search));
     }
+
+    fetchData = async (params) => {
+        try {
+            const data = await VehicleResource.getByParams(params);
+
+            this.setState({ data: data });
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     render() {
         return (

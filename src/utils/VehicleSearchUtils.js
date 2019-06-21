@@ -27,7 +27,7 @@ export function locationDataAsArray(data) {
     return locationData;
 }
 
-function toPreparedSearchParams(params) {
+export function toPreparedSearchParams(params) {
     let preparedParams = {};
 
     preparedParams.fechaDesde = dateToIsoUTC(params.fechaDesde);
