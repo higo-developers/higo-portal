@@ -33,7 +33,8 @@ function toPreparedSearchParams(params) {
     preparedParams.fechaDesde = dateToIsoUTC(params.fechaDesde);
     preparedParams.fechaHasta = dateToIsoUTC(params.fechaHasta);
 
-    extractLocationData(params, preparedParams);
+    if ( isNotNullOrUndefined(params.locacion) )
+        extractLocationData(params, preparedParams);
 
     return preparedParams;
 }
