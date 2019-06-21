@@ -124,7 +124,7 @@ export default class VehicleSearchForm extends React.Component {
 
                         <div className="column is-12">
                             <div className="field">
-                                <label className="label">Localidad <span className="has-text-grey-light">*</span></label>
+                                <label className="label">Ubicaci&oacute;n <span className="has-text-grey-light">*</span></label>
                                 <div className="control">
                                     <input name="query" id="query" className="input" type="text" placeholder="Buscar por ciudad o localidad" onChange={this.handleChangeQuery} />
                                 </div>

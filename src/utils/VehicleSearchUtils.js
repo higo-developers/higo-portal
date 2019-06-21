@@ -27,13 +27,14 @@ export function locationDataAsArray(data) {
     return locationData;
 }
 
-function toPreparedSearchParams(params) {
+export function toPreparedSearchParams(params) {
     let preparedParams = {};
 
     preparedParams.fechaDesde = dateToIsoUTC(params.fechaDesde);
     preparedParams.fechaHasta = dateToIsoUTC(params.fechaHasta);
 
-    extractLocationData(params, preparedParams);
+    if ( isNotNullOrUndefined(params.locacion) )
+        extractLocationData(params, preparedParams);
 
     return preparedParams;
 }
