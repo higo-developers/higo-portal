@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {GoogleMap, InfoWindow, Marker, withGoogleMap, withScriptjs} from 'react-google-maps';
 import VehicleThumbnail from "./VehicleThumbnail";
+import higoMapMarker from '../../media/images/higo-map-marker.png';
 
 function Map(props) {
     const [ selectedVehicle, setSelectedVehicle ] = useState(null);
@@ -16,6 +17,10 @@ function Map(props) {
                             lng: parseFloat(vehicle.locacion.longitud)
                         }}
                         onClick={() => { setSelectedVehicle(vehicle) }}
+                        icon={{
+                            url: higoMapMarker,
+                            scaledSize: new window.google.maps.Size(45, 45)
+                        }}
                     />;
                 })
             }
