@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
+import {GoogleMap, Marker, withGoogleMap, withScriptjs} from 'react-google-maps';
 import VehicleResource from "../../resources/VehicleResource";
 import { toPreparedSearchParams } from "../../utils/VehicleSearchUtils";
 
@@ -36,11 +36,25 @@ class Map extends React.Component {
     };
 
     render() {
+        const vehicles = this.state.data;
+
         return (
             <GoogleMap
-                defaultZoom={15}
-                defaultCenter={{lat: -34.778340, lng: -58.448000}}
-            />
+                defaultZoom={12}
+                defaultCenter={{lat: -34.6705129, lng: -58.5628652}}
+            >
+                {
+                    vehicles.length && vehicles.map((vehicle) => {
+                        return <Marker
+                            key={vehicle.id}
+                            position={{
+                                lat: parseFloat(vehicle.locacion.latitud),
+                                lng: parseFloat(vehicle.locacion.longitud)
+                            }}
+                        />;
+                    })
+                }
+            </GoogleMap>
         );
     }
 }
