@@ -32,12 +32,17 @@ export default class VehicleSearchPage extends React.Component {
                     </div>
                 </section>
 
-                <section className="hero is-light">
+                <section className="hero is-medium is-light">
                     <div className="hero-body">
                         <div className="container">
                             <p className="title">Veh&iacute;culos cercanos</p>
 
-                            <VehicleSearchMap/>
+                            <VehicleSearchMap
+                                googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`}
+                                loadingElement={ <div style={{height: `100%`}}/> }
+                                containerElement={ <div style={{height: `75vh`}}/> }
+                                mapElement={ <div style={{height: `100%`}}/> }
+                            />
                         </div>
                     </div>
                 </section>
