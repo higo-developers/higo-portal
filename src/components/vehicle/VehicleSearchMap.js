@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {GoogleMap, InfoWindow, Marker, withGoogleMap, withScriptjs} from 'react-google-maps';
+import VehicleThumbnail from "./VehicleThumbnail";
 
 function Map(props) {
     const [ selectedVehicle, setSelectedVehicle ] = useState(null);
@@ -28,7 +29,7 @@ function Map(props) {
                         }}
                         onCloseClick={() => { setSelectedVehicle(null) }}
                     >
-                        <p>Info de { selectedVehicle.id }</p>
+                        <VehicleThumbnail vehicle={selectedVehicle}/>
                     </InfoWindow>
                 )
             }
