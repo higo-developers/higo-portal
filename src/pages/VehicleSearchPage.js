@@ -1,8 +1,30 @@
 import React from 'react';
 import VehicleSearchForm from "../components/vehicle/VehicleSearchForm";
 import VehicleSearchMap from "../components/vehicle/VehicleSearchMap";
+import VehicleResource from "../resources/VehicleResource";
 
 export default class VehicleSearchPage extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            mapData: []
+        }
+    }
+
+    componentDidMount() {
+        this.getDataForMap();
+    }
+
+    getDataForMap = async () => {
+        try {
+            const data = await VehicleResource.getDataForMap();
+            this.setState({ mapData: data });
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     handleSearch = (encodedSearch) => {
         this.props.history.push({
@@ -42,6 +64,7 @@ export default class VehicleSearchPage extends React.Component {
                                 loadingElement={ <div style={{height: `100%`}}/> }
                                 containerElement={ <div style={{height: `75vh`}}/> }
                                 mapElement={ <div style={{height: `100%`}}/> }
+                                mapData={ this.state.mapData }
                             />
                         </div>
                     </div>
