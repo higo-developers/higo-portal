@@ -10,7 +10,7 @@ export default class VehicleThumbnailList extends React.Component {
                         this.props.vehicles.map((vehicle) => {
                             return (
                                 <div className="column is-one-third" key={vehicle.id}>
-                                    <VehicleThumbnail vehicle={vehicle} dateTimes={this.props.dateTimes}/>
+                                    <VehicleThumbnail vehicle={vehicle}/>
                                 </div>
                             )
                         })

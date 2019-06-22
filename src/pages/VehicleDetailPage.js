@@ -2,11 +2,12 @@ import React from 'react';
 import Error from "../components/layout/Error";
 import Loading from "../components/layout/Loading";
 import VehicleResource from "../resources/VehicleResource";
-import { locationDataAsArray } from "../utils/VehicleSearchUtils";
+import {locationDataAsArray} from "../utils/VehicleSearchUtils";
 
 import ThumbnailImage from "../components/layout/ThumbnailImage";
-import { toCurrency } from "../utils/FormatUtils";
-import { Link } from "react-router-dom";
+import {toCurrency} from "../utils/FormatUtils";
+import {Link} from "react-router-dom";
+import {isAuthenticated} from "../utils/AuthenticationUtils";
 
 const LOCATION_DATA_SEPARATOR = " - ";
 
@@ -47,7 +48,7 @@ export default class VehicleDetailPage extends React.Component {
         }
 
         const vehicle = this.state.data;
-        const dateSearch = new URLSearchParams(this.props.location.search).get('search');
+
         return (
             <React.Fragment>
                 <section className="section padding-bottom-0">
@@ -70,7 +71,10 @@ export default class VehicleDetailPage extends React.Component {
                                         <ThumbnailImage src={vehicle.pathImagen} alt={`${vehicle.id} - ${vehicle.marca} - ${vehicle.modelo}`} />
                                     </div>
                                     <footer className="card-footer">
-                                        <Link className="card-footer-item is-size-4 has-text-dark" to={`/vehicles/${vehicle.id}/reserve`}>Reservar</Link>
+                                        {
+                                            isAuthenticated()   ? <Link className="card-footer-item is-size-4 has-text-dark" to={`/vehicles/${vehicle.id}/reserve`}>Reservar</Link>
+                                                                : <p className="card-footer-item"><span className="tag is-medium">Para reservar, debes iniciar sesi&oacute;n</span></p>
+                                        }
                                     </footer>
                                 </div>
                             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-import { toCurrency } from "../../utils/FormatUtils";
+import {Link} from "react-router-dom";
+import {toCurrency} from "../../utils/FormatUtils";
 import ThumbnailImage from "../layout/ThumbnailImage";
 
 export default class VehicleThumbnail extends React.Component {
@@ -39,7 +39,7 @@ export default class VehicleThumbnail extends React.Component {
                     </div>
 
                     <footer className="card-footer">
-                        <Link className="card-footer-item" to={`/vehicles/${vehicle.id}${this.props.dateTimes}`}>Ver m&aacute;s</Link>
+                        <Link className="card-footer-item" to={`/vehicles/${vehicle.id}`}>Ver m&aacute;s</Link>
                     </footer>
                 </div>
             </React.Fragment>
