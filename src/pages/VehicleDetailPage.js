@@ -47,7 +47,7 @@ export default class VehicleDetailPage extends React.Component {
         }
 
         const vehicle = this.state.data;
-
+        const dateSearch = new URLSearchParams(this.props.location.search).get('search');
         return (
             <React.Fragment>
                 <section className="section padding-bottom-0">

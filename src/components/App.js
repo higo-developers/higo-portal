@@ -1,5 +1,6 @@
 import FilteredVehiclesPage from "../pages/FilteredVehiclesPage";
 import LoginPage from "../pages/LoginPage";
+import ReservePage from "../pages/ReservePage";
 import Navbar from "./layout/Navbar";
 import NotFoundPage from "../pages/NotFoundPage";
 import React from "react";
@@ -20,6 +21,7 @@ export default function App() {
                 <Route exact path="/search/map" component={VehicleSearchMapPage}/>
                 <Route exact path="/vehicles" component={FilteredVehiclesPage}/>
                 <Route exact path="/vehicles/:id" component={VehicleDetailPage}/>
+                <Route exact path="/vehicles/:id/reserve" component={ReservePage}/>
 
                 <Route component={NotFoundPage}/>
             </Switch>

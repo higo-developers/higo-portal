@@ -13,6 +13,8 @@ export default class FilteredVehiclesPage extends React.Component {
         super(props);
 
         this.state = {
+            fechaDesde: undefined,
+            fechaHasta: undefined,
             loading: true,
             error: null,
             data: []
@@ -22,7 +24,12 @@ export default class FilteredVehiclesPage extends React.Component {
     componentDidMount() {
         this.encodedSearch = new URLSearchParams(this.props.location.search).get(SEARCH_KEY);
         const search = decodeSearchParams(this.encodedSearch);
-
+        this.setState(
+            {
+                fechaDesde: search.fechaDesde,
+                fechaHasta: search.fechaHasta
+            }
+        );
         this.searchTags = locationDataAsArray(search);
 
         this.fetchData(search);
@@ -71,7 +78,7 @@ export default class FilteredVehiclesPage extends React.Component {
                 <section className="section">
                     <div className="container">
                         {
-                            this.state.data.length  ? ( <VehicleThumbnailList vehicles={this.state.data} /> )
+                            this.state.data.length  ? ( <VehicleThumbnailList vehicles={this.state.data}  dateTimes={this.props.location.search} /> )
                                                     : ( <p className="title">No se encontraron resultados</p> )
                         }
                     </div>
