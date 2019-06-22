@@ -10,6 +10,8 @@ import {Link} from "react-router-dom";
 import {isAuthenticated} from "../utils/AuthenticationUtils";
 
 const LOCATION_DATA_SEPARATOR = " - ";
+const SEARCH_FECHA_DESDE_KEY = "fechaDesde";
+const SEARCH_FECHA_HASTA_KEY = "fechaHasta";
 
 export default class VehicleDetailPage extends React.Component {
 
@@ -48,6 +50,12 @@ export default class VehicleDetailPage extends React.Component {
         }
 
         const vehicle = this.state.data;
+
+        const urlSearchParams = new URLSearchParams(this.props.location.search);
+
+        const fechaDesde = urlSearchParams.get(SEARCH_FECHA_DESDE_KEY);
+        const fechaHasta = urlSearchParams.get(SEARCH_FECHA_HASTA_KEY);
+
 
         return (
             <React.Fragment>
