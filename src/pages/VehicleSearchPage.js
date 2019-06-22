@@ -1,30 +1,8 @@
 import React from 'react';
 import VehicleSearchForm from "../components/vehicle/VehicleSearchForm";
-import VehicleSearchMap from "../components/vehicle/VehicleSearchMap";
-import VehicleResource from "../resources/VehicleResource";
+import {Link} from "react-router-dom";
 
 export default class VehicleSearchPage extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            mapData: []
-        }
-    }
-
-    componentDidMount() {
-        this.getDataForMap();
-    }
-
-    getDataForMap = async () => {
-        try {
-            const data = await VehicleResource.getDataForMap();
-            this.setState({ mapData: data });
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     handleSearch = (encodedSearch) => {
         this.props.history.push({
@@ -36,36 +14,28 @@ export default class VehicleSearchPage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <section className="hero is-medium higo-banner-bg">
+                <section className="hero is-fullheight-with-navbar higo-banner-bg">
                     <div className="hero-body">
                         <div className="container">
                             <div className="box padding-2">
                                 <div className="level">
                                     <div className="level-left">
-                                        <p className="title">Busc&aacute; un veh&iacute;culo</p>
+                                        <div className="level-item">
+                                            <div>
+                                                <p className="title">Busc&aacute; un veh&iacute;culo</p>
+                                                <p className="has-text-grey-light">* Campos obligatorios</p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div className="level-right">
-                                        <p className="has-text-grey-light">* Campos obligatorios</p>
+                                        <Link className="button is-light" to="/search/map">
+                                            <i className="fas fa-map-marked-alt"></i>&nbsp; Buscar en mapa
+                                        </Link>
                                     </div>
                                 </div>
+
                                 <VehicleSearchForm onSearch={this.handleSearch}/>
                             </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section className="hero is-medium is-light">
-                    <div className="hero-body">
-                        <div className="container">
-                            <p className="title">Veh&iacute;culos cercanos</p>
-
-                            <VehicleSearchMap
-                                googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`}
-                                loadingElement={ <div style={{height: `100%`}}/> }
-                                containerElement={ <div style={{height: `75vh`}}/> }
-                                mapElement={ <div style={{height: `100%`}}/> }
-                                mapData={ this.state.mapData }
-                            />
                         </div>
                     </div>
                 </section>

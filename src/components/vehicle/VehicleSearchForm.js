@@ -3,7 +3,7 @@
 import React from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import Script from 'react-load-script';
-import { isNullOrUndefined } from "../../utils/Utils";
+import {isNullOrUndefined} from "../../utils/Utils";
 import {
     encodePreparedSearchParams,
     getAddressComponentTypeName,
@@ -21,7 +21,20 @@ export default class VehicleSearchForm extends React.Component {
 
         this.minDesde = new Date();
 
-        this.state = { fechaDesde: undefined, fechaHasta: undefined, locacion: undefined }
+        this.state = {
+            fechaDesde: undefined,
+            fechaHasta: undefined,
+            locacion: undefined,
+            addMapsScript: false
+        }
+    }
+
+    componentDidMount() {
+        this.setState({ addMapsScript: true });
+    }
+
+    componentWillUnmount() {
+        this.setState({ addMapsScript: false });
     }
 
     handleFechaDesde = (fechaDesde) => {
@@ -68,16 +81,16 @@ export default class VehicleSearchForm extends React.Component {
         let addressComponents = place[ADDRESS_COMPONENTS];
 
         if ( validAddressComponents(addressComponents) ) {
-            addressComponents.forEach((component) => { this.addAddressComponent(component) });
+            addressComponents.forEach((aComponent) => { this.addAddressComponent(aComponent) });
         }
     };
 
-    addAddressComponent = (component) => {
-        if (validAddressComponentType(component)) {
+    addAddressComponent = (addressComponent) => {
+        if (validAddressComponentType(addressComponent)) {
             this.setState({
                 locacion: {
                     ...this.state.locacion,
-                    [getAddressComponentTypeName(component)]: getAddressComponentValue(component)
+                    [getAddressComponentTypeName(addressComponent)]: getAddressComponentValue(addressComponent)
                 }
             });
         }
@@ -96,12 +109,13 @@ export default class VehicleSearchForm extends React.Component {
     };
 
     render() {
+        const mapsScriptUrl = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`;
+
         return (
             <React.Fragment>
-                <Script
-                    url={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`}
-                    onLoad={this.initializeAutocomplete}
-                />
+                {this.state.addMapsScript && (
+                    <Script url={mapsScriptUrl} onLoad={this.initializeAutocomplete} />
+                )}
                 <form>
                     <div className="columns is-multiline">
                         <div className="column is-6">
