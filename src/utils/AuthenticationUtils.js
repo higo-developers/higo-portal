@@ -1,4 +1,4 @@
-import { isNotNullOrUndefined } from "./Utils";
+import {isNotNullOrUndefined} from "./Utils";
 
 const STORAGE_TOKEN_KEY = "token";
 const STORAGE_USER_NAME_KEY = "username";
@@ -17,6 +17,10 @@ export const logout = (callback = () => {}) => {
 
 export const isAuthenticated = () => {
     return isNotNullOrUndefined(localStorage.getItem(STORAGE_TOKEN_KEY));
+};
+
+export const getLoggedUserId = () => {
+    return localStorage.getItem(STORAGE_USER_ID_KEY);
 };
 
 export const getLoggedUserName = () => {
