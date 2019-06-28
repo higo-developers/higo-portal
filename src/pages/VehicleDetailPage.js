@@ -28,6 +28,13 @@ export default class VehicleDetailPage extends React.Component {
     }
 
     componentDidMount() {
+        const urlSearchParams = new URLSearchParams(this.props.location.search);
+
+        this.setState({
+            fechaDesde: urlSearchParams.get(SEARCH_FECHA_DESDE_KEY),
+            fechaHasta: urlSearchParams.get(SEARCH_FECHA_HASTA_KEY)
+        });
+
         this.fetchData();
     }
 
@@ -41,6 +48,13 @@ export default class VehicleDetailPage extends React.Component {
         }
     };
 
+    buildReservePath = (vehicle) => {
+        return {
+            pathname: `/vehicles/${vehicle.id}/reserve`,
+            search: `fechaDesde=${this.state.fechaDesde}&fechaHasta=${this.state.fechaHasta}`
+        };
+    };
+
     render() {
         if (this.state.loading) {
             return <Loading />;
@@ -52,11 +66,6 @@ export default class VehicleDetailPage extends React.Component {
 
         const vehicle = this.state.data;
 
-        const urlSearchParams = new URLSearchParams(this.props.location.search);
-
-        console.log(urlSearchParams.get(SEARCH_FECHA_DESDE_KEY));
-        console.log(urlSearchParams.get(SEARCH_FECHA_HASTA_KEY));
-
         const pricePerHour = <p>
                                 <span className="has-text-weight-semibold">Precio por hora: </span>
                                 <span>{toCurrency(vehicle.precioHora, "ARS", "es-AR")}</span>
@@ -64,7 +73,7 @@ export default class VehicleDetailPage extends React.Component {
 
         const doesNotInformPrice = <span className="tag is-medium">No informa precio</span>;
 
-        const reserveButton = (vehicle.usuario.id !== getLoggedUserId()) ? <Link className="card-footer-item is-size-4 has-text-dark" to={`/vehicles/${vehicle.id}/reserve`}>Reservar</Link> : "";
+        const reserveButton = (vehicle.usuario.id !== getLoggedUserId()) ? <Link className="card-footer-item is-size-4 has-text-dark" to={this.buildReservePath(vehicle)}>Reservar</Link> : "";
         const linkToLogin = <p className="card-footer-item"><span className="tag is-medium">Para reservar, debes <Link to="/login">&nbsp;iniciar sesi&oacute;n</Link></span></p>;
 
         return (

@@ -3,6 +3,9 @@ import React from 'react';
 // const  ESTADO_OPERACION_PENDIENTE= "3";
 
 export default class ReservePage extends React.Component {
+
+    componentDidMount() {}
+
     render() {
         return (
             <React.Fragment>
