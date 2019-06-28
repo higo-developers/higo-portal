@@ -29,6 +29,5 @@ export default class ReservePage extends React.Component {
                 </div>
             </React.Fragment>
         )
-            ;
     }
 }

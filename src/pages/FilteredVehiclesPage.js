@@ -4,6 +4,7 @@ import VehicleResource from "../resources/VehicleResource";
 import VehicleThumbnailList from "../components/vehicle/VehicleThumbnailList";
 import Loading from "../components/layout/Loading";
 import Error from "../components/layout/Error";
+import GoBackButton from "../components/layout/GoBackButton";
 
 const SEARCH_KEY = "search";
 
@@ -54,6 +55,8 @@ export default class FilteredVehiclesPage extends React.Component {
             return <Error/>;
         }
 
+        const noResultsMessage = <p className="title">No se encontraron resultados</p>;
+
         return (
             <React.Fragment>
 
@@ -70,10 +73,7 @@ export default class FilteredVehiclesPage extends React.Component {
                                 </div>
                             </div>
                             <div className="level-right">
-                                <button onClick={() => {
-                                    this.props.history.goBack()
-                                }} className="button is-dark"><i className="fas fa-arrow-left"></i>&nbsp; Volver
-                                </button>
+                                <GoBackButton />
                             </div>
                         </nav>
                     </div>
@@ -81,10 +81,7 @@ export default class FilteredVehiclesPage extends React.Component {
 
                 <section className="section">
                     <div className="container">
-                        {
-                            this.state.data.length  ? (<VehicleThumbnailList vehicles={this.state.data} dateTimes={this.state.vehicleDateTimes}/>)
-                                                    : (<p className="title">No se encontraron resultados</p>)
-                        }
+                        {this.state.data.length ? (<VehicleThumbnailList vehicles={this.state.data} dateTimes={this.state.vehicleDateTimes}/>) : noResultsMessage}
                     </div>
                 </section>
             </React.Fragment>

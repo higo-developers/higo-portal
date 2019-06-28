@@ -8,6 +8,7 @@ import ThumbnailImage from "../components/layout/ThumbnailImage";
 import {toCurrency} from "../utils/FormatUtils";
 import {Link} from "react-router-dom";
 import {isAuthenticated} from "../utils/AuthenticationUtils";
+import GoBackButton from "../components/layout/GoBackButton";
 
 const LOCATION_DATA_SEPARATOR = " - ";
 const SEARCH_FECHA_DESDE_KEY = "fechaDesde";
@@ -56,6 +57,16 @@ export default class VehicleDetailPage extends React.Component {
         console.log(urlSearchParams.get(SEARCH_FECHA_DESDE_KEY));
         console.log(urlSearchParams.get(SEARCH_FECHA_HASTA_KEY));
 
+        const pricePerHour = <p>
+                                <span className="has-text-weight-semibold">Precio por hora: </span>
+                                <span>{toCurrency(vehicle.precioHora, "ARS", "es-AR")}</span>
+                             </p>;
+
+        const doesNotInformPrice = <span className="tag is-medium">No informa precio</span>;
+
+        const reserveButton = <Link className="card-footer-item is-size-4 has-text-dark" to={`/vehicles/${vehicle.id}/reserve`}>Reservar</Link>;
+        const linkToLogin = <p className="card-footer-item"><span className="tag is-medium">Para reservar, debes <Link to="/login">&nbsp;iniciar sesi&oacute;n</Link></span></p>;
+
         return (
             <React.Fragment>
                 <section className="section padding-bottom-0">
@@ -63,7 +74,7 @@ export default class VehicleDetailPage extends React.Component {
                         <nav className="level is-mobile">
                             <div className="level-left is-hidden-mobile">&nbsp;</div>
                             <div className="level-right">
-                                <button onClick={() => { this.props.history.goBack() }} className="button is-dark"><i className="fas fa-arrow-left"></i>&nbsp; Volver</button>
+                                <GoBackButton />
                             </div>
                         </nav>
                     </div>
@@ -78,10 +89,7 @@ export default class VehicleDetailPage extends React.Component {
                                         <ThumbnailImage src={vehicle.pathImagen} alt={`${vehicle.id} - ${vehicle.marca} - ${vehicle.modelo}`} />
                                     </div>
                                     <footer className="card-footer">
-                                        {
-                                            isAuthenticated()   ? <Link className="card-footer-item is-size-4 has-text-dark" to={`/vehicles/${vehicle.id}/reserve`}>Reservar</Link>
-                                                : <p className="card-footer-item"><span className="tag is-medium">Para reservar, debes <Link to="/login">&nbsp;iniciar sesi&oacute;n</Link></span></p>
-                                        }
+                                        {isAuthenticated() ? reserveButton : linkToLogin}
                                     </footer>
                                 </div>
                             </div>
@@ -96,42 +104,26 @@ export default class VehicleDetailPage extends React.Component {
                                     <i className="fas fa-user-circle"></i>&nbsp; {vehicle.usuario.nombre}
                                 </p>
 
-                                {
-                                    vehicle.precioHora ?
-                                        (
-                                            <p>
-                                                <span className="has-text-weight-semibold">Precio por hora: </span>
-                                                <span>{toCurrency(vehicle.precioHora, "ARS", "es-AR")}</span>
-                                            </p>
-                                        ) : (
-                                            <span className="tag is-medium">No informa precio</span>
-                                        )
-                                }
+                                {vehicle.precioHora ? pricePerHour : doesNotInformPrice}
 
-                                {
-                                    vehicle.equipamiento.length && (
-                                        <div className="margin-top-1">
-                                            <table className="table is-striped is-fullwidth">
-                                                <thead>
+                                {vehicle.equipamiento.length && (
+                                    <div className="margin-top-1">
+                                        <table className="table is-striped is-fullwidth">
+                                            <thead>
                                                 <tr>
                                                     <th>Equipamiento</th>
                                                 </tr>
-                                                </thead>
-                                                <tbody>
-                                                {
-                                                    vehicle.equipamiento.map((eq) => {
-                                                        return (
-                                                            <tr key={eq}>
-                                                                <td>{eq}</td>
-                                                            </tr>
-                                                        )
-                                                    })
-                                                }
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    )
-                                }
+                                            </thead>
+                                            <tbody>
+                                            {vehicle.equipamiento.map((equip) => {
+                                                return (<tr key={equip}>
+                                                            <td>{equip}</td>
+                                                        </tr>)
+                                            })}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )}
 
                             </div>
                         </div>
