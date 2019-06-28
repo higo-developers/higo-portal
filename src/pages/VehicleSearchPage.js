@@ -20,11 +20,9 @@ export default class VehicleSearchPage extends React.Component {
                             <div className="box padding-2">
                                 <div className="level">
                                     <div className="level-left">
-                                        <div className="level-item">
-                                            <div>
-                                                <p className="title">Busc&aacute; un veh&iacute;culo</p>
-                                                <p className="has-text-grey-light">* Campos obligatorios</p>
-                                            </div>
+                                        <div>
+                                            <p className="title">Busc&aacute; un veh&iacute;culo</p>
+                                            <p className="has-text-grey-light">* Campos obligatorios</p>
                                         </div>
                                     </div>
                                     <div className="level-right">

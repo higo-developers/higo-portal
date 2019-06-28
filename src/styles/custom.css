@@ -32,6 +32,17 @@
     margin-top: 2rem !important;
 }
 
+.navbar-link.is-active, .navbar-link:focus, .navbar-link:focus-within, .navbar-link:hover, a.navbar-item.is-active, a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover {
+    background-color: #fafafa;
+    color: #4a4a4a;
+}
+
+.navbar-link:not(.is-arrowless)::after {
+    border-color: #4a4a4a;
+    margin-top: -.375em;
+    right: 1.125em;
+}
+
 .padding-2 {
     padding: 2rem;
 }
