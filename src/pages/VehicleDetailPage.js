@@ -64,7 +64,7 @@ export default class VehicleDetailPage extends React.Component {
 
         const doesNotInformPrice = <span className="tag is-medium">No informa precio</span>;
 
-        const reserveButton = (vehicle.usuario.id != getLoggedUserId()) ? <Link className="card-footer-item is-size-4 has-text-dark" to={`/vehicles/${vehicle.id}/reserve`}>Reservar</Link> : "";
+        const reserveButton = (vehicle.usuario.id !== getLoggedUserId()) ? <Link className="card-footer-item is-size-4 has-text-dark" to={`/vehicles/${vehicle.id}/reserve`}>Reservar</Link> : "";
         const linkToLogin = <p className="card-footer-item"><span className="tag is-medium">Para reservar, debes <Link to="/login">&nbsp;iniciar sesi&oacute;n</Link></span></p>;
 
         return (

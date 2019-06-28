@@ -4,6 +4,7 @@ import VehicleResource from "../resources/VehicleResource";
 import {Link} from "react-router-dom";
 import {toPreparedSearchParams} from "../utils/VehicleSearchUtils";
 import DateTimePicker from 'react-datetime-picker';
+import {isNotNullOrUndefined} from "../utils/Utils";
 
 export default class VehicleSearchMapPage extends React.Component {
     constructor(props) {
@@ -14,19 +15,59 @@ export default class VehicleSearchMapPage extends React.Component {
         maxDate.setDate(minDate.getDate() + parseInt(process.env.REACT_APP_MIN_DAYS_TO_RESERVE));
 
         this.state = {
-            searchParams: {
-                fechaDesde: minDate,
-                fechaHasta: maxDate
-            },
+            searchParams: {fechaDesde: minDate, fechaHasta: maxDate},
+            disableSearchButton: true,
             mapData: []
         }
     }
 
     componentDidMount() {
-        this.getDataForMap();
+        this.fetchData();
     }
 
-    getDataForMap = async () => {
+    componentDidUpdate(prevProps, prevState) {
+        const buttonHasChanged = (prevState.searchParams.fechaDesde !== this.state.searchParams.fechaDesde) || (prevState.searchParams.fechaHasta !== this.state.searchParams.fechaHasta);
+
+        buttonHasChanged && this.setState({disableSearchButton: !buttonHasChanged});
+    }
+
+    handleFechaDesde = (fechaDesde) => {
+        if (isNotNullOrUndefined(fechaDesde)) {
+            const newHasta = new Date(fechaDesde.getTime());
+            newHasta.setDate(newHasta.getDate() + parseInt(process.env.REACT_APP_MIN_DAYS_TO_RESERVE));
+
+            const currentHasta = this.state.searchParams.fechaHasta;
+
+            this.setState({
+                searchParams: {
+                    ...this.state.searchParams,
+                    fechaDesde: fechaDesde,
+                    fechaHasta: fechaDesde > currentHasta ? newHasta : currentHasta
+                }
+            });
+        }
+    };
+
+    handleFechaHasta = (fechaHasta) =>{
+        this.setState({
+            searchParams: {
+                ...this.state.searchParams,
+                fechaHasta: fechaHasta
+            }
+        });
+    };
+
+    getMinHasta = () => {
+        return new Date(this.state.searchParams.fechaDesde.getTime());
+    };
+
+    getMaxHasta = () => {
+        let maxHasta = this.getMinHasta();
+        maxHasta.setDate(maxHasta.getDate() + parseInt(process.env.REACT_APP_MAX_DAYS_TO_RESERVE));
+        return maxHasta;
+    };
+
+    fetchData = async () => {
         try {
             const data = await VehicleResource.getByParams(toPreparedSearchParams(this.state.searchParams));
             this.setState({ mapData: data });
@@ -58,7 +99,7 @@ export default class VehicleSearchMapPage extends React.Component {
                                         <div className="field">
                                             <label className="label">Fecha desde <span className="has-text-grey-light">*</span></label>
                                             <div className="control">
-                                                <DateTimePicker name="fechaDesde" className="input" minDate={this.state.searchParams.fechaDesde} value={this.state.searchParams.fechaDesde} onChange={() =>{}}/>
+                                                <DateTimePicker name="fechaDesde" className="input" onChange={this.handleFechaDesde} minDate={new Date()} value={this.state.searchParams.fechaDesde}/>
                                             </div>
                                         </div>
                                     </div>
@@ -67,7 +108,7 @@ export default class VehicleSearchMapPage extends React.Component {
                                         <div className="field">
                                             <label className="label">Fecha hasta <span className="has-text-grey-light">*</span></label>
                                             <div className="control">
-                                                <DateTimePicker name="fechaHasta" className="input" minDate={this.state.searchParams.fechaDesde} value={this.state.searchParams.fechaHasta} onChange={() =>{}}/>
+                                                <DateTimePicker name="fechaHasta" className="input" onChange={this.handleFechaHasta} minDate={this.getMinHasta()} maxDate={this.getMaxHasta()} value={this.state.searchParams.fechaHasta}/>
                                             </div>
                                         </div>
                                     </div>
@@ -76,7 +117,7 @@ export default class VehicleSearchMapPage extends React.Component {
                                         <div className="field">
                                             <div className="control">
                                                 <label className="label">&nbsp;</label>
-                                                <button name="Confirm" type="button" className="button is-dark is-fullwidth" onClick={() => {}}>
+                                                <button name="Confirm" type="button" className="button is-dark is-fullwidth" disabled={this.state.disableSearchButton} onClick={this.fetchData}>
                                                     <span className="icon"><i className="fas fa-search"/></span>
                                                     <span>Buscar</span>
                                                 </button>
@@ -91,7 +132,7 @@ export default class VehicleSearchMapPage extends React.Component {
                                     containerElement={<div style={{height: `70vh`}}/>}
                                     mapElement={<div style={{height: `100%`}}/>}
                                     mapData={this.state.mapData}
-                                    dateTimes={this.state.searchParams}
+                                    dateTimes={toPreparedSearchParams(this.state.searchParams)}
                                 />
                             </div>
                         </div>
