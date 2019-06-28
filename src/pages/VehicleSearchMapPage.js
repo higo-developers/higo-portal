@@ -2,12 +2,22 @@ import React from 'react';
 import VehicleSearchMap from "../components/vehicle/VehicleSearchMap";
 import VehicleResource from "../resources/VehicleResource";
 import {Link} from "react-router-dom";
+import {toPreparedSearchParams} from "../utils/VehicleSearchUtils";
+import {dateToIsoUTC} from "../utils/FormatUtils";
 
 export default class VehicleSearchMapPage extends React.Component {
     constructor(props) {
         super(props);
 
+        let minDate = new Date();
+        let maxDate = new Date();
+        maxDate.setDate(minDate.getDate() + 1);
+
         this.state = {
+            searchParams: {
+                fechaDesde: dateToIsoUTC(minDate),
+                fechaHasta: dateToIsoUTC(maxDate)
+            },
             mapData: []
         }
     }
@@ -18,7 +28,7 @@ export default class VehicleSearchMapPage extends React.Component {
 
     getDataForMap = async () => {
         try {
-            const data = await VehicleResource.getDataForMap();
+            const data = await VehicleResource.getByParams(toPreparedSearchParams(this.state.searchParams));
             this.setState({ mapData: data });
         } catch (error) {
             console.log(error);
@@ -49,6 +59,7 @@ export default class VehicleSearchMapPage extends React.Component {
                                 containerElement={<div style={{height: `70vh`}}/>}
                                 mapElement={<div style={{height: `100%`}}/>}
                                 mapData={this.state.mapData}
+                                dateTimes={this.state.searchParams}
                             />
                             </div>
                         </div>

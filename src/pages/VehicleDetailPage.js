@@ -53,9 +53,8 @@ export default class VehicleDetailPage extends React.Component {
 
         const urlSearchParams = new URLSearchParams(this.props.location.search);
 
-        const fechaDesde = urlSearchParams.get(SEARCH_FECHA_DESDE_KEY);
-        const fechaHasta = urlSearchParams.get(SEARCH_FECHA_HASTA_KEY);
-
+        console.log(urlSearchParams.get(SEARCH_FECHA_DESDE_KEY));
+        console.log(urlSearchParams.get(SEARCH_FECHA_HASTA_KEY));
 
         return (
             <React.Fragment>
