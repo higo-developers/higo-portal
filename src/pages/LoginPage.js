@@ -1,7 +1,7 @@
 import React from 'react';
 import LoginResource from "../resources/LoginResource";
-import { isNotNullOrUndefined } from "../utils/Utils";
-import { login } from "../utils/AuthenticationUtils";
+import {isNotNullOrUndefined} from "../utils/Utils";
+import {login} from "../utils/AuthenticationUtils";
 
 export default class LoginPage extends React.Component {
     constructor(props) {
@@ -47,7 +47,7 @@ export default class LoginPage extends React.Component {
 
             if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
 
-            login(response, () => { this.props.history.push("/") });
+            login(response, () => { this.props.history.goBack() });
 
             this._isMounted && this.setState({loading: false, error: undefined});
         } catch (e) {

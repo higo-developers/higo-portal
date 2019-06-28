@@ -81,7 +81,7 @@ export default class VehicleDetailPage extends React.Component {
                                     <footer className="card-footer">
                                         {
                                             isAuthenticated()   ? <Link className="card-footer-item is-size-4 has-text-dark" to={`/vehicles/${vehicle.id}/reserve`}>Reservar</Link>
-                                                                : <p className="card-footer-item"><span className="tag is-medium">Para reservar, debes iniciar sesi&oacute;n</span></p>
+                                                : <p className="card-footer-item"><span className="tag is-medium">Para reservar, debes <Link to="/login">&nbsp;iniciar sesi&oacute;n</Link></span></p>
                                         }
                                     </footer>
                                 </div>
