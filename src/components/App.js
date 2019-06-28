@@ -4,6 +4,7 @@ import Navbar from "./layout/Navbar";
 import NotFoundPage from "../pages/NotFoundPage";
 import React from "react";
 import VehicleDetailPage from "../pages/VehicleDetailPage";
+import UserRegisterPage from "../pages/UserRegisterPage";
 import VehicleSearchMapPage from "../pages/VehicleSearchMapPage";
 import VehicleSearchPage from "../pages/VehicleSearchPage";
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
@@ -20,6 +21,7 @@ export default function App() {
                 <Route exact path="/search/map" component={VehicleSearchMapPage}/>
                 <Route exact path="/vehicles" component={FilteredVehiclesPage}/>
                 <Route exact path="/vehicles/:id" component={VehicleDetailPage}/>
+                <Route exact path="/register" component={UserRegisterPage}/>
 
                 <Route component={NotFoundPage}/>
             </Switch>
