@@ -1,16 +1,17 @@
 import RestClient from "../utils/RestClient";
+import {ContentType, HttpMethods} from "../utils/Constants";
 
-const ENDPOINT_LOGIN = "/operaciones";
+const ENDPOINT_OPERACIONES = "/operaciones";
 
 const OperationResource = {
     doOperation(requestBody) {
-        const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_LOGIN}`;
+        const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_OPERACIONES}`;
 
         const options = {
-            method: 'POST',
+            method: HttpMethods.POST,
             body: JSON.stringify(requestBody),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': ContentType.APPLICATION_JSON
             }
         };
 
