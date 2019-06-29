@@ -5,6 +5,7 @@ import ThumbnailImage from "../components/layout/ThumbnailImage";
 import {locationDataAsArray} from "../utils/VehicleSearchUtils";
 import {datetimeToDayMonYear, datetimeToHourMin} from "../utils/FormatUtils";
 import OperationResource from "../resources/OperationResource";
+import {Link} from "react-router-dom";
 
 // const  ESTADO_OPERACION_PENDIENTE= "3";
 const SEARCH_DETAILS_KEY = "details";
@@ -19,7 +20,8 @@ export default class ReservePage extends React.Component {
         this.state = {
             details: decodeReserveDetails(urlSearchParams.get(SEARCH_DETAILS_KEY)),
             loading: false,
-            done: false
+            done: false,
+            error: null
         };
     }
 
@@ -28,8 +30,9 @@ export default class ReservePage extends React.Component {
 
         try {
             const response = await OperationResource.create(this.state.details);
-        } catch (e) {
-            console.log(e);
+            this.setState({loading: false, error: null, done: true});
+        } catch (error) {
+            this.setState({loading: false, error: error, done: false});
         }
     };
 
@@ -74,10 +77,28 @@ export default class ReservePage extends React.Component {
 
                                     <br/>
 
-                                    <button name="Confirm" type="button" className={`button is-dark is-fullwidth is-medium ${this.state.loading && 'is-loading'} `} disabled={this.state.done} onClick={this.doReserve}>
-                                        <span className="icon"><i className="fas fa-check"/></span>
-                                        <span>Confirmar</span>
-                                    </button>
+                                    {(!this.state.done && !this.state.error) && (
+                                        <button name="Confirm" type="button" className={`button is-dark is-fullwidth is-medium ${this.state.loading && 'is-loading'} `} onClick={this.doReserve}>
+                                            <span className="icon"><i className="fas fa-check"/></span>
+                                            <span>Confirmar</span>
+                                        </button>
+                                    )}
+
+                                    {this.state.done && (
+                                        <article className="message is-success">
+                                            <div className="message-body">
+                                                <p>La solicitud de reserva ha sido creada.</p>
+                                                <p><Link to={"/operaciones"}>Click aqu&iacute;</Link> para ver todas sus operaciones.</p>
+                                            </div>
+                                        </article>
+                                    )}
+
+                                    {this.state.error && (
+                                        <article className="message is-danger">
+                                            <div className="message-body">{this.state.error.message}</div>
+
+                                        </article>
+                                    )}
                                 </div>
                             </div>
                         </div>
