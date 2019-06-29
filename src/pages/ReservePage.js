@@ -4,6 +4,7 @@ import {decodeReserveDetails} from "../utils/ReserveUtils";
 import ThumbnailImage from "../components/layout/ThumbnailImage";
 import {locationDataAsArray} from "../utils/VehicleSearchUtils";
 import {datetimeToDayMonYear, datetimeToHourMin} from "../utils/FormatUtils";
+import OperationResource from "../resources/OperationResource";
 
 // const  ESTADO_OPERACION_PENDIENTE= "3";
 const SEARCH_DETAILS_KEY = "details";
@@ -22,13 +23,14 @@ export default class ReservePage extends React.Component {
         };
     }
 
-    doReserve = () => {
+    doReserve = async () => {
         this.setState({loading: true, done: false});
 
-        setTimeout(() => {
-            console.log(`${new Date().toLocaleString()} - Hizo la reserva`);
-            this.setState({loading: false, done: true});
-        }, 3000);
+        try {
+            const response = await OperationResource.create(this.state.details);
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     render() {
@@ -48,8 +50,6 @@ export default class ReservePage extends React.Component {
                                 <GoBackButton />
                             </div>
                         </nav>
-
-                        <hr/>
 
                         <div className="columns is-centered">
                             <div className="column is-half">

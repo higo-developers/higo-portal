@@ -20,7 +20,7 @@ export const isAuthenticated = () => {
 };
 
 export const getLoggedUserId = () => {
-    return localStorage.getItem(STORAGE_USER_ID_KEY);
+    return parseInt(localStorage.getItem(STORAGE_USER_ID_KEY));
 };
 
 export const getLoggedUserName = () => {
