@@ -7,6 +7,9 @@ import VehicleDetailPage from "../pages/VehicleDetailPage";
 import VehicleSearchMapPage from "../pages/VehicleSearchMapPage";
 import VehicleSearchPage from "../pages/VehicleSearchPage";
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import ReservePage from "../pages/ReservePage";
+import ProtectedRoute from "./authentication/ProtectedRoute";
+import {Routes} from "../utils/Constants";
 
 export default function App() {
     return (
@@ -14,12 +17,14 @@ export default function App() {
             <Navbar/>
 
             <Switch>
-                <Route exact path="/" render={() => <Redirect to="/search"/>}/>
-                <Route exact path="/login" component={LoginPage}/>
-                <Route exact path="/search" component={VehicleSearchPage}/>
-                <Route exact path="/search/map" component={VehicleSearchMapPage}/>
-                <Route exact path="/vehicles" component={FilteredVehiclesPage}/>
-                <Route exact path="/vehicles/:id" component={VehicleDetailPage}/>
+                <Route exact path={Routes.BASE} render={() => <Redirect to={Routes.SEARCH}/>}/>
+                <Route exact path={Routes.LOGIN} component={LoginPage}/>
+                <Route exact path={Routes.SEARCH} component={VehicleSearchPage}/>
+                <Route exact path={Routes.SEARCH_BY_MAP} component={VehicleSearchMapPage}/>
+                <Route exact path={Routes.VEHICLES} component={FilteredVehiclesPage}/>
+                <Route exact path={Routes.VEHICLE_BY_ID} component={VehicleDetailPage}/>
+
+                <ProtectedRoute exact path={Routes.VEHICLE_BY_ID_RESERVE} component={ReservePage}/>
 
                 <Route component={NotFoundPage}/>
             </Switch>

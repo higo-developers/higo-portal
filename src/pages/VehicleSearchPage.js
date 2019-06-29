@@ -1,12 +1,13 @@
 import React from 'react';
 import VehicleSearchForm from "../components/vehicle/VehicleSearchForm";
 import {Link} from "react-router-dom";
+import {Routes} from "../utils/Constants";
 
 export default class VehicleSearchPage extends React.Component {
 
     handleSearch = (encodedSearch) => {
         this.props.history.push({
-            pathname: "/vehicles",
+            pathname: Routes.VEHICLES,
             search: `search=${encodedSearch}`
         });
     };
@@ -26,7 +27,7 @@ export default class VehicleSearchPage extends React.Component {
                                         </div>
                                     </div>
                                     <div className="level-right">
-                                        <Link className="button is-light" to="/search/map">
+                                        <Link className="button is-light" to={Routes.SEARCH_BY_MAP}>
                                             <i className="fas fa-map-marked-alt"></i>&nbsp; Buscar en mapa
                                         </Link>
                                     </div>

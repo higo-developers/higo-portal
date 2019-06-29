@@ -5,7 +5,7 @@ import {getLoggedUserName, isAuthenticated, logout} from "../../utils/Authentica
 const UserMenuItem = withRouter(({history}) => (
     isAuthenticated() && (
         <div className="navbar-item has-dropdown is-hoverable">
-            <a className="navbar-link">{getLoggedUserName()}</a>
+            <a href="#" className="navbar-link">{getLoggedUserName()}</a>
             <div className="navbar-dropdown">
                 <Link className="navbar-item" to={"#"} onClick={() => logout(() => {
                     history.push("/")

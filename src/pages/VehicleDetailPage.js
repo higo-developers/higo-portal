@@ -2,13 +2,19 @@ import React from 'react';
 import Error from "../components/layout/Error";
 import Loading from "../components/layout/Loading";
 import VehicleResource from "../resources/VehicleResource";
-import { locationDataAsArray } from "../utils/VehicleSearchUtils";
+import {locationDataAsArray} from "../utils/VehicleSearchUtils";
 
 import ThumbnailImage from "../components/layout/ThumbnailImage";
-import { toCurrency } from "../utils/FormatUtils";
-import { Link } from "react-router-dom";
+import {toCurrency} from "../utils/FormatUtils";
+import {Link} from "react-router-dom";
+import {getLoggedUserId, isAuthenticated} from "../utils/AuthenticationUtils";
+import GoBackButton from "../components/layout/GoBackButton";
+import {encodeReserveDetails} from "../utils/ReserveUtils";
+import {Routes} from "../utils/Constants";
 
 const LOCATION_DATA_SEPARATOR = " - ";
+const SEARCH_FECHA_DESDE_KEY = "fechaDesde";
+const SEARCH_FECHA_HASTA_KEY = "fechaHasta";
 
 export default class VehicleDetailPage extends React.Component {
 
@@ -24,6 +30,13 @@ export default class VehicleDetailPage extends React.Component {
     }
 
     componentDidMount() {
+        const urlSearchParams = new URLSearchParams(this.props.location.search);
+
+        this.setState({
+            fechaDesde: urlSearchParams.get(SEARCH_FECHA_DESDE_KEY),
+            fechaHasta: urlSearchParams.get(SEARCH_FECHA_HASTA_KEY)
+        });
+
         this.fetchData();
     }
 
@@ -37,6 +50,19 @@ export default class VehicleDetailPage extends React.Component {
         }
     };
 
+    buildReservePath = (vehicle) => {
+        const reserveDetails = {
+            vehicle: vehicle,
+            fechaDesde: this.state.fechaDesde,
+            fechaHasta: this.state.fechaHasta
+        };
+
+        return {
+            pathname: `/vehicles/${vehicle.id}/reserve`,
+            search: `details=${encodeReserveDetails(reserveDetails)}`
+        };
+    };
+
     render() {
         if (this.state.loading) {
             return <Loading />;
@@ -48,6 +74,16 @@ export default class VehicleDetailPage extends React.Component {
 
         const vehicle = this.state.data;
 
+        const pricePerHour = <p>
+                                <span className="has-text-weight-semibold">Precio por hora: </span>
+                                <span>{toCurrency(vehicle.precioHora, "ARS", "es-AR")}</span>
+                             </p>;
+
+        const doesNotInformPrice = <span className="tag is-medium">No informa precio</span>;
+
+        const reserveButton = (vehicle.usuario.id !== getLoggedUserId()) ? <Link className="card-footer-item is-size-4 has-text-dark" to={this.buildReservePath(vehicle)}>Reservar</Link> : "";
+        const linkToLogin = <p className="card-footer-item"><span className="tag is-medium">Para reservar, debes <Link to={Routes.LOGIN}>&nbsp;iniciar sesi&oacute;n</Link></span></p>;
+
         return (
             <React.Fragment>
                 <section className="section padding-bottom-0">
@@ -55,7 +91,7 @@ export default class VehicleDetailPage extends React.Component {
                         <nav className="level is-mobile">
                             <div className="level-left is-hidden-mobile">&nbsp;</div>
                             <div className="level-right">
-                                <button onClick={() => { this.props.history.goBack() }} className="button is-dark"><i className="fas fa-arrow-left"></i>&nbsp; Volver</button>
+                                <GoBackButton />
                             </div>
                         </nav>
                     </div>
@@ -70,7 +106,7 @@ export default class VehicleDetailPage extends React.Component {
                                         <ThumbnailImage src={vehicle.pathImagen} alt={`${vehicle.id} - ${vehicle.marca} - ${vehicle.modelo}`} />
                                     </div>
                                     <footer className="card-footer">
-                                        <Link className="card-footer-item is-size-4 has-text-dark" to={`/vehicles/${vehicle.id}/reserve`}>Reservar</Link>
+                                        {isAuthenticated() ? reserveButton : linkToLogin}
                                     </footer>
                                 </div>
                             </div>
@@ -85,42 +121,26 @@ export default class VehicleDetailPage extends React.Component {
                                     <i className="fas fa-user-circle"></i>&nbsp; {vehicle.usuario.nombre}
                                 </p>
 
-                                {
-                                    vehicle.precioHora ?
-                                        (
-                                            <p>
-                                                <span className="has-text-weight-semibold">Precio por hora: </span>
-                                                <span>{toCurrency(vehicle.precioHora, "ARS", "es-AR")}</span>
-                                            </p>
-                                        ) : (
-                                            <span className="tag is-medium">No informa precio</span>
-                                        )
-                                }
+                                {vehicle.precioHora ? pricePerHour : doesNotInformPrice}
 
-                                {
-                                    vehicle.equipamiento.length && (
-                                        <div className="margin-top-1">
-                                            <table className="table is-striped is-fullwidth">
-                                                <thead>
+                                {vehicle.equipamiento.length && (
+                                    <div className="margin-top-1">
+                                        <table className="table is-striped is-fullwidth">
+                                            <thead>
                                                 <tr>
                                                     <th>Equipamiento</th>
                                                 </tr>
-                                                </thead>
-                                                <tbody>
-                                                {
-                                                    vehicle.equipamiento.map((eq) => {
-                                                        return (
-                                                            <tr key={eq}>
-                                                                <td>{eq}</td>
-                                                            </tr>
-                                                        )
-                                                    })
-                                                }
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    )
-                                }
+                                            </thead>
+                                            <tbody>
+                                            {vehicle.equipamiento.map((equip) => {
+                                                return (<tr key={equip}>
+                                                            <td>{equip}</td>
+                                                        </tr>)
+                                            })}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )}
 
                             </div>
                         </div>

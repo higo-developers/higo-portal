@@ -1,4 +1,5 @@
 import RestClient from "../utils/RestClient";
+import {ContentType, HttpMethods} from "../utils/Constants";
 
 const ENDPOINT_LOGIN = "/login";
 
@@ -7,10 +8,10 @@ const LoginResource = {
         const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_LOGIN}`;
 
         const options = {
-            method: 'POST',
+            method: HttpMethods.POST,
             body: JSON.stringify(requestBody),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': ContentType.APPLICATION_JSON
             }
         };
 

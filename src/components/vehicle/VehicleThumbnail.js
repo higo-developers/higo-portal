@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-import { toCurrency } from "../../utils/FormatUtils";
+import {Link} from "react-router-dom";
+import {toCurrency} from "../../utils/FormatUtils";
 import ThumbnailImage from "../layout/ThumbnailImage";
+import {isNotNullOrUndefined} from "../../utils/Utils";
 
 export default class VehicleThumbnail extends React.Component {
     render() {
@@ -39,10 +40,21 @@ export default class VehicleThumbnail extends React.Component {
                     </div>
 
                     <footer className="card-footer">
-                        <Link className="card-footer-item" to={`/vehicles/${vehicle.id}`}>Ver m&aacute;s</Link>
+                        <Link className="card-footer-item" to={ this.buildVehicleDetailPath(vehicle) } >
+                            Ver m&aacute;s
+                        </Link>
                     </footer>
                 </div>
             </React.Fragment>
         );
+    }
+
+    buildVehicleDetailPath(vehicle) {
+        const path = {pathname: `/vehicles/${vehicle.id}`};
+
+        if ( isNotNullOrUndefined(this.props.dateTimes) )
+            path.search = `fechaDesde=${this.props.dateTimes.fechaDesde}&fechaHasta=${this.props.dateTimes.fechaHasta}`
+
+        return path;
     }
 }
