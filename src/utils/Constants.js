@@ -17,5 +17,7 @@ export const Routes = {
     SEARCH_BY_MAP: "/search/map",
     VEHICLES: "/vehicles",
     VEHICLE_BY_ID: "/vehicles/:id",
-    VEHICLE_BY_ID_RESERVE: "/vehicles/:id/reserve"
+    VEHICLE_BY_ID_RESERVE: "/vehicles/:id/reserve",
+    PROFILE: "/profile",
+    PROFILE_VEHICLES: "/profile/vehicles",
 };

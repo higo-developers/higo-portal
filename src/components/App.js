@@ -10,6 +10,7 @@ import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import ReservePage from "../pages/ReservePage";
 import ProtectedRoute from "./authentication/ProtectedRoute";
 import {Routes} from "../utils/Constants";
+import ProfileVehiclesPage from "../pages/ProfileVehiclesPage";
 
 export default function App() {
     return (
@@ -25,6 +26,7 @@ export default function App() {
                 <Route exact path={Routes.VEHICLE_BY_ID} component={VehicleDetailPage}/>
 
                 <ProtectedRoute exact path={Routes.VEHICLE_BY_ID_RESERVE} component={ReservePage}/>
+                <ProtectedRoute exact path={Routes.PROFILE_VEHICLES} component={ProfileVehiclesPage}/>
 
                 <Route component={NotFoundPage}/>
             </Switch>
