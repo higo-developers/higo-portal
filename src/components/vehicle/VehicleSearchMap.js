@@ -34,7 +34,7 @@ function Map(props) {
                         }}
                         onCloseClick={() => { setSelectedVehicle(null) }}
                     >
-                        <VehicleThumbnail vehicle={selectedVehicle}/>
+                        <VehicleThumbnail vehicle={selectedVehicle} dateTimes={props.dateTimes}/>
                     </InfoWindow>
                 )
             }

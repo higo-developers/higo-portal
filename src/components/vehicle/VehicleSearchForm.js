@@ -54,7 +54,7 @@ export default class VehicleSearchForm extends React.Component {
 
     getMaxHasta = () => {
         let maxHasta = this.getMinHasta();
-        maxHasta.setDate(maxHasta.getDate() + parseInt(process.env.REACT_APP_MAXIMUM_DAYS_TO_RESERVE));
+        maxHasta.setDate(maxHasta.getDate() + parseInt(process.env.REACT_APP_MAX_DAYS_TO_RESERVE));
         return maxHasta;
     };
 

@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import LoginButton from "../authentication/LoginButton";
 import {isNotNullOrUndefined} from "../../utils/Utils";
 import UserMenuItem from "../menu/UserMenuItem";
+import {Routes} from "../../utils/Constants";
 
 const CLASS_LIST_TOKEN = "is-active";
 
@@ -21,7 +22,7 @@ export default function Navbar() {
         <nav className="navbar" role="navigation" aria-label="main navigation">
             <div className="container">
                 <div className="navbar-brand">
-                    <Link className="navbar-item navbar-item-logo" to="/">
+                    <Link className="navbar-item navbar-item-logo" to={Routes.BASE}>
                         <span className="is-size-3 has-text-weight-bold">higo</span>
                     </Link>
 
