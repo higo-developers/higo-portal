@@ -1,6 +1,9 @@
 import dateFormat from 'dateformat';
 
 const ISO_UTC_FORMAT = "isoUtcDateTime";
+const HOUR_MIN_FORMAT = "HH:MM";
+const DAY_MON_YEAR_FORMAT = "dd/mm/yyyy";
+
 const STYLE_CURRENCY = "currency";
 
 export const toCurrency = (value, currency, lang = navigator.language) => {
@@ -9,4 +12,12 @@ export const toCurrency = (value, currency, lang = navigator.language) => {
 
 export const dateToIsoUTC = (date) => {
     return dateFormat(date, ISO_UTC_FORMAT);
+};
+
+export const datetimeToDayMonYear = (date) => {
+    return dateFormat(date, DAY_MON_YEAR_FORMAT);
+
+};
+export const datetimeToHourMin = (date) => {
+    return dateFormat(date, HOUR_MIN_FORMAT);
 };

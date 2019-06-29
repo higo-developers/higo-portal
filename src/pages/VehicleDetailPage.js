@@ -9,6 +9,7 @@ import {toCurrency} from "../utils/FormatUtils";
 import {Link} from "react-router-dom";
 import {getLoggedUserId, isAuthenticated} from "../utils/AuthenticationUtils";
 import GoBackButton from "../components/layout/GoBackButton";
+import {encodeReserveDetails} from "../utils/ReserveUtils";
 
 const LOCATION_DATA_SEPARATOR = " - ";
 const SEARCH_FECHA_DESDE_KEY = "fechaDesde";
@@ -49,9 +50,15 @@ export default class VehicleDetailPage extends React.Component {
     };
 
     buildReservePath = (vehicle) => {
+        const reserveDetails = {
+            vehicle: vehicle,
+            fechaDesde: this.state.fechaDesde,
+            fechaHasta: this.state.fechaHasta
+        };
+
         return {
             pathname: `/vehicles/${vehicle.id}/reserve`,
-            search: `fechaDesde=${this.state.fechaDesde}&fechaHasta=${this.state.fechaHasta}`
+            search: `details=${encodeReserveDetails(reserveDetails)}`
         };
     };
 
