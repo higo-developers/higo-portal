@@ -14,8 +14,8 @@ export const Routes = {
     LOGIN: "/login",
     OPERATIONS: "/operaciones",
     SEARCH: "/search",
-    SEARCH_BY_MAP: `${this.SEARCH}/map`,
+    SEARCH_BY_MAP: "/search/map",
     VEHICLES: "/vehicles",
-    VEHICLE_BY_ID: `${this.VEHICLES}/:id`,
-    VEHICLE_BY_ID_RESERVE: `${this.VEHICLE_BY_ID}/reserve`
+    VEHICLE_BY_ID: "/vehicles/:id",
+    VEHICLE_BY_ID_RESERVE: "/vehicles/:id/reserve"
 };

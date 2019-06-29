@@ -10,6 +10,7 @@ import {Link} from "react-router-dom";
 import {getLoggedUserId, isAuthenticated} from "../utils/AuthenticationUtils";
 import GoBackButton from "../components/layout/GoBackButton";
 import {encodeReserveDetails} from "../utils/ReserveUtils";
+import {Routes} from "../utils/Constants";
 
 const LOCATION_DATA_SEPARATOR = " - ";
 const SEARCH_FECHA_DESDE_KEY = "fechaDesde";
@@ -81,7 +82,7 @@ export default class VehicleDetailPage extends React.Component {
         const doesNotInformPrice = <span className="tag is-medium">No informa precio</span>;
 
         const reserveButton = (vehicle.usuario.id !== getLoggedUserId()) ? <Link className="card-footer-item is-size-4 has-text-dark" to={this.buildReservePath(vehicle)}>Reservar</Link> : "";
-        const linkToLogin = <p className="card-footer-item"><span className="tag is-medium">Para reservar, debes <Link to="/login">&nbsp;iniciar sesi&oacute;n</Link></span></p>;
+        const linkToLogin = <p className="card-footer-item"><span className="tag is-medium">Para reservar, debes <Link to={Routes.LOGIN}>&nbsp;iniciar sesi&oacute;n</Link></span></p>;
 
         return (
             <React.Fragment>

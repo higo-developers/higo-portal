@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {toPreparedSearchParams} from "../utils/VehicleSearchUtils";
 import DateTimePicker from 'react-datetime-picker';
 import {isNotNullOrUndefined} from "../utils/Utils";
+import {Routes} from "../utils/Constants";
 
 export default class VehicleSearchMapPage extends React.Component {
     constructor(props) {
@@ -88,7 +89,7 @@ export default class VehicleSearchMapPage extends React.Component {
                                         <p className="title">Veh&iacute;culos cercanos</p>
                                     </div>
                                     <div className="level-right">
-                                        <Link className="button is-light" to="/search">
+                                        <Link className="button is-light" to={Routes.SEARCH}>
                                             <i className="fas fa-filter"></i>&nbsp; Filtrar b&uacute;squeda
                                         </Link>
                                     </div>
