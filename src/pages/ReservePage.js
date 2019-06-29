@@ -7,7 +7,6 @@ import {datetimeToDayMonYear, datetimeToHourMin} from "../utils/FormatUtils";
 import OperationResource from "../resources/OperationResource";
 import {Link} from "react-router-dom";
 
-// const  ESTADO_OPERACION_PENDIENTE= "3";
 const SEARCH_DETAILS_KEY = "details";
 
 export default class ReservePage extends React.Component {
