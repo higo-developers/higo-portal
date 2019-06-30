@@ -12,7 +12,7 @@ const VehicleStatus = {
     PENDIENTE: <span className="tag is-danger is-medium"><span className="icon"><i className="fas fa-times"></i></span>&nbsp; Inactivo</span>
 };
 
-const LOCATION_SEPARATOR = ", ";
+const LOCATION_SEPARATOR = " - ";
 
 export default class ProfileVehiclesPage extends React.Component {
 
@@ -96,6 +96,7 @@ export default class ProfileVehiclesPage extends React.Component {
                                                     <Link className={"button is-light"} to={`/profile/vehicles/${vehicle.id}/edit`}>
                                                         <span className="icon"><i className="fas fa-edit"></i></span>&nbsp; Editar
                                                     </Link>
+
                                                     <Link className={"button is-danger"} to={`/profile/vehicles/${vehicle.id}/delete`}>
                                                         <span><i className="fas fa-trash-alt"></i></span>&nbsp;  Eliminar
                                                     </Link>
