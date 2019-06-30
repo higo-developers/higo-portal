@@ -1,5 +1,6 @@
 import React from 'react';
 import GoBackButton from "../components/layout/GoBackButton";
+import ProfileResource from "../resources/ProfileResource";
 
 const TITLE_EDIT_VEHICLE = "Editar vehículo";
 const TITLE_NEW_VEHICLE = "Nuevo vehículo";
@@ -9,7 +10,8 @@ export default class ProfileVehicleFormPage extends React.Component {
         super(props);
 
         this.state = {
-            title: ""
+            title: "",
+            vehicle: null
         }
     }
 
@@ -18,6 +20,7 @@ export default class ProfileVehicleFormPage extends React.Component {
 
         if (this.props.match.params.id) {
             title = TITLE_EDIT_VEHICLE;
+            this.fetchVehicleData(this.props.match.params.id);
         } else {
             title = TITLE_NEW_VEHICLE;
         }
@@ -26,6 +29,12 @@ export default class ProfileVehicleFormPage extends React.Component {
             title: title
         });
     }
+
+    fetchVehicleData = async (vehicleId) => {
+        const vehicle = await ProfileResource.getUserVehicleById(vehicleId);
+        console.log(vehicle);
+        return null;
+    };
 
     render() {
         return (
@@ -98,7 +107,7 @@ export default class ProfileVehicleFormPage extends React.Component {
                                     </div>
                                 </div>
 
-                                <br/> {/*SECCION*/}
+                                <br/>
 
                                 <div className="columns is-multiline">
                                     <div className="column is-full">
@@ -131,7 +140,7 @@ export default class ProfileVehicleFormPage extends React.Component {
                                     </div>
                                 </div>
 
-                                <br/> {/*SECCION*/}
+                                <br/>
 
                                 <div className="columns">
                                     <div className="column is-half">
@@ -186,7 +195,7 @@ export default class ProfileVehicleFormPage extends React.Component {
                                     </div>
                                 </div>
 
-                                <br/> {/*SECCION*/}
+                                <br/>
 
                                 <div className="columns is-multiline">
                                     <div className="column is-full">

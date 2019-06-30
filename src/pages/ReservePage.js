@@ -6,6 +6,8 @@ import {locationDataAsArray} from "../utils/VehicleSearchUtils";
 import {datetimeToDayMonYear, datetimeToHourMin} from "../utils/FormatUtils";
 import OperationResource from "../resources/OperationResource";
 import {Link} from "react-router-dom";
+import {OperationStates} from "../utils/Constants";
+import {isNotNullOrUndefined} from "../utils/Utils";
 
 const SEARCH_DETAILS_KEY = "details";
 
@@ -29,7 +31,8 @@ export default class ReservePage extends React.Component {
 
         try {
             const response = await OperationResource.create(this.state.details);
-            this.setState({loading: false, error: null, done: true});
+            if (isNotNullOrUndefined(response.codEstado) && response.codEstado === OperationStates.APROBADO)
+                this.setState({loading: false, error: null, done: true});
         } catch (error) {
             this.setState({loading: false, error: error, done: false});
         }
@@ -49,14 +52,15 @@ export default class ReservePage extends React.Component {
                                 <h1 className="title">Confirmar solicitud de reserva</h1>
                             </div>
                             <div className="level-right">
-                                <GoBackButton />
+                                <GoBackButton/>
                             </div>
                         </nav>
 
                         <div className="columns is-centered">
                             <div className="column is-half">
                                 <div className="box has-text-centered">
-                                    <ThumbnailImage src={vehicle.pathImagen} alt={`${vehicle.id} - ${vehicle.marca} - ${vehicle.modelo}`} />
+                                    <ThumbnailImage src={vehicle.pathImagen}
+                                                    alt={`${vehicle.id} - ${vehicle.marca} - ${vehicle.modelo}`}/>
 
                                     <br/>
 
@@ -65,19 +69,23 @@ export default class ReservePage extends React.Component {
                                     <p className="subtitle">de {vehicle.usuario.nombre}</p>
 
                                     <p className="has-text-grey">
-                                        <i className="fas fa-map-marker-alt"></i>&nbsp; { locationDataAsArray(vehicle.locacion).join(" - ") }
+                                        <i className="fas fa-map-marker-alt"></i>&nbsp; {locationDataAsArray(vehicle.locacion).join(" - ")}
                                     </p>
 
                                     <br/>
 
                                     <p>
-                                        Desde el {datetimeToDayMonYear(fechaDesde)} a las {datetimeToHourMin(fechaDesde)} hasta el {datetimeToDayMonYear(fechaHasta)} a las {datetimeToHourMin(fechaHasta)}
+                                        Desde el {datetimeToDayMonYear(fechaDesde)} a
+                                        las {datetimeToHourMin(fechaDesde)} hasta
+                                        el {datetimeToDayMonYear(fechaHasta)} a las {datetimeToHourMin(fechaHasta)}
                                     </p>
 
                                     <br/>
 
                                     {(!this.state.done && !this.state.error) && (
-                                        <button name="Confirm" type="button" className={`button is-dark is-fullwidth is-medium ${this.state.loading && 'is-loading'} `} onClick={this.doReserve}>
+                                        <button name="Confirm" type="button"
+                                                className={`button is-dark is-fullwidth is-medium ${this.state.loading && 'is-loading'} `}
+                                                onClick={this.doReserve}>
                                             <span className="icon"><i className="fas fa-check"/></span>
                                             <span>Confirmar</span>
                                         </button>
@@ -87,7 +95,8 @@ export default class ReservePage extends React.Component {
                                         <article className="message is-success">
                                             <div className="message-body">
                                                 <p>La solicitud de reserva ha sido creada.</p>
-                                                <p><Link to={"/operaciones"}>Click aqu&iacute;</Link> para ver todas sus operaciones.</p>
+                                                <p><Link to={"/operaciones"}>Click aqu&iacute;</Link> para ver todas sus
+                                                    operaciones.</p>
                                             </div>
                                         </article>
                                     )}

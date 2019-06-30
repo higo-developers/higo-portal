@@ -23,3 +23,12 @@ export const Routes = {
     PROFILE_VEHICLES_NEW: "/profile/vehicles/new",
     PROFILE_VEHICLES_EDIT: "/profile/vehicles/:id/edit"
 };
+
+export const OperationStates = {
+    APROBADO: "APROBADO",
+    CANCELADO: "CANCELADO",
+    FINALIZADO: "FINALIZADO",
+    PENDIENTE: "PENDIENTE",
+    RECHAZADO: "RECHAZADO",
+    VIGENTE: "VIGENTE"
+};

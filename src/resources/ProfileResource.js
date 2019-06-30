@@ -8,6 +8,9 @@ const ProfileResource = {
     getUserVehicles() {
         const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_PROFILES}/${getLoggedUserId()}${ENDPOINT_VEHICULOS}`;
         return RestClient.executeCall(url);
+    },
+    getUserVehicleById(vehicleId) {
+        return RestClient.executeCall(`${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_PROFILES}/${getLoggedUserId()}${ENDPOINT_VEHICULOS}/${vehicleId}`);
     }
 };
 
