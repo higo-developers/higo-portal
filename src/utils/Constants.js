@@ -20,4 +20,5 @@ export const Routes = {
     VEHICLE_BY_ID_RESERVE: "/vehicles/:id/reserve",
     PROFILE: "/profile",
     PROFILE_VEHICLES: "/profile/vehicles",
+    PROFILE_VEHICLES_ID: "/profile/vehicles/:id/edit"
 };

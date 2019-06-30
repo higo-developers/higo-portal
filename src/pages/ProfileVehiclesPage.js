@@ -61,9 +61,9 @@ export default class ProfileVehiclesPage extends React.Component {
                                     <GoBackButton/>
                                 </div>
                                 <div className="level-item">
-                                    <button onClick={() => {}} className="button is-light">
+                                    <Link className={"button is-light"} to={`/profile/vehicles/new`}>
                                         <i className="fas fa-plus"></i>&nbsp; Nuevo
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </nav>
@@ -93,10 +93,10 @@ export default class ProfileVehiclesPage extends React.Component {
                                             <td>{VehicleStatus[vehicle.estado]}</td>
                                             <td>
                                                 <div className="buttons">
-                                                    <Link className={"button is-light"} to={"/"}>
+                                                    <Link className={"button is-light"} to={`/profile/vehicles/${vehicle.id}/edit`}>
                                                         <span className="icon"><i className="fas fa-edit"></i></span>&nbsp; Editar
                                                     </Link>
-                                                    <Link className={"button is-danger"} to={"/"}>
+                                                    <Link className={"button is-danger"} to={`/profile/vehicles/${vehicle.id}/delete`}>
                                                         <span><i className="fas fa-trash-alt"></i></span>&nbsp;  Eliminar
                                                     </Link>
                                                 </div>
