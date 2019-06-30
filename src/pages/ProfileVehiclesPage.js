@@ -2,7 +2,7 @@ import React from 'react';
 import GoBackButton from "../components/layout/GoBackButton";
 import Loading from "../components/layout/Loading";
 import Error from "../components/layout/Error";
-import UserResource from "../resources/UserResource";
+import ProfileResource from "../resources/ProfileResource";
 import {locationDataAsArray} from "../utils/VehicleSearchUtils";
 import {Link} from "react-router-dom";
 
@@ -32,7 +32,7 @@ export default class ProfileVehiclesPage extends React.Component {
 
     fetchData = async () => {
         try {
-            const data = await UserResource.getUserVehicles();
+            const data = await ProfileResource.getUserVehicles();
             this.setState({loading: false, data: data});
         } catch (error) {
             this.setState({loading: false, error: error});
