@@ -50,19 +50,84 @@ export default class ProfileVehicleFormPage extends React.Component {
                         <div className="container">
                             <form>
                                 <div className="columns is-multiline">
-                                    <div className="column is-full">Informacion general</div>
+                                    <div className="column is-full">
+                                        <p className="subtitle">Informaci&oacute;n general</p>
+                                    </div>
 
-                                    <div className="column is-one-qarter">Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Aliquid, fugiat?
+                                    <div className="column is-one-qarter">
+                                        <div className="field">
+                                            <label className="label">Marca</label>
+                                            <div className="control">
+                                                <div className="select is-fullwidth">
+                                                    <select>
+                                                        <option>Marca</option>
+                                                        <option>Marca 1</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="column is-one-qarter">Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Aliquid, fugiat?
+                                    <div className="column is-one-qarter">
+                                        <div className="field">
+                                            <label className="label">Modelo</label>
+                                            <div className="control">
+                                                <div className="select is-fullwidth">
+                                                    <select>
+                                                        <option>Modelo</option>
+                                                        <option>Modelo 1</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="column is-one-qarter">Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Aliquid, fugiat?
+                                    <div className="column is-one-qarter">
+                                        <div className="field">
+                                            <label className="label">A&ntilde;o</label>
+                                            <div className="control">
+                                                <input className="input" type="text" placeholder="Año"/>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="column is-one-qarter">Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Aliquid, fugiat?
+                                    <div className="column is-one-qarter">
+                                        <div className="field">
+                                            <label className="label">Patente</label>
+                                            <div className="control">
+                                                <input className="input" type="text" placeholder="Patente"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br/> {/*SECCION*/}
+
+                                <div className="columns is-multiline">
+                                    <div className="column is-full">
+                                        <p className="subtitle">Equipamiento</p>
+                                    </div>
+
+                                    <div className="column is-full">
+                                        <div className="field is-grouped is-grouped-multiline">
+                                            <div className="control">
+                                                <label className="checkbox">
+                                                    <input type="checkbox"/> Equipamiento 1
+                                                </label>
+                                            </div>
+                                            <div className="control">
+                                                <label className="checkbox">
+                                                    <input type="checkbox"/> Equipamiento 2
+                                                </label>
+                                            </div>
+                                            <div className="control">
+                                                <label className="checkbox">
+                                                    <input type="checkbox"/> Equipamiento 3
+                                                </label>
+                                            </div>
+                                            <div className="control">
+                                                <label className="checkbox">
+                                                    <input type="checkbox"/> Equipamiento 4
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -71,26 +136,51 @@ export default class ProfileVehicleFormPage extends React.Component {
                                 <div className="columns">
                                     <div className="column is-half">
                                         <div className="columns is-multiline">
-                                            <div className="column is-full">Equipamiento</div>
+                                            <div className="column is-full">
+                                                <p className="subtitle">Combustible</p>
+                                            </div>
 
                                             <div className="column is-full">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-                                                alias amet aspernatur doloremque ducimus earum error eum eveniet, fugit,
-                                                maiores molestiae nulla quae recusandae rem repellendus suscipit
-                                                temporibus, tenetur voluptas!
+                                                <div className="field is-grouped is-grouped-multiline">
+                                                    <div className="control">
+                                                        <label className="radio">
+                                                            <input type="radio" name="combustible"/>&nbsp; Diesel
+                                                        </label>
+                                                    </div>
+                                                    <div className="control">
+                                                        <label className="radio">
+                                                            <input type="radio" name="combustible"/>&nbsp; Nafta
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="column is-half">
                                         <div className="columns is-multiline">
-                                            <div className="column is-full">Combustible</div>
+                                            <div className="column is-full">
+                                                <p className="subtitle">Cilindrada</p>
+                                            </div>
 
                                             <div className="column is-full">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
-                                                alias amet aspernatur doloremque ducimus earum error eum eveniet, fugit,
-                                                maiores molestiae nulla quae recusandae rem repellendus suscipit
-                                                temporibus, tenetur voluptas!
+                                                <div className="field is-grouped is-grouped-multiline">
+                                                    <div className="control">
+                                                        <label className="radio">
+                                                            <input type="radio" name="cilindrada"/>&nbsp; 1.4
+                                                        </label>
+                                                    </div>
+                                                    <div className="control">
+                                                        <label className="radio">
+                                                            <input type="radio" name="cilindrada"/>&nbsp; 1.6
+                                                        </label>
+                                                    </div>
+                                                    <div className="control">
+                                                        <label className="radio">
+                                                            <input type="radio" name="cilindrada"/>&nbsp; 2.0
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -99,22 +189,16 @@ export default class ProfileVehicleFormPage extends React.Component {
                                 <br/> {/*SECCION*/}
 
                                 <div className="columns is-multiline">
-                                    <div className="column is-full">Equipamiento</div>
-
                                     <div className="column is-full">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam assumenda
-                                        dolore facere, odit quia velit voluptatem voluptates. Consectetur cumque dolor
-                                        dolore dolores ducimus esse explicabo illum incidunt ipsa ipsam laboriosam
-                                        necessitatibus nobis non officiis omnis praesentium provident quas quis
-                                        reprehenderit saepe sed sit, tenetur, vel voluptas voluptatibus? Quia,
-                                        repudiandae vitae.
+                                        <div className="field is-grouped">
+                                            <div className="control">
+                                                <button className="button is-dark">
+                                                    <span className="icon"><i className="fas fa-check"/></span>
+                                                    <span>Guardar</span>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <br/> {/*SECCION*/}
-
-                                <div className="columns is-multiline">
-                                    <div className="column is-full">Botones</div>
                                 </div>
                             </form>
                         </div>

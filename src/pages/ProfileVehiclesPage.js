@@ -61,7 +61,7 @@ export default class ProfileVehiclesPage extends React.Component {
                                     <GoBackButton/>
                                 </div>
                                 <div className="level-item">
-                                    <Link className={"button is-light"} to={`/profile/vehicles/new`}>
+                                    <Link className={"button is-dark"} to={`/profile/vehicles/new`}>
                                         <i className="fas fa-plus"></i>&nbsp; Nuevo
                                     </Link>
                                 </div>
