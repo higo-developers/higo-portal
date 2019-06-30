@@ -3,6 +3,16 @@ import GoBackButton from "../components/layout/GoBackButton";
 import Loading from "../components/layout/Loading";
 import Error from "../components/layout/Error";
 import UserResource from "../resources/UserResource";
+import {locationDataAsArray} from "../utils/VehicleSearchUtils";
+import {Link} from "react-router-dom";
+
+const VehicleStatus = {
+    ACTIVO: <span className="tag is-success is-medium"><span className="icon"><i className="fas fa-check"></i></span>&nbsp; Actiivo</span>,
+    INACTIVO: <span className="tag is-info is-medium"><span className="icon"><i className="fas fa-hourglass-half"></i></span>&nbsp; Pendiente</span>,
+    PENDIENTE: <span className="tag is-danger is-medium"><span className="icon"><i className="fas fa-times"></i></span>&nbsp; Inactivo</span>
+};
+
+const LOCATION_SEPARATOR = ", ";
 
 export default class ProfileVehiclesPage extends React.Component {
 
@@ -62,7 +72,41 @@ export default class ProfileVehiclesPage extends React.Component {
 
                 <section className="section">
                     <div className="container">
-                        {this.state.data.length ? "Hay data" : noResults}
+                        {this.state.data.length ? (
+                            <table className="table is-striped is-fullwidth">
+                                <thead>
+                                    <tr>
+                                        <th>Marca</th>
+                                        <th>Modelo</th>
+                                        <th>Ubicaci&oacute;n</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                {this.state.data.map(vehicle => {
+                                    return (
+                                        <tbody key={vehicle.id}>
+                                        <tr>
+                                            <td>{vehicle.marca}</td>
+                                            <td>{vehicle.modelo}</td>
+                                            <td>{locationDataAsArray(vehicle.locacion).join(LOCATION_SEPARATOR)}</td>
+                                            <td>{VehicleStatus[vehicle.estado]}</td>
+                                            <td>
+                                                <div className="buttons">
+                                                    <Link className={"button is-light"} to={"/"}>
+                                                        <span className="icon"><i className="fas fa-edit"></i></span>&nbsp; Editar
+                                                    </Link>
+                                                    <Link className={"button is-danger"} to={"/"}>
+                                                        <span><i className="fas fa-trash-alt"></i></span>&nbsp;  Eliminar
+                                                    </Link>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    )
+                                })}
+                            </table>
+                        ) : noResults}
                     </div>
                 </section>
             </React.Fragment>
