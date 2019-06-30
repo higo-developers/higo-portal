@@ -1,5 +1,6 @@
 import React from 'react';
 import UserRegisterResource from "../resources/UserRegisterResource";
+import { Routes} from "../utils/Constants";
 import { isNotNullOrUndefined } from "../utils/Utils";
 
 export default class LoginPage extends React.Component {
@@ -28,6 +29,7 @@ export default class LoginPage extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
+        console.log(this.props);
     }
 
     componentWillUnmount() {
@@ -37,7 +39,7 @@ export default class LoginPage extends React.Component {
     handleChange = (event) => {
         const {name, value} = event.target;
         
-        if (event.target.name == "passwordConfirm") {
+        if (event.target.name === "passwordConfirm") {
             this.setState({
                 validData:{
                     ...this.state.validData,
@@ -60,10 +62,11 @@ export default class LoginPage extends React.Component {
         this.setState({"loading": true, "error": undefined})
 
         try {
+            debugger;;
             let response = await UserRegisterResource.createUser(this.state.formData);
-
             if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
             this._isMounted && this.setState({"loading": false, "error": undefined});
+            this.props.history.push(Routes.BASE);
         } catch (e) {
             this.setState({"loading": false, "error": e});
         }
@@ -73,7 +76,7 @@ export default class LoginPage extends React.Component {
         if (!this.state.formData.email || !this.state.formData.password || !this.state.formData.nombre || !this.state.formData.apellido) {
             return true;
         }
-        if (this.state.formData.password != this.state.validData.passwordConfirm) {
+        if (this.state.formData.password !== this.state.validData.passwordConfirm) {
             return true
         }
         return false;
