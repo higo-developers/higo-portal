@@ -4,6 +4,8 @@ import ProfileResource from "../resources/ProfileResource";
 import {ProfileVehicle} from "../models/DTO";
 import BrandResource from "../resources/BrandResource";
 import OptionsResource from "../resources/OptionsResource";
+import {Routes} from "../utils/Constants";
+import {isNotNullOrUndefined} from "../utils/Utils";
 
 const TITLE_EDIT_VEHICLE = "Editar vehículo";
 const TITLE_NEW_VEHICLE = "Nuevo vehículo";
@@ -15,6 +17,8 @@ export default class ProfileVehicleFormPage extends React.Component {
         super(props);
 
         this.state = {
+            loading: false,
+            error: null,
             title: "",
             vehicle: null,
             brands: [],
@@ -127,13 +131,22 @@ export default class ProfileVehicleFormPage extends React.Component {
         });
     };
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(this.state.vehicle);
+        this.setState({loading: true, error: null});
+
+        try {
+            const response = await ProfileResource.saveVehicle(this.state.vehicle);
+
+            if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
+
+            this.props.history.push(Routes.PROFILE_VEHICLES);
+        } catch (error) {
+            this.setState({loading: false, error: error});
+        }
     };
 
     render() {
-        // this.state.vehicle && console.log(this.state.vehicle);
         return (
             <React.Fragment>
                 <section className="section padding-bottom-0">
@@ -166,9 +179,7 @@ export default class ProfileVehicleFormPage extends React.Component {
                                                 <label className="label">Marca</label>
                                                 <div className="control">
                                                     <div className="select is-fullwidth">
-                                                        <select name="marca" disabled={this.state.brands.length < 1}
-                                                                value={this.state.vehicle.marca}
-                                                                onChange={this.handleBrandChange}>
+                                                        <select name="marca" disabled={this.state.brands.length < 1} value={this.state.vehicle.marca} onChange={this.handleBrandChange}>
                                                             {this.state.brands.length > 0 && this.state.brands.map((brand) => {
                                                                 return (
                                                                     <option key={brand.id}
@@ -185,9 +196,8 @@ export default class ProfileVehicleFormPage extends React.Component {
                                                 <label className="label">Modelo</label>
                                                 <div className="control">
                                                     <div className="select is-fullwidth">
-                                                        <select name="modelo" disabled={this.state.models.length < 1}
-                                                                value={this.state.vehicle.modelo}
-                                                                onChange={this.handleChange}>
+                                                        <select name="modelo" disabled={this.state.models.length < 1} value={this.state.vehicle.modelo} onChange={this.handleChange}>
+                                                            <option>Seleccione un modelo</option>
                                                             {this.state.models.length > 0 && this.state.models.map((model) => {
                                                                 return (
                                                                     <option key={model.id}
@@ -203,9 +213,7 @@ export default class ProfileVehicleFormPage extends React.Component {
                                             <div className="field">
                                                 <label className="label">A&ntilde;o</label>
                                                 <div className="control">
-                                                    <input name="anno" className="input" type="text" placeholder="Año"
-                                                           onChange={this.handleChange}
-                                                           value={this.state.vehicle.anno}/>
+                                                    <input name="anno" className="input" type="text" placeholder="Año" onChange={this.handleChange} value={this.state.vehicle.anno}/>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,10 +221,7 @@ export default class ProfileVehicleFormPage extends React.Component {
                                             <div className="field">
                                                 <label className="label">Patente</label>
                                                 <div className="control">
-                                                    <input name="patente" className="input" type="text"
-                                                           placeholder="Patente" disabled={this.state.vehicle.patente}
-                                                           onChange={this.handleChange}
-                                                           value={this.state.vehicle.patente}/>
+                                                    <input name="patente" className="input" type="text" placeholder="Patente" onChange={this.handleChange} value={this.state.vehicle.patente}/>
                                                 </div>
                                             </div>
                                         </div>
@@ -235,108 +240,68 @@ export default class ProfileVehicleFormPage extends React.Component {
                                                     <div className="field is-grouped-multiline">
                                                         <div className="control">
                                                             <label className="checkbox">
-                                                                <input name="abs" type="checkbox"
-                                                                       onChange={this.handleChange}
-                                                                       checked={this.state.vehicle.abs}
-                                                                       value={this.state.vehicle.abs}/> ABS
+                                                                <input name="abs" type="checkbox" onChange={this.handleChange} checked={this.state.vehicle.abs} value={this.state.vehicle.abs}/> ABS
                                                             </label>
                                                         </div>
 
                                                         <div className="control">
                                                             <label className="checkbox">
-                                                                <input name="ac" type="checkbox"
-                                                                       onChange={this.handleChange}
-                                                                       checked={this.state.vehicle.ac}
-                                                                       value={this.state.vehicle.ac}/> Aire
+                                                                <input name="ac" type="checkbox" onChange={this.handleChange} checked={this.state.vehicle.ac} value={this.state.vehicle.ac}/> Aire
                                                                 acondicionado
                                                             </label>
                                                         </div>
 
                                                         <div className="control">
                                                             <label className="checkbox">
-                                                                <input name="airbag" type="checkbox"
-                                                                       onChange={this.handleChange}
-                                                                       checked={this.state.vehicle.airbag}
-                                                                       value={this.state.vehicle.airbag}/> Airbag
+                                                                <input name="airbag" type="checkbox" onChange={this.handleChange} checked={this.state.vehicle.airbag} value={this.state.vehicle.airbag}/> Airbag
                                                             </label>
                                                         </div>
 
                                                         <div className="control">
                                                             <label className="checkbox">
-                                                                <input name="alarma" type="checkbox"
-                                                                       onChange={this.handleChange}
-                                                                       checked={this.state.vehicle.alarma}
-                                                                       value={this.state.vehicle.alarma}/> Alarma
+                                                                <input name="alarma" type="checkbox" onChange={this.handleChange} checked={this.state.vehicle.alarma} value={this.state.vehicle.alarma}/> Alarma
                                                             </label>
                                                         </div>
 
                                                         <div className="control">
                                                             <label className="checkbox">
-                                                                <input name="cierreCentralizado" type="checkbox"
-                                                                       onChange={this.handleChange}
-                                                                       checked={this.state.vehicle.cierreCentralizado}
-                                                                       value={this.state.vehicle.cierreCentralizado}/> Cierre
-                                                                centralizado
+                                                                <input name="cierreCentralizado" type="checkbox" onChange={this.handleChange} checked={this.state.vehicle.cierreCentralizado} value={this.state.vehicle.cierreCentralizado}/> Cierre centralizado
                                                             </label>
                                                         </div>
 
                                                         <div className="control">
                                                             <label className="checkbox">
-                                                                <input name="controlTraccion" type="checkbox"
-                                                                       onChange={this.handleChange}
-                                                                       checked={this.state.vehicle.controlTraccion}
-                                                                       value={this.state.vehicle.controlTraccion}/> Control
-                                                                de tracción
+                                                                <input name="controlTraccion" type="checkbox" onChange={this.handleChange} checked={this.state.vehicle.controlTraccion} value={this.state.vehicle.controlTraccion}/> Control de tracción
                                                             </label>
                                                         </div>
 
                                                         <div className="control">
                                                             <label className="checkbox">
-                                                                <input name="da" type="checkbox"
-                                                                       onChange={this.handleChange}
-                                                                       checked={this.state.vehicle.da}
-                                                                       value={this.state.vehicle.da}/> Dirección
-                                                                asistida
+                                                                <input name="da" type="checkbox" onChange={this.handleChange} checked={this.state.vehicle.da} value={this.state.vehicle.da}/> Dirección asistida
                                                             </label>
                                                         </div>
 
                                                         <div className="control">
                                                             <label className="checkbox">
-                                                                <input name="dh" type="checkbox"
-                                                                       onChange={this.handleChange}
-                                                                       checked={this.state.vehicle.dh}
-                                                                       value={this.state.vehicle.dh}/> Dirección
-                                                                hidraulica
+                                                                <input name="dh" type="checkbox" onChange={this.handleChange} checked={this.state.vehicle.dh} value={this.state.vehicle.dh}/> Dirección hidraulica
                                                             </label>
                                                         </div>
 
                                                         <div className="control">
                                                             <label className="checkbox">
-                                                                <input name="rompenieblasDelantero" type="checkbox"
-                                                                       onChange={this.handleChange}
-                                                                       checked={this.state.vehicle.rompenieblasDelantero}
-                                                                       value={this.state.vehicle.rompenieblasDelantero}/> Rompenieblas
-                                                                delantero
+                                                                <input name="rompenieblasDelantero" type="checkbox" onChange={this.handleChange} checked={this.state.vehicle.rompenieblasDelantero} value={this.state.vehicle.rompenieblasDelantero}/> Rompenieblas delantero
                                                             </label>
                                                         </div>
 
                                                         <div className="control">
                                                             <label className="checkbox">
-                                                                <input name="rompenieblasTrasero" type="checkbox"
-                                                                       onChange={this.handleChange}
-                                                                       checked={this.state.vehicle.rompenieblasTrasero}
-                                                                       value={this.state.vehicle.rompenieblasTrasero}/> Rompenieblas
-                                                                trasero
+                                                                <input name="rompenieblasTrasero" type="checkbox" onChange={this.handleChange} checked={this.state.vehicle.rompenieblasTrasero} value={this.state.vehicle.rompenieblasTrasero}/> Rompenieblas trasero
                                                             </label>
                                                         </div>
 
                                                         <div className="control">
                                                             <label className="checkbox">
-                                                                <input name="tapizadoCuero" type="checkbox"
-                                                                       onChange={this.handleChange}
-                                                                       checked={this.state.vehicle.tapizadoCuero}
-                                                                       value={this.state.vehicle.tapizadoCuero}/> Tapizado
-                                                                de cuero
+                                                                <input name="tapizadoCuero" type="checkbox" onChange={this.handleChange} checked={this.state.vehicle.tapizadoCuero} value={this.state.vehicle.tapizadoCuero}/> Tapizado de cuero
                                                             </label>
                                                         </div>
                                                     </div>
@@ -384,10 +349,7 @@ export default class ProfileVehicleFormPage extends React.Component {
                                                                 return (
                                                                     <div className="control" key={fuel.codigo}>
                                                                         <label className="radio">
-                                                                            <input type="radio" name="combustible"
-                                                                                   checked={fuel.codigo == this.state.vehicle.combustible}
-                                                                                   onChange={this.handleChange}
-                                                                                   value={fuel.codigo}/>&nbsp; {fuel.descripcion}
+                                                                            <input type="radio" name="combustible" checked={fuel.codigo == this.state.vehicle.combustible} onChange={this.handleChange} value={fuel.codigo}/>&nbsp; {fuel.descripcion}
                                                                         </label>
                                                                     </div>
                                                                 )
@@ -399,13 +361,21 @@ export default class ProfileVehicleFormPage extends React.Component {
                                         )}
                                     </div>
 
-                                    <br/>
+                                    {this.state.error && (
+                                        <div className="columns">
+                                            <div className="column is-full">
+                                                <article className="message is-danger">
+                                                    <div className="message-body">{this.state.error.message}</div>
+                                                </article>
+                                            </div>
+                                        </div>
+                                    )}
 
                                     <div className="columns is-multiline">
                                         <div className="column is-full">
                                             <div className="field is-grouped">
                                                 <div className="control">
-                                                    <button type="submit" className="button is-dark">
+                                                    <button type="submit" className={`button is-dark ${this.state.loading && 'is-loading'}`}>
                                                         <span className="icon"><i className="fas fa-check"/></span>
                                                         <span>Guardar</span>
                                                     </button>
