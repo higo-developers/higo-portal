@@ -3,11 +3,11 @@ import {ContentType, HttpMethods} from "../utils/Constants";
 import {getLoggedUserId} from "../utils/AuthenticationUtils";
 import {OperationRequest} from "../models/DTO";
 
-const ENDPOINT_OPERACIONES = "/operaciones";
+const ENDPOINT_OPERATIONS= "/operaciones";
 
 const OperationResource = {
     create(details) {
-        const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_OPERACIONES}`;
+        const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_OPERATIONS}`;
 
         const request = new OperationRequest(details.fechaDesde, details.fechaHasta, getLoggedUserId(), details.vehicle.id, null);
 
