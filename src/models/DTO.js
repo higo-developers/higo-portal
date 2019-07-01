@@ -10,7 +10,7 @@ export class OperationRequest {
 
 export class ProfileVehicle {
     constructor() {
-        this.id = undefined;
+        this.id = null;
         this.modelo = "";
         this.estado = "";
         this.combustible = "";
