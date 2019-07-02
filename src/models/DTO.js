@@ -12,9 +12,7 @@ export class ProfileVehicle {
     constructor() {
         this.id = "";
         this.modelo = "";
-        this.estado = "";
         this.combustible = "";
-        this.tipo = "";
         this.cilindrada = "";
         this.anno = "";
         this.ac = false;

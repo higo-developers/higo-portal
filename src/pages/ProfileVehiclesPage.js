@@ -8,8 +8,8 @@ import {Link} from "react-router-dom";
 
 const VehicleStatus = {
     ACTIVO: <span className="tag is-success is-medium"><span className="icon"><i className="fas fa-check"></i></span>&nbsp; Actiivo</span>,
-    INACTIVO: <span className="tag is-info is-medium"><span className="icon"><i className="fas fa-hourglass-half"></i></span>&nbsp; Pendiente</span>,
-    PENDIENTE: <span className="tag is-danger is-medium"><span className="icon"><i className="fas fa-times"></i></span>&nbsp; Inactivo</span>
+    INACTIVO: <span className="tag is-danger is-medium"><span className="icon"><i className="fas fa-times"></i></span>&nbsp; Inactivo</span>,
+    PENDIENTE: <span className="tag is-info is-medium"><span className="icon"><i className="fas fa-hourglass-half"></i></span>&nbsp; Pendiente</span>
 };
 
 const LOCATION_SEPARATOR = " - ";
