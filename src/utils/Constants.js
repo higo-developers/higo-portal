@@ -32,3 +32,10 @@ export const OperationStates = {
     RECHAZADO: "RECHAZADO",
     VIGENTE: "VIGENTE"
 };
+
+export const VehicleStates = {
+    ACTIVO: "ACTIVO",
+    INACTIVO: "INACTIVO",
+    PENDIENTE: "PENDIENTE",
+    ELIMINADO: "ELIMINADO"
+};
