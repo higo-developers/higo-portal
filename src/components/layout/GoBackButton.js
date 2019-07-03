@@ -3,7 +3,7 @@ import {withRouter} from "react-router-dom";
 
 const GoBackButton = withRouter(
     ({history}) => {
-        return <button onClick={() => history.goBack()} className="button is-dark">
+        return <button onClick={() => history.goBack()} className="button is-light">
             <i className="fas fa-arrow-left"></i>&nbsp; Volver
         </button>
     }

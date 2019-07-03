@@ -25,9 +25,8 @@ export default function Modal({children, closeModal, modalState, title, confirmC
                     </button>
 
                     {confirmCallback && (
-                        <button className="button is-success" onClick={() => {
+                        <button className="button is-dark" onClick={() => {
                             confirmCallback();
-                            closeModal();
                         }}>
                             <span className="icon"><i className="fas fa-check"></i></span>
                             <span>Confirmar</span>
