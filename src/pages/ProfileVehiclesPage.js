@@ -5,6 +5,7 @@ import Error from "../components/layout/Error";
 import ProfileResource from "../resources/ProfileResource";
 import {locationDataAsArray} from "../utils/VehicleSearchUtils";
 import {Link} from "react-router-dom";
+import Modal from "../components/layout/Modal";
 
 const VehicleStatus = {
     ACTIVO: <span className="tag is-success is-medium"><span className="icon"><i className="fas fa-check"></i></span>&nbsp; Actiivo</span>,
@@ -13,6 +14,7 @@ const VehicleStatus = {
 };
 
 const LOCATION_SEPARATOR = " - ";
+const CONFIRM_VEHICLE_DELETE_MODAL_TITLE = "¿Eliminar vehículo?";
 
 export default class ProfileVehiclesPage extends React.Component {
 
@@ -20,10 +22,14 @@ export default class ProfileVehiclesPage extends React.Component {
         super(props);
 
         this.state = {
+            deleteModalIsOpen: false,
             loading: true,
             error: null,
             data: []
-        }
+        };
+
+        this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
+        this.handleVehicleDelete = this.handleVehicleDelete.bind(this);
     }
 
     componentDidMount() {
@@ -36,6 +42,22 @@ export default class ProfileVehiclesPage extends React.Component {
             this.setState({loading: false, data: data});
         } catch (error) {
             this.setState({loading: false, error: error});
+        }
+    };
+
+    toggleDeleteModal = () => {
+        this.setState((prev, props) => {
+            const isOpen = !prev.deleteModalIsOpen;
+            return {deleteModalIsOpen: isOpen};
+        });
+    };
+
+    handleVehicleDelete = async (vehicleId) => {
+        try {
+            await ProfileResource.deleteVehicle(vehicleId);
+            window.location.reload();
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -97,9 +119,17 @@ export default class ProfileVehiclesPage extends React.Component {
                                                         <span className="icon"><i className="fas fa-edit"></i></span>&nbsp; Editar
                                                     </Link>
 
-                                                    <Link className={"button is-danger"} to={`/profile/vehicles/${vehicle.id}/delete`}>
+                                                    <button className="button is-danger" onClick={this.toggleDeleteModal}>
                                                         <span><i className="fas fa-trash-alt"></i></span>&nbsp;  Eliminar
-                                                    </Link>
+                                                    </button>
+
+                                                    <Modal closeModal={this.toggleDeleteModal}
+                                                           modalState={this.state.deleteModalIsOpen}
+                                                           title={CONFIRM_VEHICLE_DELETE_MODAL_TITLE}
+                                                           confirmCallback={() => {this.handleVehicleDelete(vehicle.id)}}
+                                                    >
+                                                        <p>Est&aacute; por eliminar su <strong>{vehicle.marca} {vehicle.modelo}</strong></p>
+                                                    </Modal>
                                                 </div>
                                             </td>
                                         </tr>

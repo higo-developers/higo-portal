@@ -50,12 +50,8 @@ const ProfileResource = {
     deleteVehicle(profileVehicleId) {
         const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_PROFILES}/${getLoggedUserId()}${ENDPOINT_VEHICLES}/${profileVehicleId}`;
         const options = {
-            method: HttpMethods.DELETE,
-            headers: {
-                'Content-Type': ContentType.APPLICATION_JSON
-            }
+            method: HttpMethods.DELETE
         };
-
         return RestClient.executeCall(url, options);
     }
 };

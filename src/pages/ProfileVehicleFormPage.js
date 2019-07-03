@@ -221,7 +221,7 @@ export default class ProfileVehicleFormPage extends React.Component {
                                             <div className="field">
                                                 <label className="label">Patente</label>
                                                 <div className="control">
-                                                    <input name="patente" className="input" type="text" placeholder="Patente" onChange={this.handleChange} value={this.state.vehicle.patente}/>
+                                                    <input name="patente" className="input" type="text" placeholder="Patente" onChange={this.handleChange} value={this.state.vehicle.patente.toUpperCase()}/>
                                                 </div>
                                             </div>
                                         </div>
