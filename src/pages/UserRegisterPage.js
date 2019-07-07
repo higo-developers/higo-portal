@@ -32,6 +32,7 @@ export default class UserRegister extends React.Component {
     }
 
     componentWillUnmount() {
+        
         this._isMounted = false;
     }
 

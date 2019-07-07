@@ -1,16 +1,33 @@
 import RestClient from "../utils/RestClient";
+import {getLoggedUserId} from "../utils/AuthenticationUtils";
+import {ContentType, HttpMethods} from "../utils/Constants";
+// import { request } from "https";
 
-const ENDPOINT_LOGIN = "/usuario";
+
+const ENDPOINT_USER = "/usuario";
 
 const LoginResource = {
     createUser(requestBody) {
-        const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_LOGIN}`;
+        const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_USER}`;
 
         const options = {
             method: 'POST',
             body: JSON.stringify(requestBody),
             headers: {
                 'Content-Type': 'application/json'
+            }
+        };
+
+        return RestClient.executeCall(url, options);
+    },
+
+    editUser(requestBody) {
+        const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_USER}/${getLoggedUserId()}`;
+        const options = {
+            method: HttpMethods.PUT,
+            body: JSON.stringify(requestBody),
+            headers: {
+                'Content-Type': ContentType.APPLICATION_JSON
             }
         };
 

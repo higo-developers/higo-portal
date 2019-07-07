@@ -1,7 +1,4 @@
 import React from 'react';
-import UserRegisterResource from "../../resources/UserRegisterResource";
-import { Routes} from "../../utils/Constants";
-import { isNotNullOrUndefined } from "../../utils/Utils";
 
 export default class UserForm extends React.Component {
 
@@ -27,17 +24,7 @@ export default class UserForm extends React.Component {
             
         };
 
-        this._isMounted = false;
     }
-    componentDidMount() {
-        this._isMounted = true;
-        console.log(this.props);
-    }
-
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
-
     handleChange = (event) => {
         const {name, value} = event.target;
             
@@ -61,17 +48,8 @@ export default class UserForm extends React.Component {
 
     handleClick = async (event) => {
         event.preventDefault();
-        this.props.onUserSave(this.state.formData);
-        // this.setState({"loading": true, "error": undefined})
-
-        // try {
-        //     let response = await UserRegisterResource.createUser(this.state.formData);
-        //     if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
-        //     this._isMounted && this.setState({"loading": false, "error": undefined});
-        //     this.props.history.push(Routes.BASE);
-        // } catch (e) {
-        //     this.setState({"loading": false, "error": e});
-        // }
+        
+        this.props.onUserSave(this.state);
     };
 
     invalidForm = () => {
@@ -147,9 +125,9 @@ export default class UserForm extends React.Component {
                     </div>
 
                     {
-                        this.state.error && (
+                        this.props.message && (
                             <article className="message is-danger">
-                                <div className="message-body">{this.state.error.message}</div>
+                                <div className="message-body">{this.props.message}</div>
                             </article>
                         )
                     }
@@ -159,12 +137,12 @@ export default class UserForm extends React.Component {
                             <button
                                 className={`button is-dark is-fullwidth is-medium ${this.state.loading && 'is-loading'}`}
                                 onClick={this.handleClick}
-                                disabled={this.invalidForm()}>Registrarse
+                                disabled={this.invalidForm()}>{this.props.actionForm}
                             </button>
                         </div>
                     </div>
                 </form>
             </React.Fragment>
-        );
-    }
+            );
+        }
 }
