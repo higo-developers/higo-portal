@@ -104,6 +104,8 @@ export default class LoginPage extends React.Component {
                                                         disabled={this.invalidForm()}>Confirmar
                                                     </button>
 
+                                                    <br/>
+
                                                     <FacebookLoginButton/>
                                                 </div>
                                             </div>
