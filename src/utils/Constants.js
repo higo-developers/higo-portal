@@ -39,3 +39,8 @@ export const VehicleStates = {
     PENDIENTE: "PENDIENTE",
     ELIMINADO: "ELIMINADO"
 };
+
+export const UserOrigin = {
+    PORTAL: "PORTAL",
+    FACEBOOK: "FACEBOOK"
+};

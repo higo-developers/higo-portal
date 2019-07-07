@@ -1,5 +1,7 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
+import UserResource from "../../resources/UserResource";
+import {isNotNullOrUndefined} from "../../utils/Utils";
 
 const fields = [
     "id",
@@ -18,11 +20,23 @@ export default class FacebookLoginButton extends React.Component {
     constructor(props) {
         super(props);
 
-        this.responseFacebook = this.responseFacebook.bind(this);
+        this.facebookCallback = this.facebookCallback.bind(this);
     }
 
-    responseFacebook = (response) => {
-        console.log(response);
+    facebookCallback = async (fbResponse) => {
+        console.log(fbResponse);
+
+        try {
+
+            const apiResponse = await UserResource.getByEmailFromFacebook(fbResponse.email);
+
+            isNotNullOrUndefined(apiResponse.errorCode)
+                ? console.log("Redirigir a pantalla para completar datos")
+                : console.log("Hacer login");
+
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     render() {
@@ -31,7 +45,7 @@ export default class FacebookLoginButton extends React.Component {
                 <FacebookLogin
                     appId={process.env.REACT_APP_FACEBOOK_APP_ID}
                     fields={fields.join(fieldsSeparator)}
-                    callback={this.responseFacebook}
+                    callback={this.facebookCallback}
                     cssClass="button is-link is-fullwidth is-medium"
                     textButton="&nbsp; Ingresar con Facebook"
                     icon="fab fa-facebook-square"
