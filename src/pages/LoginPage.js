@@ -2,6 +2,7 @@ import React from 'react';
 import LoginResource from "../resources/LoginResource";
 import {isNotNullOrUndefined} from "../utils/Utils";
 import {login} from "../utils/AuthenticationUtils";
+import FacebookLoginButton from "../components/authentication/FacebookLoginButton";
 
 export default class LoginPage extends React.Component {
     constructor(props) {
@@ -102,6 +103,8 @@ export default class LoginPage extends React.Component {
                                                         onClick={this.handleClick}
                                                         disabled={this.invalidForm()}>Confirmar
                                                     </button>
+
+                                                    <FacebookLoginButton/>
                                                 </div>
                                             </div>
                                         </form>
