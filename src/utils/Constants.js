@@ -12,7 +12,7 @@ export const HttpMethods = {
 export const Routes = {
     BASE: "/",
     LOGIN: "/login",
-    OPERATIONS: "/operaciones",
+    OPERATIONS: "/operations",
     SEARCH: "/search",
     SEARCH_BY_MAP: "/search/map",
     VEHICLES: "/vehicles",
@@ -23,7 +23,8 @@ export const Routes = {
     PROFILE: "/profile",
     PROFILE_VEHICLES: "/profile/vehicles",
     PROFILE_VEHICLES_NEW: "/profile/vehicles/new",
-    PROFILE_VEHICLES_EDIT: "/profile/vehicles/:id/edit"
+    PROFILE_VEHICLES_EDIT: "/profile/vehicles/:id/edit",
+    COMPLETE_USER_DATA: "/complete-login"
 };
 
 export const OperationStates = {
@@ -40,4 +41,9 @@ export const VehicleStates = {
     INACTIVO: "INACTIVO",
     PENDIENTE: "PENDIENTE",
     ELIMINADO: "ELIMINADO"
+};
+
+export const UserOrigin = {
+    PORTAL: "PORTAL",
+    FACEBOOK: "FACEBOOK"
 };

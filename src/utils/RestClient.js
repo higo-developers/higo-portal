@@ -1,4 +1,4 @@
-const GENERIC_ERROR_MESSAGE = "Ocurrió un error. Intente más tarde";
+const GENERIC_ERROR_MESSAGE = "Ocurrió un error. Intente más tarde.";
 
 const RestClient = {
     async executeCall(url, options) {

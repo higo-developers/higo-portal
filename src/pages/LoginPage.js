@@ -2,6 +2,9 @@ import React from 'react';
 import LoginResource from "../resources/LoginResource";
 import {isNotNullOrUndefined} from "../utils/Utils";
 import {login} from "../utils/AuthenticationUtils";
+import FacebookLoginButton from "../components/authentication/FacebookLoginButton";
+import UserResource from "../resources/UserResource";
+import {Routes} from "../utils/Constants";
 
 export default class LoginPage extends React.Component {
     constructor(props) {
@@ -17,6 +20,9 @@ export default class LoginPage extends React.Component {
         };
 
         this._isMounted = false;
+
+        this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
+        this.toCompleteUserData = this.toCompleteUserData.bind(this);
     }
 
     componentDidMount() {
@@ -38,12 +44,44 @@ export default class LoginPage extends React.Component {
         });
     };
 
+    handleFacebookLogin = async (fbResponse) => {
+        try {
+            const apiResponse = await UserResource.getByEmailFromFacebook(fbResponse.email);
+
+            isNotNullOrUndefined(apiResponse.errorCode)
+                ? this.toCompleteUserData(fbResponse)
+                : this.doLogin({email: apiResponse.email, password: apiResponse.password});
+
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    toCompleteUserData = (fbResponse) => {
+        const userData = {
+            nombre: fbResponse.first_name,
+            apellido: fbResponse.last_name,
+            email: fbResponse.email,
+            password: fbResponse.id,
+            telefono: "",
+            dni: ""
+        };
+
+        this.props.history.push({pathname: Routes.COMPLETE_USER_DATA, state: userData});
+    };
+
     handleClick = async (event) => {
         event.preventDefault();
         this.setState({loading: true, error: undefined});
 
+        const loginRequest= this.state.formData;
+
+        await this.doLogin(loginRequest);
+    };
+
+    doLogin = async (loginRequest) => {
         try {
-            let response = await LoginResource.doLogin(this.state.formData);
+            let response = await LoginResource.doLogin(loginRequest);
 
             if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
 
@@ -62,7 +100,7 @@ export default class LoginPage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <section className="hero is-light is-bold is-fullheight-with-navbar">
+                <section className="hero is-light is-fullheight-with-navbar">
                     <div className="hero-body">
                         <div className="container">
                             <div className="columns is-centered">
@@ -102,6 +140,10 @@ export default class LoginPage extends React.Component {
                                                         onClick={this.handleClick}
                                                         disabled={this.invalidForm()}>Confirmar
                                                     </button>
+
+                                                    <br/>
+
+                                                    <FacebookLoginButton handleLogin={this.handleFacebookLogin} />
                                                 </div>
                                             </div>
                                         </form>

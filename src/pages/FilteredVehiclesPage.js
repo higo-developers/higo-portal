@@ -1,12 +1,11 @@
 import React from 'react';
-import {decodeSearchParams, locationDataAsArray} from "../utils/VehicleSearchUtils";
+import {decodeSearchParams} from "../utils/VehicleSearchUtils";
 import VehicleResource from "../resources/VehicleResource";
 import VehicleThumbnailList from "../components/vehicle/VehicleThumbnailList";
 import Loading from "../components/layout/Loading";
 import Error from "../components/layout/Error";
 import GoBackButton from "../components/layout/GoBackButton";
-
-const SEARCH_KEY = "search";
+import {locationDataAsArray} from "../utils/LocationUtils";
 
 export default class FilteredVehiclesPage extends React.Component {
 
@@ -22,8 +21,7 @@ export default class FilteredVehiclesPage extends React.Component {
     }
 
     componentDidMount() {
-        this.encodedSearch = new URLSearchParams(this.props.location.search).get(SEARCH_KEY);
-        const search = decodeSearchParams(this.encodedSearch);
+        const search = decodeSearchParams(this.props.history.location.state.encodedSearch);
         this.setState(
             {
                 vehicleDateTimes: {
