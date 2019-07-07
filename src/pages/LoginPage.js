@@ -50,7 +50,7 @@ export default class LoginPage extends React.Component {
 
             isNotNullOrUndefined(apiResponse.errorCode)
                 ? this.toCompleteUserData(fbResponse)
-                : console.log("Hacer login");
+                : this.doLogin({email: apiResponse.email, password: apiResponse.password});
 
         } catch (error) {
             console.log(error);

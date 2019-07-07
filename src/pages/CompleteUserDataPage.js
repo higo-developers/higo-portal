@@ -17,10 +17,20 @@ export default class CompleteUserDataPage extends React.Component {
             userData: this.props.history.location.state
         };
 
+        this._isMounted = false;
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onChangeQuery = this.onChangeQuery.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.submitButtonIsDisabled = this.submitButtonIsDisabled.bind(this);
+    }
+
+    componentDidMount() {
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     onChangeQuery = (locationData) => {
@@ -57,7 +67,7 @@ export default class CompleteUserDataPage extends React.Component {
 
         try {
             const response = await UserResource.saveUserFromFacebook(this.state.userData);
-            this.doLogin({email: response.email, password: response.password});
+            this._isMounted && this.doLogin({email: response.email, password: response.password});
         } catch (error) {
             this.setState({loading: false, error: error});
         }
@@ -66,9 +76,12 @@ export default class CompleteUserDataPage extends React.Component {
     doLogin = async (loginRequest) => {
         try {
             let response = await LoginResource.doLogin(loginRequest);
+
             if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
+
             login(response, () => { this.props.history.push(Routes.BASE) });
-            this.setState({loading: false, error: undefined});
+
+            this._isMounted && this.setState({loading: false, error: undefined});
         } catch (e) {
             this.setState({loading: false, error: e});
         }
