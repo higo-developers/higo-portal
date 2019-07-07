@@ -3,6 +3,7 @@ import LoginResource from "../resources/LoginResource";
 import {isNotNullOrUndefined} from "../utils/Utils";
 import {login} from "../utils/AuthenticationUtils";
 import FacebookLoginButton from "../components/authentication/FacebookLoginButton";
+import UserResource from "../resources/UserResource";
 
 export default class LoginPage extends React.Component {
     constructor(props) {
@@ -18,6 +19,8 @@ export default class LoginPage extends React.Component {
         };
 
         this._isMounted = false;
+
+        this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
     }
 
     componentDidMount() {
@@ -37,6 +40,21 @@ export default class LoginPage extends React.Component {
                 [name]: value
             }
         });
+    };
+
+    handleFacebookLogin = async (fbResponse) => {
+        console.log(fbResponse);
+
+        try {
+            const apiResponse = await UserResource.getByEmailFromFacebook(fbResponse.email);
+
+            isNotNullOrUndefined(apiResponse.errorCode)
+                ? console.log("Redirigir a pantalla para completar datos")
+                : console.log("Hacer login");
+
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     handleClick = async (event) => {
@@ -106,7 +124,7 @@ export default class LoginPage extends React.Component {
 
                                                     <br/>
 
-                                                    <FacebookLoginButton/>
+                                                    <FacebookLoginButton handleLogin={this.handleFacebookLogin} />
                                                 </div>
                                             </div>
                                         </form>
