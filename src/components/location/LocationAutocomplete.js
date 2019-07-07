@@ -54,10 +54,12 @@ export default class LocationAutocomplete extends React.Component {
         geometry.location && this.setState({
             locationData: {
                 ...this.state.locationData,
-                latitud: parseFloat(geometry.location.lat()),
-                longitud: parseFloat(geometry.location.lng())
+                latitud: geometry.location.lat(),
+                longitud: geometry.location.lng()
             }
         });
+
+        this.props.onChangeQuery(this.state.locationData);
     };
 
     addAddressComponent = (addressComponent) => {
@@ -68,8 +70,6 @@ export default class LocationAutocomplete extends React.Component {
                     [getAddressComponentTypeName(addressComponent)]: getAddressComponentValue(addressComponent)
                 }
             });
-
-            this.props.onChangeQuery(this.state.locationData);
         }
     };
 

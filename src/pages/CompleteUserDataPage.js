@@ -37,7 +37,7 @@ export default class CompleteUserDataPage extends React.Component {
         this.setState({
             userData: {
                 ...this.state.userData,
-                location: locationData
+                locacion: locationData
             }
         });
     };
@@ -57,7 +57,7 @@ export default class CompleteUserDataPage extends React.Component {
     };
 
     submitButtonIsDisabled = () => {
-        return !this.state.userData.dni || !this.state.userData.telefono || !this.state.userData.location;
+        return !this.state.userData.dni || !this.state.userData.telefono || !this.state.userData.locacion;
     };
 
     handleSubmit = async (event) => {
