@@ -3,9 +3,9 @@ import GoBackButton from "../components/layout/GoBackButton";
 import Loading from "../components/layout/Loading";
 import Error from "../components/layout/Error";
 import ProfileResource from "../resources/ProfileResource";
-import {locationDataAsArray} from "../utils/VehicleSearchUtils";
 import {Link} from "react-router-dom";
 import Modal from "../components/layout/Modal";
+import {locationDataAsArray} from "../utils/LocationUtils";
 
 const VehicleStatus = {
     ACTIVO: <span className="tag is-success is-medium"><span className="icon"><i className="fas fa-check"></i></span>&nbsp; Actiivo</span>,

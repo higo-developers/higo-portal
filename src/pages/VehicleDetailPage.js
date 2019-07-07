@@ -2,7 +2,6 @@ import React from 'react';
 import Error from "../components/layout/Error";
 import Loading from "../components/layout/Loading";
 import VehicleResource from "../resources/VehicleResource";
-import {locationDataAsArray} from "../utils/VehicleSearchUtils";
 
 import ThumbnailImage from "../components/layout/ThumbnailImage";
 import {toCurrency} from "../utils/FormatUtils";
@@ -11,6 +10,7 @@ import {getLoggedUserId, isAuthenticated} from "../utils/AuthenticationUtils";
 import GoBackButton from "../components/layout/GoBackButton";
 import {encodeReserveDetails} from "../utils/ReserveUtils";
 import {Routes} from "../utils/Constants";
+import {locationDataAsArray} from "../utils/LocationUtils";
 
 const LOCATION_DATA_SEPARATOR = " - ";
 const SEARCH_FECHA_DESDE_KEY = "fechaDesde";

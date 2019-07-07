@@ -12,6 +12,7 @@ import ProtectedRoute from "./authentication/ProtectedRoute";
 import {Routes} from "../utils/Constants";
 import ProfileVehiclesPage from "../pages/ProfileVehiclesPage";
 import ProfileVehicleFormPage from "../pages/ProfileVehicleFormPage";
+import CompleteUserDataPage from "../pages/CompleteUserDataPage";
 
 export default function App() {
     return (
@@ -21,6 +22,7 @@ export default function App() {
             <Switch>
                 <Route exact path={Routes.BASE} render={() => <Redirect to={Routes.SEARCH}/>}/>
                 <Route exact path={Routes.LOGIN} component={LoginPage}/>
+                <Route exact path={Routes.COMPLETE_USER_DATA} component={CompleteUserDataPage}/>
                 <Route exact path={Routes.SEARCH} component={VehicleSearchPage}/>
                 <Route exact path={Routes.SEARCH_BY_MAP} component={VehicleSearchMapPage}/>
                 <Route exact path={Routes.VEHICLES} component={FilteredVehiclesPage}/>
