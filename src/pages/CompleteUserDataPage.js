@@ -1,6 +1,11 @@
 import React from 'react';
 import GoBackButton from "../components/layout/GoBackButton";
 import LocationAutocomplete from "../components/location/LocationAutocomplete";
+import UserResource from "../resources/UserResource";
+import LoginResource from "../resources/LoginResource";
+import {isNotNullOrUndefined} from "../utils/Utils";
+import {login} from "../utils/AuthenticationUtils";
+import {Routes} from "../utils/Constants";
 
 export default class CompleteUserDataPage extends React.Component {
     constructor(props) {
@@ -8,6 +13,7 @@ export default class CompleteUserDataPage extends React.Component {
 
         this.state = {
             loading: false,
+            error: null,
             userData: this.props.history.location.state
         };
 
@@ -44,9 +50,28 @@ export default class CompleteUserDataPage extends React.Component {
         return !this.state.userData.dni || !this.state.userData.telefono || !this.state.userData.location;
     };
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
-        this.setState({loading: true});
+
+        this.setState({loading: true, error: null});
+
+        try {
+            const response = await UserResource.saveUserFromFacebook(this.state.userData);
+            this.doLogin({email: response.email, password: response.password});
+        } catch (error) {
+            this.setState({loading: false, error: error});
+        }
+    };
+
+    doLogin = async (loginRequest) => {
+        try {
+            let response = await LoginResource.doLogin(loginRequest);
+            if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
+            login(response, () => { this.props.history.push(Routes.BASE) });
+            this.setState({loading: false, error: undefined});
+        } catch (e) {
+            this.setState({loading: false, error: e});
+        }
     };
 
     render() {
@@ -127,6 +152,12 @@ export default class CompleteUserDataPage extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            {this.state.error && (
+                                                <article className="message is-danger">
+                                                    <div className="message-body">{this.state.error.message}</div>
+                                                </article>
+                                            )}
 
                                             <div className="columns is-centered is-multiline">
                                                 <div className="column is-three-quarters">
