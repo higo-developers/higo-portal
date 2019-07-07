@@ -7,8 +7,6 @@ import Error from "../components/layout/Error";
 import GoBackButton from "../components/layout/GoBackButton";
 import {locationDataAsArray} from "../utils/LocationUtils";
 
-const SEARCH_KEY = "search";
-
 export default class FilteredVehiclesPage extends React.Component {
 
     constructor(props) {
@@ -23,8 +21,7 @@ export default class FilteredVehiclesPage extends React.Component {
     }
 
     componentDidMount() {
-        this.encodedSearch = new URLSearchParams(this.props.location.search).get(SEARCH_KEY);
-        const search = decodeSearchParams(this.encodedSearch);
+        const search = decodeSearchParams(this.props.history.location.state.encodedSearch);
         this.setState(
             {
                 vehicleDateTimes: {

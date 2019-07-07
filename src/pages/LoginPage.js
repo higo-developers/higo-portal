@@ -4,6 +4,7 @@ import {isNotNullOrUndefined} from "../utils/Utils";
 import {login} from "../utils/AuthenticationUtils";
 import FacebookLoginButton from "../components/authentication/FacebookLoginButton";
 import UserResource from "../resources/UserResource";
+import {Routes} from "../utils/Constants";
 
 export default class LoginPage extends React.Component {
     constructor(props) {
@@ -49,7 +50,7 @@ export default class LoginPage extends React.Component {
             const apiResponse = await UserResource.getByEmailFromFacebook(fbResponse.email);
 
             isNotNullOrUndefined(apiResponse.errorCode)
-                ? console.log("Redirigir a pantalla para completar datos")
+                ? this.props.history.push({pathname: Routes.COMPLETE_USER_DATA, state: fbResponse})
                 : console.log("Hacer login");
 
         } catch (error) {
@@ -61,8 +62,14 @@ export default class LoginPage extends React.Component {
         event.preventDefault();
         this.setState({loading: true, error: undefined});
 
+        const loginRequest= this.state.formData;
+
+        await this.doLogin(loginRequest);
+    };
+
+    doLogin = async (loginRequest) => {
         try {
-            let response = await LoginResource.doLogin(this.state.formData);
+            let response = await LoginResource.doLogin(loginRequest);
 
             if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
 

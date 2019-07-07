@@ -8,7 +8,7 @@ export default class VehicleSearchPage extends React.Component {
     handleSearch = (encodedSearch) => {
         this.props.history.push({
             pathname: Routes.VEHICLES,
-            search: `search=${encodedSearch}`
+            state: {encodedSearch}
         });
     };
 

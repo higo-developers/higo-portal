@@ -21,7 +21,8 @@ export const Routes = {
     PROFILE: "/profile",
     PROFILE_VEHICLES: "/profile/vehicles",
     PROFILE_VEHICLES_NEW: "/profile/vehicles/new",
-    PROFILE_VEHICLES_EDIT: "/profile/vehicles/:id/edit"
+    PROFILE_VEHICLES_EDIT: "/profile/vehicles/:id/edit",
+    COMPLETE_USER_DATA: "/complete-login"
 };
 
 export const OperationStates = {
