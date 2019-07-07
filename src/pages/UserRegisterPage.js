@@ -3,7 +3,7 @@ import UserRegisterResource from "../resources/UserRegisterResource";
 import { Routes} from "../utils/Constants";
 import { isNotNullOrUndefined } from "../utils/Utils";
 
-export default class LoginPage extends React.Component {
+export default class UserRegister extends React.Component {
     constructor(props) {
         super(props);
 
@@ -29,7 +29,6 @@ export default class LoginPage extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
-        console.log(this.props);
     }
 
     componentWillUnmount() {
@@ -62,7 +61,6 @@ export default class LoginPage extends React.Component {
         this.setState({"loading": true, "error": undefined})
 
         try {
-            debugger;;
             let response = await UserRegisterResource.createUser(this.state.formData);
             if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
             this._isMounted && this.setState({"loading": false, "error": undefined});

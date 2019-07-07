@@ -18,5 +18,6 @@ export const Routes = {
     VEHICLES: "/vehicles",
     VEHICLE_BY_ID: "/vehicles/:id",
     VEHICLE_BY_ID_RESERVE: "/vehicles/:id/reserve",
+    EDIT_USER:"/edit",
     REGISTER_USER:"/register"
 };
