@@ -9,7 +9,7 @@ const ENDPOINT_USER = "/usuario";
 const LoginResource = {
     createUser(requestBody) {
         const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_USER}`;
-
+        debugger;
         const options = {
             method: 'POST',
             body: JSON.stringify(requestBody),
