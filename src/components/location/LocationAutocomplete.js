@@ -7,7 +7,8 @@ import {
     getAddressComponentValue,
     validAddressComponents,
     validAddressComponentType
-} from "../../utils/VehicleSearchUtils";
+} from "../../utils/LocationUtils";
+
 
 const ADDRESS_COMPONENTS = "address_components";
 
@@ -69,8 +70,7 @@ export default class LocationAutocomplete extends React.Component {
             <React.Fragment>
                 <Script url={mapsScriptUrl} onLoad={this.initializeAutocomplete}/>
 
-                <input name="query" id="query" className="input" type="text" placeholder="Buscar por ciudad o localidad"
-                       onChange={this.handleChangeQuery}/>
+                <input name="query" id="query" className="input" type="text" placeholder="Buscar por ciudad o localidad" onChange={this.handleChangeQuery}/>
             </React.Fragment>
         );
     }

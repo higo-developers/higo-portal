@@ -1,10 +1,11 @@
 import React from 'react';
-import {decodeSearchParams, locationDataAsArray} from "../utils/VehicleSearchUtils";
+import {decodeSearchParams} from "../utils/VehicleSearchUtils";
 import VehicleResource from "../resources/VehicleResource";
 import VehicleThumbnailList from "../components/vehicle/VehicleThumbnailList";
 import Loading from "../components/layout/Loading";
 import Error from "../components/layout/Error";
 import GoBackButton from "../components/layout/GoBackButton";
+import {locationDataAsArray} from "../utils/LocationUtils";
 
 const SEARCH_KEY = "search";
 

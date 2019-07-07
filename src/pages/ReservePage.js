@@ -2,12 +2,12 @@ import React from 'react';
 import GoBackButton from "../components/layout/GoBackButton";
 import {decodeReserveDetails} from "../utils/ReserveUtils";
 import ThumbnailImage from "../components/layout/ThumbnailImage";
-import {locationDataAsArray} from "../utils/VehicleSearchUtils";
 import {datetimeToDayMonYear, datetimeToHourMin} from "../utils/FormatUtils";
 import OperationResource from "../resources/OperationResource";
 import {Link} from "react-router-dom";
-import {OperationStates} from "../utils/Constants";
+import {OperationStates, Routes} from "../utils/Constants";
 import {isNotNullOrUndefined} from "../utils/Utils";
+import {locationDataAsArray} from "../utils/LocationUtils";
 
 const SEARCH_DETAILS_KEY = "details";
 
@@ -95,7 +95,7 @@ export default class ReservePage extends React.Component {
                                         <article className="message is-success">
                                             <div className="message-body">
                                                 <p>La solicitud de reserva ha sido creada.</p>
-                                                <p><Link to={"/operaciones"}>Click aqu&iacute;</Link> para ver todas sus
+                                                <p><Link to={Routes.OPERATIONS}>Click aqu&iacute;</Link> para ver todas sus
                                                     operaciones.</p>
                                             </div>
                                         </article>

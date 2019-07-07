@@ -12,7 +12,7 @@ export const HttpMethods = {
 export const Routes = {
     BASE: "/",
     LOGIN: "/login",
-    OPERATIONS: "/operaciones",
+    OPERATIONS: "/operations",
     SEARCH: "/search",
     SEARCH_BY_MAP: "/search/map",
     VEHICLES: "/vehicles",
