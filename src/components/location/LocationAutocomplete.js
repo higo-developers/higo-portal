@@ -11,6 +11,7 @@ import {
 
 
 const ADDRESS_COMPONENTS = "address_components";
+const GEOMETRY = "geometry";
 
 export default class LocationAutocomplete extends React.Component {
     constructor(props) {
@@ -32,7 +33,7 @@ export default class LocationAutocomplete extends React.Component {
     initializeAutocomplete = () => {
         let queryInput = document.getElementById("query");
         let options = {types: ["geocode"]};
-        let autocompleteFields = [ADDRESS_COMPONENTS];
+        let autocompleteFields = [ADDRESS_COMPONENTS, GEOMETRY];
 
         this.autocomplete = new google.maps.places.Autocomplete(queryInput, options);
         this.autocomplete.setFields(autocompleteFields);
@@ -42,12 +43,21 @@ export default class LocationAutocomplete extends React.Component {
     handlePlaceSelect = () => {
         let place = this.autocomplete.getPlace();
         let addressComponents = place[ADDRESS_COMPONENTS];
+        let geometry = place[GEOMETRY];
 
         if (validAddressComponents(addressComponents)) {
             addressComponents.forEach((aComponent) => {
                 this.addAddressComponent(aComponent)
             });
         }
+
+        geometry.location && this.setState({
+            locationData: {
+                ...this.state.locationData,
+                latitud: parseFloat(geometry.location.lat()),
+                longitud: parseFloat(geometry.location.lng())
+            }
+        });
     };
 
     addAddressComponent = (addressComponent) => {
