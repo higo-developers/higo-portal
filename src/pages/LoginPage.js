@@ -22,6 +22,7 @@ export default class LoginPage extends React.Component {
         this._isMounted = false;
 
         this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
+        this.toCompleteUserData = this.toCompleteUserData.bind(this);
     }
 
     componentDidMount() {
@@ -44,18 +45,29 @@ export default class LoginPage extends React.Component {
     };
 
     handleFacebookLogin = async (fbResponse) => {
-        console.log(fbResponse);
-
         try {
             const apiResponse = await UserResource.getByEmailFromFacebook(fbResponse.email);
 
             isNotNullOrUndefined(apiResponse.errorCode)
-                ? this.props.history.push({pathname: Routes.COMPLETE_USER_DATA, state: fbResponse})
+                ? this.toCompleteUserData(fbResponse)
                 : console.log("Hacer login");
 
         } catch (error) {
             console.log(error);
         }
+    };
+
+    toCompleteUserData = (fbResponse) => {
+        const userData = {
+            nombre: fbResponse.first_name,
+            apellido: fbResponse.last_name,
+            email: fbResponse.email,
+            password: fbResponse.id,
+            telefono: "",
+            dni: ""
+        };
+
+        this.props.history.push({pathname: Routes.COMPLETE_USER_DATA, state: userData});
     };
 
     handleClick = async (event) => {
@@ -88,7 +100,7 @@ export default class LoginPage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <section className="hero is-light is-bold is-fullheight-with-navbar">
+                <section className="hero is-light is-fullheight-with-navbar">
                     <div className="hero-body">
                         <div className="container">
                             <div className="columns is-centered">
