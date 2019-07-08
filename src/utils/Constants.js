@@ -36,6 +36,12 @@ export const OperationStates = {
     VIGENTE: "VIGENTE"
 };
 
+export const OperationStatesGroup = {
+    PENDIENTES: "PENDIENTES",
+    EN_CURSO: "EN_CURSO",
+    FINALIZADAS: "FINALIZADAS"
+};
+
 export const VehicleStates = {
     ACTIVO: "ACTIVO",
     INACTIVO: "INACTIVO",

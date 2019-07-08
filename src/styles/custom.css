@@ -51,6 +51,11 @@
     padding-bottom: 0;
 }
 
+.tabs li.is-active a {
+    border-bottom-color: #8e44ad;
+    color: #8e44ad;
+}
+
 /* ELEMENTS */
 a.navbar-item-logo.is-active, a.navbar-item-logo:focus, a.navbar-item-logo:focus-within, a.navbar-item-logo:hover {
     color: #4a4a4a;
