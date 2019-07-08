@@ -4,7 +4,6 @@ import UserRegisterResource from "../resources/UserRegisterResource";
 import { Routes} from "../utils/Constants";
 import { isNotNullOrUndefined } from "../utils/Utils";
 import { logout } from "../utils/AuthenticationUtils";
-// import Modal from "../components/layout/Modal"
 
 export default class UserEdit extends React.Component {
     
@@ -12,7 +11,6 @@ export default class UserEdit extends React.Component {
         super(props);
 
         this.state = {
-            // modalState: false,
             loading: false,
             error: undefined,
         };
@@ -28,26 +26,16 @@ export default class UserEdit extends React.Component {
     }
     
     handleUser = (user) => {
-        console.log(user);
         this.userData = user;
         this.submitUser();
-        // this.toggleModal();
     }
 
-    // toggleModal = () => {
-    //     this.setState((prev, props) => {
-    //         const isOpen = !prev.modalState;
-    //         return {modalIsOpen: isOpen};
-    //     });
-    // };
-    
     submitUser = async () => {
         try {
             let response = await UserRegisterResource.editUser(this.userData.formData);
 
             if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
             this._isMounted && this.setState({"loading": false, "error": undefined});
-            // this.props.history.push(Routes.BASE);
             logout(() => {this.props.history.push(Routes.LOGIN)});
         } catch (e) {
             this.setState({"loading": false, "error": e});
@@ -61,11 +49,6 @@ export default class UserEdit extends React.Component {
         }
         return (
             <React.Fragment>
-                {/* <Modal closeModal={this.toggleModal}
-                        modalState={this.state.modalState}
-                        title={"Iniciar sesion"}>
-                    <p>Por favor deberias iniciar sesion nuevamente</p>
-                </Modal> */}
                 <section className="hero is-light is-bold is-fullheight-with-navbar">
                     <div className="hero-body">
                         <div className="container">

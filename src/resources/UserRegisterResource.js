@@ -1,15 +1,12 @@
 import RestClient from "../utils/RestClient";
 import {getLoggedUserId} from "../utils/AuthenticationUtils";
 import {ContentType, HttpMethods} from "../utils/Constants";
-// import { request } from "https";
-
 
 const ENDPOINT_USER = "/usuario";
 
-const LoginResource = {
+const UserRegisterResource = {
     createUser(requestBody) {
         const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_USER}`;
-        debugger;
         const options = {
             method: 'POST',
             body: JSON.stringify(requestBody),
@@ -35,4 +32,4 @@ const LoginResource = {
     }
 };
 
-export default LoginResource;
+export default UserRegisterResource;
