@@ -6,6 +6,10 @@ import {Routes} from "../../utils/Constants";
 const LoggedUserMenu = withRouter(({history}) => (
     isAuthenticated() && (
         <React.Fragment>
+            <Link className="navbar-item" to={Routes.OPERATIONS}>
+                Operaciones
+            </Link>
+
             <Link className="navbar-item" to={Routes.PROFILE_VEHICLES}>
                 Veh&iacute;culos
             </Link>

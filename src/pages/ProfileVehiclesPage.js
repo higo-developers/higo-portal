@@ -6,6 +6,7 @@ import ProfileResource from "../resources/ProfileResource";
 import {Link} from "react-router-dom";
 import Modal from "../components/layout/Modal";
 import {locationDataAsArray} from "../utils/LocationUtils";
+import {Routes} from "../utils/Constants";
 
 const VehicleStatus = {
     ACTIVO: <span className="tag is-success is-medium"><span className="icon"><i className="fas fa-check"></i></span>&nbsp; Actiivo</span>,
@@ -83,7 +84,7 @@ export default class ProfileVehiclesPage extends React.Component {
                                     <GoBackButton/>
                                 </div>
                                 <div className="level-item">
-                                    <Link className={"button is-dark"} to={`/profile/vehicles/new`}>
+                                    <Link className={"button is-dark"} to={Routes.PROFILE_VEHICLES_NEW}>
                                         <i className="fas fa-plus"></i>&nbsp; Nuevo
                                     </Link>
                                 </div>
