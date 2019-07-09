@@ -12,9 +12,9 @@ export default class Operations extends React.Component {
 
         this.state = {
             tabList: [
-                { code: OperationStatesGroup.PENDING, title: "Pendientes", content: <PendingOperationsGrid/> },
-                { code: OperationStatesGroup.ONGOING, title: "En curso", content: <OnGoingOperationsGrid/> },
-                { code: OperationStatesGroup.FINISHED, title: "Finalizadas", content: <FinishedOperationsGrid/> }
+                { code: OperationStatesGroup.PENDING, title: "Pendientes", content: <PendingOperationsGrid data={this.props.data.pendientes}/> },
+                { code: OperationStatesGroup.ONGOING, title: "En curso", content: <OnGoingOperationsGrid data={this.props.data.enCurso}/> },
+                { code: OperationStatesGroup.FINISHED, title: "Finalizadas", content: <FinishedOperationsGrid data={this.props.data.finalizadas}/> }
             ],
             activeTab: OperationStatesGroup.PENDING
         };

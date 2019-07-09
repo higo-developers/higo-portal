@@ -1,10 +1,45 @@
 import React from 'react';
 import GoBackButton from "../components/layout/GoBackButton";
 import Operations from "../components/operation/Operations";
+import Loading from "../components/layout/Loading";
+import Error from "../components/layout/Error";
+import OperationResource from "../resources/OperationResource";
 
 export default class OperationsPage extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loading: true,
+            error: null,
+            data: {}
+        };
+
+        this.fetchData = this.fetchData.bind(this);
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData = async () => {
+        try {
+            const response = await OperationResource.getUserOperations();
+            this.setState({loading: false, data: response})
+        } catch (error) {
+            this.setState({loading: false, error: error});
+        }
+    };
+
     render() {
+
+        if (this.state.loading)
+            return <Loading/>;
+
+        if (this.state.error)
+            return <Error/>;
+
         return (
             <React.Fragment>
                 <section className="section padding-bottom-0">
@@ -22,9 +57,9 @@ export default class OperationsPage extends React.Component {
                     </div>
                 </section>
 
-                <Operations title={"Como prestador"}/>
+                <Operations title={"Como prestador"} data={this.state.data.prestador}/>
 
-                <Operations title={"Como adquirente"}/>
+                <Operations title={"Como adquirente"} data={this.state.data.adquirente}/>
             </React.Fragment>
         );
     }
