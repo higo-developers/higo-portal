@@ -7,7 +7,7 @@ export default function Tab(props) {
     return (
         <React.Fragment>
             <li className={activeTab} onClick={() => props.changeActiveTab(props.tab.code)}>
-                <Link to={`#${props.tab.code}`}>
+                <Link to={`#`}>
                     <span>{props.tab.title}</span>
                 </Link>
             </li>

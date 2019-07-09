@@ -4,7 +4,7 @@ export default class OnGoingOperationsGrid extends React.Component {
     render() {
         return (
             <React.Fragment>
-                Grilla de operaciones en curso.
+                En curso.
             </React.Fragment>
         );
     }

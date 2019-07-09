@@ -1,4 +1,12 @@
 /* CLASS */
+.height-60 {
+    min-height: 60vh;
+}
+
+.height-80 {
+    min-height: 80vh;
+}
+
 .higo-banner-bg {
     background-image: url("../media/images/higo-banner-comp.png");
     background-size: cover;
