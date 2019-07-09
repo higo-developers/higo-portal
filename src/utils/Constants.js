@@ -27,6 +27,11 @@ export const Routes = {
     COMPLETE_USER_DATA: "/complete-login"
 };
 
+export const OperationRoles = {
+    ACQUIRER: "ACQUIRER",
+    PROVIDER: "PROVIDER"
+};
+
 export const OperationStates = {
     APROBADO: "APROBADO",
     CANCELADO: "CANCELADO",

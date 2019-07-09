@@ -4,6 +4,7 @@ import Operations from "../components/operation/Operations";
 import Loading from "../components/layout/Loading";
 import Error from "../components/layout/Error";
 import OperationResource from "../resources/OperationResource";
+import {OperationRoles} from "../utils/Constants";
 
 export default class OperationsPage extends React.Component {
 
@@ -57,9 +58,9 @@ export default class OperationsPage extends React.Component {
                     </div>
                 </section>
 
-                <Operations title={"Como prestador"} data={this.state.data.prestador}/>
+                <Operations role={OperationRoles.PROVIDER} title={"Como prestador"} data={this.state.data.prestador}/>
 
-                <Operations title={"Como adquirente"} data={this.state.data.adquirente}/>
+                <Operations role={OperationRoles.ACQUIRER} title={"Como adquirente"} data={this.state.data.adquirente}/>
             </React.Fragment>
         );
     }
