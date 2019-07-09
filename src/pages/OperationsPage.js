@@ -58,9 +58,13 @@ export default class OperationsPage extends React.Component {
                     </div>
                 </section>
 
-                <Operations role={OperationRoles.PROVIDER} title={"Como prestador"} data={this.state.data.prestador}/>
+                {this.state.data.prestador && (
+                    <Operations role={OperationRoles.PROVIDER} title={"Como prestador"} data={this.state.data.prestador}/>
+                )}
 
-                <Operations role={OperationRoles.ACQUIRER} title={"Como adquirente"} data={this.state.data.adquirente}/>
+                {this.state.data.adquirente && (
+                    <Operations role={OperationRoles.ACQUIRER} title={"Como adquirente"} data={this.state.data.adquirente}/>
+                )}
             </React.Fragment>
         );
     }
