@@ -35,7 +35,7 @@ export default class Operations extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <section className="section height-60">
+                <section className="section height-50">
                     <div className="container">
                         {this.props.title && (
                             <h3 className="subtitle">{this.props.title}</h3>

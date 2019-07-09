@@ -14,10 +14,14 @@ export const dateToIsoUTC = (date) => {
     return dateFormat(date, ISO_UTC_FORMAT);
 };
 
+export const datetimeToDayMonYearHourMin = (date) => {
+    return dateFormat(date, `${DAY_MON_YEAR_FORMAT} ${HOUR_MIN_FORMAT}`);
+};
+
 export const datetimeToDayMonYear = (date) => {
     return dateFormat(date, DAY_MON_YEAR_FORMAT);
-
 };
+
 export const datetimeToHourMin = (date) => {
     return dateFormat(date, HOUR_MIN_FORMAT);
 };
