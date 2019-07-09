@@ -3,30 +3,25 @@ import GoBackButton from "../components/layout/GoBackButton";
 import Tabs from "../components/layout/Tabs";
 import ActiveTabContent from "../components/layout/ActiveTabContent";
 import {OperationStatesGroup} from "../utils/Constants";
-
-const tabList = [
-    {
-        code: OperationStatesGroup.PENDIENTES,
-        title: "Pendientes",
-        content: "Operaciones pendientes"
-    }, {
-        code: OperationStatesGroup.EN_CURSO,
-        title: "En curso",
-        content: "Operaciones en curso"
-    }, {
-        code: OperationStatesGroup.FINALIZADAS,
-        title: "Finalizadas",
-        content: "Operaciones finalizadas"
-    }
-];
+import PendingOperationsGrid from "../components/operation/PendingOperationsGrid";
+import OnGoingOperationsGrid from "../components/operation/OnGoingOperationsGrid";
+import FinishedOperationsGrid from "../components/operation/FinishedOperationsGrid";
 
 export default class OperationsPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            activeTab: OperationStatesGroup.PENDIENTES
+            data: undefined,
+            tabList: [
+                { code: OperationStatesGroup.PENDING, title: "Pendientes", content: null },
+                { code: OperationStatesGroup.ONGOING, title: "En curso", content: null },
+                { code: OperationStatesGroup.FINISHED, title: "Finalizadas", content: null }
+            ],
+            activeTab: OperationStatesGroup.PENDING
         };
+
+        this.fetchData();
     }
 
     changeActiveTab(tab) {
@@ -34,12 +29,22 @@ export default class OperationsPage extends React.Component {
     }
 
     activeTabContent() {
-        const activeIndex = tabList.findIndex((tab) => {
+        const activeIndex = this.state.tabList.findIndex((tab) => {
             return tab.code === this.state.activeTab;
         });
 
-        return tabList[activeIndex].content;
+        return this.state.tabList[activeIndex].content;
     }
+
+    fetchData = () => {
+        const pendingIndex = this.state.tabList.findIndex((tab) => { return tab.code === OperationStatesGroup.PENDING });
+        const onGoingIndex = this.state.tabList.findIndex((tab) => { return tab.code === OperationStatesGroup.ONGOING });
+        const finishedIndex = this.state.tabList.findIndex((tab) => { return tab.code === OperationStatesGroup.FINISHED });
+
+        this.state.tabList[pendingIndex].content = <PendingOperationsGrid/>;
+        this.state.tabList[onGoingIndex].content = <OnGoingOperationsGrid/>;
+        this.state.tabList[finishedIndex].content = <FinishedOperationsGrid/>;
+    };
 
     render() {
         return (
@@ -61,7 +66,7 @@ export default class OperationsPage extends React.Component {
 
                 <section className="section">
                     <div className="container">
-                        <Tabs tabList={tabList}
+                        <Tabs tabList={this.state.tabList}
                               activeTab={this.state.activeTab}
                               changeActiveTab={this.changeActiveTab.bind(this)}
                         />

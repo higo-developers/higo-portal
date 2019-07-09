@@ -37,9 +37,9 @@ export const OperationStates = {
 };
 
 export const OperationStatesGroup = {
-    PENDIENTES: "PENDIENTES",
-    EN_CURSO: "EN_CURSO",
-    FINALIZADAS: "FINALIZADAS"
+    PENDING: "PENDIENTES",
+    ONGOING: "EN_CURSO",
+    FINISHED: "FINALIZADAS"
 };
 
 export const VehicleStates = {
