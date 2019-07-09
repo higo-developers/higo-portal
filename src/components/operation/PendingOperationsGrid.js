@@ -2,9 +2,6 @@ import React from 'react';
 import {datetimeToDayMonYearHourMin} from "../../utils/FormatUtils";
 import {OperationRoles} from "../../utils/Constants";
 
-const TH_ADQUIRENTE = "Adquirente";
-const TH_PRESTADOR = "Prestador";
-
 export default class PendingOperationsGrid extends React.Component {
     render() {
         const hasData = this.props.data.length > 0;
@@ -15,7 +12,7 @@ export default class PendingOperationsGrid extends React.Component {
                     <table className="table is-striped is-hoverable is-fullwidth">
                         <thead>
                             <tr>
-                                <th>{(this.props.role === OperationRoles.PROVIDER) ? TH_ADQUIRENTE : TH_PRESTADOR}</th>
+                                <th>{(this.props.role === OperationRoles.PROVIDER) ? "Adquirente" : "Prestador"}</th>
                                 <th>Vehiculo</th>
                                 <th>Desde</th>
                                 <th>Hasta</th>
@@ -23,14 +20,14 @@ export default class PendingOperationsGrid extends React.Component {
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        {this.props.data.map(op => (
+                        {this.props.data.map(operation => (
                             <tbody>
                                 <tr>
-                                    <td>{(this.props.role === OperationRoles.PROVIDER) ? op.adquirente : op.prestador}</td>
-                                    <td>{op.vehiculo}</td>
-                                    <td>{datetimeToDayMonYearHourMin(op.fechaHoraDesde)}</td>
-                                    <td>{datetimeToDayMonYearHourMin(op.fechaHoraHasta)}</td>
-                                    <td>{op.estado}</td>
+                                    <td>{(this.props.role === OperationRoles.PROVIDER) ? operation.adquirente : operation.prestador}</td>
+                                    <td>{operation.vehiculo}</td>
+                                    <td>{datetimeToDayMonYearHourMin(operation.fechaHoraDesde)}</td>
+                                    <td>{datetimeToDayMonYearHourMin(operation.fechaHoraHasta)}</td>
+                                    <td>{operation.estado}</td>
                                     <td>
                                         <div className="buttons">
                                             <button className="button is-dark">
