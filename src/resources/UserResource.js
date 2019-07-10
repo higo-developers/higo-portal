@@ -1,7 +1,7 @@
 import {ContentType, HttpMethods, UserOrigin} from "../utils/Constants";
 import RestClient from "../utils/RestClient";
 
-const ENDPOINT_USERS = "/usuario";
+const ENDPOINT_USERS = "/usuarios";
 
 const UserResource = {
     getByEmailFromFacebook(email) {

@@ -2,7 +2,7 @@ import RestClient from "../utils/RestClient";
 import {getLoggedUserId} from "../utils/AuthenticationUtils";
 import {ContentType, HttpMethods} from "../utils/Constants";
 
-const ENDPOINT_USER = "/usuario";
+const ENDPOINT_USER = "/usuarios";
 
 const UserRegisterResource = {
     createUser(requestBody) {
