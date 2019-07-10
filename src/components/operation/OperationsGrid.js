@@ -1,8 +1,11 @@
 import React from 'react';
-import {datetimeToDayMonYearHourMin} from "../../utils/FormatUtils";
 import {OperationRoles} from "../../utils/Constants";
+import {datetimeToDayMonYearHourMin} from "../../utils/FormatUtils";
 
-export default class PendingOperationsGrid extends React.Component {
+const TH_ACQUIRER = "Adquirente";
+const TH_PROVIDER = "Prestador";
+
+export default class OperationsGrid extends React.Component {
     render() {
         const hasData = this.props.data.length > 0;
 
@@ -12,7 +15,7 @@ export default class PendingOperationsGrid extends React.Component {
                     <table className="table is-striped is-hoverable is-fullwidth">
                         <thead>
                             <tr>
-                                <th>{(this.props.role === OperationRoles.PROVIDER) ? "Adquirente" : "Prestador"}</th>
+                                <th>{(this.props.role === OperationRoles.PROVIDER) ? TH_ACQUIRER : TH_PROVIDER}</th>
                                 <th>Vehiculo</th>
                                 <th>Desde</th>
                                 <th>Hasta</th>
@@ -43,7 +46,7 @@ export default class PendingOperationsGrid extends React.Component {
                     </table>
                 ) : (
                     <div className="section">
-                        <p className="has-text-centered">No hay operaciones pendientes.</p>
+                        <p className="has-text-centered">{this.props.emptyDataMessage}</p>
                     </div>
                 )}
             </React.Fragment>

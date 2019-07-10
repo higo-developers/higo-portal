@@ -1,10 +1,8 @@
 import React from 'react';
 import {OperationStatesGroup} from "../../utils/Constants";
-import PendingOperationsGrid from "./PendingOperationsGrid";
-import OnGoingOperationsGrid from "./OnGoingOperationsGrid";
-import FinishedOperationsGrid from "./FinishedOperationsGrid";
 import Tabs from "../layout/Tabs";
 import ActiveTabContent from "../layout/ActiveTabContent";
+import OperationsGrid from "./OperationsGrid";
 
 export default class Operations extends React.Component {
     constructor(props) {
@@ -12,9 +10,9 @@ export default class Operations extends React.Component {
 
         this.state = {
             tabList: [
-                { code: OperationStatesGroup.PENDING, title: "Pendientes", content: <PendingOperationsGrid role={this.props.role} data={this.props.data.pendientes}/> },
-                { code: OperationStatesGroup.ONGOING, title: "En curso", content: <OnGoingOperationsGrid role={this.props.role} data={this.props.data.enCurso}/> },
-                { code: OperationStatesGroup.FINISHED, title: "Finalizadas", content: <FinishedOperationsGrid role={this.props.role} data={this.props.data.finalizadas}/> }
+                { code: OperationStatesGroup.PENDING, title: "Pendientes", content: <OperationsGrid role={this.props.role} data={this.props.data.pendientes} emptyDataMessage={"No hay operaciones pendientes."}/> },
+                { code: OperationStatesGroup.ONGOING, title: "En curso", content: <OperationsGrid role={this.props.role} data={this.props.data.enCurso} emptyDataMessage={"No hay operaciones en curso."}/> },
+                { code: OperationStatesGroup.FINISHED, title: "Finalizadas", content: <OperationsGrid role={this.props.role} data={this.props.data.finalizadas} emptyDataMessage={"No hay operaciones finalizadas."}/> }
             ],
             activeTab: OperationStatesGroup.PENDING
         };
