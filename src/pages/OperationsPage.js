@@ -5,6 +5,7 @@ import Loading from "../components/layout/Loading";
 import Error from "../components/layout/Error";
 import {OperationRoles} from "../utils/Constants";
 import UserResource from "../resources/UserResource";
+import {isNullOrUndefined} from "../utils/Utils";
 
 export default class OperationsPage extends React.Component {
 
@@ -41,9 +42,11 @@ export default class OperationsPage extends React.Component {
         if (this.state.error)
             return <Error/>;
 
+        const emptyData = isNullOrUndefined(this.state.data.prestador) && isNullOrUndefined(this.state.data.adquirente);
+
         return (
             <React.Fragment>
-                <section className="section padding-bottom-0">
+                <section className={`section ${!emptyData && "padding-bottom-0"}`}>
                     <div className="container">
                         <nav className="level is-mobile">
                             <div className="level-left is-hidden-mobile">
@@ -57,6 +60,13 @@ export default class OperationsPage extends React.Component {
                         </nav>
                     </div>
                 </section>
+
+                {emptyData && (
+                    <div className="container">
+                        <p className="subtitle">No hay operaciones para mostrar.</p>
+                    </div>
+                )}
+
 
                 {this.state.data.prestador && (
                     <Operations role={OperationRoles.PROVIDER} title={"Como prestador"} data={this.state.data.prestador}/>
