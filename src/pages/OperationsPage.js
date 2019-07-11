@@ -3,8 +3,8 @@ import GoBackButton from "../components/layout/GoBackButton";
 import Operations from "../components/operation/Operations";
 import Loading from "../components/layout/Loading";
 import Error from "../components/layout/Error";
-import OperationResource from "../resources/OperationResource";
 import {OperationRoles} from "../utils/Constants";
+import UserResource from "../resources/UserResource";
 
 export default class OperationsPage extends React.Component {
 
@@ -26,7 +26,7 @@ export default class OperationsPage extends React.Component {
 
     fetchData = async () => {
         try {
-            const response = await OperationResource.getUserOperations();
+            const response = await UserResource.getUserOperations();
             this.setState({loading: false, data: response})
         } catch (error) {
             this.setState({loading: false, error: error});

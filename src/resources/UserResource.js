@@ -1,7 +1,9 @@
 import {ContentType, HttpMethods, UserOrigin} from "../utils/Constants";
 import RestClient from "../utils/RestClient";
+import {getLoggedUserId} from "../utils/AuthenticationUtils";
 
 const ENDPOINT_USERS = "/usuarios";
+const ENDPOINT_USER_OPERATIONS = "/operaciones";
 
 const UserResource = {
     getByEmailFromFacebook(email) {
@@ -22,6 +24,9 @@ const UserResource = {
         };
 
         return RestClient.executeCall(url, options)
+    },
+    getUserOperations() {
+        return RestClient.executeCall(`${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_USERS}/${getLoggedUserId()}${ENDPOINT_USER_OPERATIONS}`);
     }
 };
 

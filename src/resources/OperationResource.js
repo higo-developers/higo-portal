@@ -4,7 +4,6 @@ import {getLoggedUserId} from "../utils/AuthenticationUtils";
 import {OperationRequest} from "../models/DTO";
 
 const ENDPOINT_OPERATIONS= "/operaciones";
-const ENDPOINT_OPERATIONS_MOCK = `/mock${ENDPOINT_OPERATIONS}`;
 
 const OperationResource = {
     create(details) {
@@ -21,9 +20,6 @@ const OperationResource = {
         };
 
         return RestClient.executeCall(url, options);
-    },
-    getUserOperations() { // TODO Reemplazar Mock por comportamiento real
-        return RestClient.executeCall(`${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_OPERATIONS_MOCK}`);
     }
 };
 
