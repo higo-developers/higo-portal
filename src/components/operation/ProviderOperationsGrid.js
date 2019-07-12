@@ -1,16 +1,27 @@
 import React from 'react';
 import {datetimeToDayMonYearHourMin} from "../../utils/FormatUtils";
+import OperationResource from "../../resources/OperationResource";
 
 export default class ProviderOperationsGrid extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            loading: false
+        };
+
         this.openUserDetails = this.openUserDetails.bind(this);
+        this.changeOperationStatus = this.changeOperationStatus.bind(this);
     }
 
     /* TODO - Implementar método que abra modal con detalle de adquirente (NTH) */
     openUserDetails = (userId) => {
         console.log(`${new Date().toLocaleString()} - Mostrar detalle de usario ${userId}`);
+    };
+
+    changeOperationStatus = (operationId, status) => {
+        this.setState({loading: true});
+        OperationResource.changeStatus(operationId, status);
     };
 
     render() {
@@ -43,7 +54,12 @@ export default class ProviderOperationsGrid extends React.Component {
                             <td>
                                 <div className="buttons">
                                     {operation.proximosEstados.length > 0 && operation.proximosEstados.map(estado => (
-                                        <button key={estado.proximoEstado} className="button is-dark">
+                                        <button
+                                            className={`button is-dark`}
+                                            key={estado.proximoEstado}
+                                            onClick={() => this.changeOperationStatus(operation.idOperacion, estado.proximoEstado)}
+                                            disabled={this.state.loading}
+                                        >
                                             {estado.descripcionAccion}
                                         </button>
                                     ))}

@@ -3,7 +3,7 @@ import {ContentType, HttpMethods} from "../utils/Constants";
 import {getLoggedUserId} from "../utils/AuthenticationUtils";
 import {OperationRequest} from "../models/DTO";
 
-const ENDPOINT_OPERATIONS= "/operaciones";
+const ENDPOINT_OPERATIONS = "/operaciones";
 
 const OperationResource = {
     create(details) {
@@ -20,6 +20,9 @@ const OperationResource = {
         };
 
         return RestClient.executeCall(url, options);
+    },
+    changeStatus(operationId, status) {
+        console.log(`${new Date().toLocaleString()} - Actualizar operacion ${operationId} a ${status}`);
     }
 };
 
