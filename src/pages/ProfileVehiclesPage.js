@@ -6,6 +6,7 @@ import ProfileResource from "../resources/ProfileResource";
 import {Link} from "react-router-dom";
 import Modal from "../components/layout/Modal";
 import {locationDataAsArray} from "../utils/LocationUtils";
+import {Routes} from "../utils/Constants";
 
 const VehicleStatus = {
     ACTIVO: <span className="tag is-success is-medium"><span className="icon"><i className="fas fa-check"></i></span>&nbsp; Actiivo</span>,
@@ -83,7 +84,7 @@ export default class ProfileVehiclesPage extends React.Component {
                                     <GoBackButton/>
                                 </div>
                                 <div className="level-item">
-                                    <Link className={"button is-dark"} to={`/profile/vehicles/new`}>
+                                    <Link className={"button is-dark"} to={Routes.PROFILE_VEHICLES_NEW}>
                                         <i className="fas fa-plus"></i>&nbsp; Nuevo
                                     </Link>
                                 </div>
@@ -95,7 +96,7 @@ export default class ProfileVehiclesPage extends React.Component {
                 <section className="section">
                     <div className="container">
                         {this.state.data.length ? (
-                            <table className="table is-striped is-fullwidth">
+                            <table className="table is-striped is-hoverable is-fullwidth">
                                 <thead>
                                     <tr>
                                         <th>Marca</th>
@@ -108,31 +109,31 @@ export default class ProfileVehiclesPage extends React.Component {
                                 {this.state.data.map(vehicle => {
                                     return (
                                         <tbody key={vehicle.id}>
-                                        <tr>
-                                            <td>{vehicle.marca}</td>
-                                            <td>{vehicle.modelo}</td>
-                                            <td>{locationDataAsArray(vehicle.locacion).join(LOCATION_SEPARATOR)}</td>
-                                            <td>{VehicleStatus[vehicle.estado]}</td>
-                                            <td>
-                                                <div className="buttons">
-                                                    <Link className={"button is-light"} to={`/profile/vehicles/${vehicle.id}/edit`}>
-                                                        <span className="icon"><i className="fas fa-edit"></i></span>&nbsp; Editar
-                                                    </Link>
+                                            <tr>
+                                                <td>{vehicle.marca}</td>
+                                                <td>{vehicle.modelo}</td>
+                                                <td>{locationDataAsArray(vehicle.locacion).join(LOCATION_SEPARATOR)}</td>
+                                                <td>{VehicleStatus[vehicle.estado]}</td>
+                                                <td>
+                                                    <div className="buttons">
+                                                        <Link className={"button is-light"} to={`/profile/vehicles/${vehicle.id}/edit`}>
+                                                            <span className="icon"><i className="fas fa-edit"></i></span>&nbsp; Editar
+                                                        </Link>
 
-                                                    <button className="button is-danger" onClick={this.toggleDeleteModal}>
-                                                        <span><i className="fas fa-trash-alt"></i></span>&nbsp;  Eliminar
-                                                    </button>
+                                                        <button className="button is-danger" onClick={this.toggleDeleteModal}>
+                                                            <span><i className="fas fa-trash-alt"></i></span>&nbsp;  Eliminar
+                                                        </button>
 
-                                                    <Modal closeModal={this.toggleDeleteModal}
-                                                           modalState={this.state.deleteModalIsOpen}
-                                                           title={CONFIRM_VEHICLE_DELETE_MODAL_TITLE}
-                                                           confirmCallback={() => {this.handleVehicleDelete(vehicle.id)}}
-                                                    >
-                                                        <p>Est&aacute; por eliminar su <strong>{vehicle.marca} {vehicle.modelo}</strong></p>
-                                                    </Modal>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                        <Modal closeModal={this.toggleDeleteModal}
+                                                               modalState={this.state.deleteModalIsOpen}
+                                                               title={CONFIRM_VEHICLE_DELETE_MODAL_TITLE}
+                                                               confirmCallback={() => {this.handleVehicleDelete(vehicle.id)}}
+                                                        >
+                                                            <p>Est&aacute; por eliminar su <strong>{vehicle.marca} {vehicle.modelo}</strong></p>
+                                                        </Modal>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     )
                                 })}

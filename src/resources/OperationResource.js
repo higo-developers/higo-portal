@@ -3,7 +3,7 @@ import {ContentType, HttpMethods} from "../utils/Constants";
 import {getLoggedUserId} from "../utils/AuthenticationUtils";
 import {OperationRequest} from "../models/DTO";
 
-const ENDPOINT_OPERATIONS= "/operaciones";
+const ENDPOINT_OPERATIONS = "/operaciones";
 
 const OperationResource = {
     create(details) {
@@ -14,6 +14,19 @@ const OperationResource = {
         const options = {
             method: HttpMethods.POST,
             body: JSON.stringify(request),
+            headers: {
+                'Content-Type': ContentType.APPLICATION_JSON
+            }
+        };
+
+        return RestClient.executeCall(url, options);
+    },
+    changeStatus(operationId, status) {
+        const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_OPERATIONS}`;
+
+        const options = {
+            method: HttpMethods.PUT,
+            body: JSON.stringify({idOperacion: operationId, codEstado: status}),
             headers: {
                 'Content-Type': ContentType.APPLICATION_JSON
             }

@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import LoginButton from "../authentication/LoginButton";
 import {isNotNullOrUndefined} from "../../utils/Utils";
-import UserMenuItem from "../menu/UserMenuItem";
+import LoggedUserMenu from "../menu/LoggedUserMenu";
 import {Routes} from "../../utils/Constants";
 
 const CLASS_LIST_TOKEN = "is-active";
@@ -35,7 +35,7 @@ export default function Navbar() {
 
                 <div id="higo-navbar-menu" className="navbar-menu">
                     <div className="navbar-end">
-                        <UserMenuItem/>
+                        <LoggedUserMenu/>
 
                         <div className="navbar-item">
                             <div className="buttons">

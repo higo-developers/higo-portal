@@ -26,10 +26,8 @@ export default class UserRegister extends React.Component {
     }
 
     handleUser = (user) => {
-        console.log(user);
         this.userData = user;
         this.submitUser();
-        // this.toggleModal();
     }
 
     submitUser = async () => {

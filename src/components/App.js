@@ -15,6 +15,7 @@ import {Routes} from "../utils/Constants";
 import ProfileVehiclesPage from "../pages/ProfileVehiclesPage";
 import ProfileVehicleFormPage from "../pages/ProfileVehicleFormPage";
 import CompleteUserDataPage from "../pages/CompleteUserDataPage";
+import OperationsPage from "../pages/OperationsPage";
 
 export default function App() {
     return (
@@ -36,6 +37,7 @@ export default function App() {
                 <ProtectedRoute exact path={Routes.PROFILE_VEHICLES} component={ProfileVehiclesPage}/>
                 <ProtectedRoute exact path={Routes.PROFILE_VEHICLES_NEW} component={ProfileVehicleFormPage}/>
                 <ProtectedRoute exact path={Routes.PROFILE_VEHICLES_EDIT} component={ProfileVehicleFormPage}/>
+                <ProtectedRoute exact path={Routes.OPERATIONS} component={OperationsPage}/>
 
                 <Route component={NotFoundPage}/>
             </Switch>

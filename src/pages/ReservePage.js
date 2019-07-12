@@ -31,7 +31,7 @@ export default class ReservePage extends React.Component {
 
         try {
             const response = await OperationResource.create(this.state.details);
-            if (isNotNullOrUndefined(response.codEstado) && response.codEstado === OperationStates.APROBADO)
+            if (isNotNullOrUndefined(response.codEstado) && response.codEstado === OperationStates.PENDIENTE)
                 this.setState({loading: false, error: null, done: true});
         } catch (error) {
             this.setState({loading: false, error: error, done: false});

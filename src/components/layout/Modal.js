@@ -21,7 +21,7 @@ export default function Modal({children, closeModal, modalState, title, confirmC
                 <footer className="modal-card-foot">
                     <button className="button" onClick={closeModal}>
                         <span className="icon"><i className="fas fa-times"></i></span>
-                        <span>Cancelar</span>
+                        <span>Cerrar</span>
                     </button>
 
                     {confirmCallback && (
