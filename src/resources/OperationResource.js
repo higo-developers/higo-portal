@@ -22,7 +22,17 @@ const OperationResource = {
         return RestClient.executeCall(url, options);
     },
     changeStatus(operationId, status) {
-        console.log(`${new Date().toLocaleString()} - Actualizar operacion ${operationId} a ${status}`);
+        const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_OPERATIONS}`;
+
+        const options = {
+            method: HttpMethods.PUT,
+            body: JSON.stringify({idOperacion: operationId, codEstado: status}),
+            headers: {
+                'Content-Type': ContentType.APPLICATION_JSON
+            }
+        };
+
+        return RestClient.executeCall(url, options);
     }
 };
 

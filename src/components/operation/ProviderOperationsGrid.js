@@ -19,9 +19,15 @@ export default class ProviderOperationsGrid extends React.Component {
         console.log(`${new Date().toLocaleString()} - Mostrar detalle de usario ${userId}`);
     };
 
-    changeOperationStatus = (operationId, status) => {
+    changeOperationStatus = async (operationId, status) => {
         this.setState({loading: true});
-        OperationResource.changeStatus(operationId, status);
+
+        try {
+            const response = await OperationResource.changeStatus(operationId, status);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     render() {
