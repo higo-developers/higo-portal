@@ -323,7 +323,7 @@ export default class ProfileVehicleFormPage extends React.Component {
                                                                     <div className="control" key={cc.id}>
                                                                         <label className="radio">
                                                                             <input type="radio" name="cilindrada"
-                                                                                   checked={cc.id == this.state.vehicle.cilindrada}
+                                                                                   checked={cc.id.toString() === this.state.vehicle.cilindrada.toString()}
                                                                                    onChange={this.handleChange}
                                                                                    value={cc.id}/>&nbsp; {cc.descripcion}
                                                                         </label>
@@ -349,7 +349,7 @@ export default class ProfileVehicleFormPage extends React.Component {
                                                                 return (
                                                                     <div className="control" key={fuel.codigo}>
                                                                         <label className="radio">
-                                                                            <input type="radio" name="combustible" checked={fuel.codigo == this.state.vehicle.combustible} onChange={this.handleChange} value={fuel.codigo}/>&nbsp; {fuel.descripcion}
+                                                                            <input type="radio" name="combustible" checked={fuel.codigo === this.state.vehicle.combustible} onChange={this.handleChange} value={fuel.codigo}/>&nbsp; {fuel.descripcion}
                                                                         </label>
                                                                     </div>
                                                                 )
