@@ -2,6 +2,17 @@ import React from 'react';
 import {datetimeToDayMonYearHourMin} from "../../utils/FormatUtils";
 
 export default class ProviderOperationsGrid extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.openUserDetails = this.openUserDetails.bind(this);
+    }
+
+    /* TODO - Implementar método que abra modal con detalle de adquirente (NTH) */
+    openUserDetails = (userId) => {
+        console.log(`${new Date().toLocaleString()} - Mostrar detalle de usario ${userId}`);
+    };
+
     render() {
         return (
             <React.Fragment>
@@ -19,7 +30,12 @@ export default class ProviderOperationsGrid extends React.Component {
                     <tbody>
                     {this.props.data.map(operation => (
                         <tr key={operation.idOperacion}>
-                            <td>{operation.adquirente}</td>
+                            <td className="has-cursor-pointer" onClick={() => this.openUserDetails(operation.idAdquiriente)} >
+                                {operation.adquirente}
+                                <span className="icon is-pulled-right">
+                                    <i className="fas fa-info-circle"></i>
+                                </span>
+                            </td>
                             <td>{operation.vehiculo}</td>
                             <td>{datetimeToDayMonYearHourMin(operation.fechaHoraDesde)}</td>
                             <td>{datetimeToDayMonYearHourMin(operation.fechaHoraHasta)}</td>

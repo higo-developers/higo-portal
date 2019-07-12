@@ -1,4 +1,8 @@
 /* CLASS */
+.has-cursor-pointer {
+    cursor: pointer;
+}
+
 .height-50 {
     min-height: 50vh;
 }
