@@ -11,7 +11,7 @@ export default class OperationsGrid extends React.Component {
             <React.Fragment>
                 {hasData ? (
                     (this.props.role === OperationRoles.PROVIDER)
-                        ? <ProviderOperationsGrid data={this.props.data}/>
+                        ? <ProviderOperationsGrid data={this.props.data}  onRedirectCases={this.props.onRedirectCases}/>
                         : <AcquirerOperationsGrid data={this.props.data}/>
 
                 ) : (

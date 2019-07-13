@@ -10,9 +10,9 @@ export default class Operations extends React.Component {
 
         this.state = {
             tabList: [
-                { code: OperationStatesGroup.PENDING, title: "Pendientes", content: <OperationsGrid role={this.props.role} data={this.props.data.pendientes} emptyDataMessage={"No hay operaciones pendientes."}/> },
-                { code: OperationStatesGroup.ONGOING, title: "En curso", content: <OperationsGrid role={this.props.role} data={this.props.data.enCurso} emptyDataMessage={"No hay operaciones en curso."}/> },
-                { code: OperationStatesGroup.FINISHED, title: "Finalizadas", content: <OperationsGrid role={this.props.role} data={this.props.data.finalizadas} emptyDataMessage={"No hay operaciones finalizadas."}/> }
+                { code: OperationStatesGroup.PENDING, title: "Pendientes", content: <OperationsGrid role={this.props.role} data={this.props.data.pendientes} emptyDataMessage={"No hay operaciones pendientes."} onRedirectCases={this.props.onRedirectCases}/> },
+                { code: OperationStatesGroup.ONGOING, title: "En curso", content: <OperationsGrid role={this.props.role} data={this.props.data.enCurso} emptyDataMessage={"No hay operaciones en curso."} onRedirectCases={this.props.onRedirectCases}/> },
+                { code: OperationStatesGroup.FINISHED, title: "Finalizadas", content: <OperationsGrid role={this.props.role} data={this.props.data.finalizadas} emptyDataMessage={"No hay operaciones finalizadas."} onRedirectCases={this.props.onRedirectCases}/> }
             ],
             activeTab: OperationStatesGroup.PENDING
         };

@@ -3,6 +3,7 @@ import {datetimeToDayMonYearHourMin} from "../../utils/FormatUtils";
 import OperationResource from "../../resources/OperationResource";
 import {isNotNullOrUndefined} from "../../utils/Utils";
 import ChangeOperationStatusModal from "./ChangeOperationStatusModal";
+import {OperationStates} from "../../utils/Constants";
 
 export default class ProviderOperationsGrid extends React.Component {
     constructor(props) {
@@ -19,6 +20,7 @@ export default class ProviderOperationsGrid extends React.Component {
         this.changeOperationStatus = this.changeOperationStatus.bind(this);
         this.handleResponse = this.handleResponse.bind(this);
         this.toggleChangeStatusModal = this.toggleChangeStatusModal.bind(this);
+        this.handleRedirectCases = this.handleRedirectCases.bind(this);
     }
 
     /* TODO - Implementar método que abra modal con detalle de adquirente (NTH) */
@@ -36,6 +38,8 @@ export default class ProviderOperationsGrid extends React.Component {
     handleResponse = (response) => {
         isNotNullOrUndefined(response.errorMessage) && this.setState({modalContent: <p>{response.errorMessage}</p>});
 
+        this.handleRedirectCases(response);
+
         response.codEstado === this.state.expectedStatus && this.setState({
             modalContent: <p><strong>Operaci&oacute;n {response.idOperacion}:</strong> &nbsp;{response.estado}</p>
         });
@@ -43,6 +47,12 @@ export default class ProviderOperationsGrid extends React.Component {
         this.setState({loading: false});
 
         this.toggleChangeStatusModal();
+    };
+
+    handleRedirectCases = (response) => {
+        (response.codEstado === OperationStates.CONTROL_INICIAL
+            || response.codEstado === OperationStates.CONTROL_FINAL)
+        && this.props.onRedirectCases(response, response.codEstado);
     };
 
     changeOperationStatus = async (operationId, status) => {

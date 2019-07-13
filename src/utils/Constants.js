@@ -13,6 +13,8 @@ export const Routes = {
     BASE: "/",
     LOGIN: "/login",
     OPERATIONS: "/operations",
+    OPERATIONS_INITIAL_CONTROL: "/operations/:id/control/initial",
+    OPERATIONS_FINAL_CONTROL: "/operations/:id/control/final",
     SEARCH: "/search",
     SEARCH_BY_MAP: "/search/map",
     VEHICLES: "/vehicles",
