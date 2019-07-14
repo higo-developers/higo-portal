@@ -71,6 +71,7 @@ export default class ProviderOperationsGrid extends React.Component {
                 <table className="table is-striped is-hoverable is-fullwidth">
                     <thead>
                     <tr>
+                        <th>Operaci&oacute;n</th>
                         <th>Desde</th>
                         <th>Hasta</th>
                         <th>Adquirente</th>
@@ -82,6 +83,7 @@ export default class ProviderOperationsGrid extends React.Component {
                     <tbody>
                     {this.props.data.map(operation => (
                         <tr key={operation.idOperacion}>
+                            <td>{operation.idOperacion}</td>
                             <td>{datetimeToDayMonYearHourMin(operation.fechaHoraDesde)}</td>
                             <td>{datetimeToDayMonYearHourMin(operation.fechaHoraHasta)}</td>
                             <td className="has-cursor-pointer" onClick={() => this.openUserDetails(operation.idAdquiriente)} >

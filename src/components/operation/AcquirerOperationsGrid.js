@@ -55,6 +55,7 @@ export default class AcquirerOperationsGrid extends React.Component {
                 <table className="table is-striped is-hoverable is-fullwidth">
                     <thead>
                     <tr>
+                        <th>Oepraci&oacute;n</th>
                         <th>Desde</th>
                         <th>Hasta</th>
                         <th>Prestador</th>
@@ -66,6 +67,7 @@ export default class AcquirerOperationsGrid extends React.Component {
                     <tbody>
                     {this.props.data.map(operation => (
                         <tr key={operation.idOperacion}>
+                            <td>{operation.idOperacion}</td>
                             <td>{datetimeToDayMonYearHourMin(operation.fechaHoraDesde)}</td>
                             <td>{datetimeToDayMonYearHourMin(operation.fechaHoraHasta)}</td>
                             <td>{operation.prestador}</td>

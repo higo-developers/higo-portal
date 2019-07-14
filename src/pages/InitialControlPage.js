@@ -1,6 +1,6 @@
 import React from 'react';
 import GoBackButton from "../components/layout/GoBackButton";
-import ControlOperationSummary from "../components/operation/ControlOperationSummary";
+import OperationSummary from "../components/operation/control/OperationSummary";
 import {FuelLevels, GeneralPerformance, HygieneLevels, Routes} from "../utils/Constants";
 import OperationResource from "../resources/OperationResource";
 import {handlePossibleErrorResponse} from "../utils/Utils";
@@ -87,7 +87,7 @@ export default class InitialControlPage extends React.Component {
                     <div className="container">
                         <nav className="level is-mobile">
                             <div className="level-left is-hidden-mobile">
-                                <h1 className="title">Control de operaci&oacute;n {this.state.operation.idOperacion}</h1>
+                                <h1 className="title">Control inicial de operaci&oacute;n {this.state.operation.idOperacion}</h1>
                             </div>
 
                             <div className="level-right">
@@ -101,7 +101,7 @@ export default class InitialControlPage extends React.Component {
 
                 <section className="section">
                     <div className="container">
-                        <ControlOperationSummary operation={this.state.operation}/>
+                        <OperationSummary operation={this.state.operation}/>
                     </div>
                 </section>
 
