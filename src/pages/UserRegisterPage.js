@@ -1,8 +1,8 @@
 import React from 'react';
 import UserForm from "../components/user/UserForm";
 import UserRegisterResource from "../resources/UserRegisterResource";
-import { Routes} from "../utils/Constants";
-import { isNotNullOrUndefined } from "../utils/Utils";
+import {Routes} from "../utils/Constants";
+import {handlePossibleErrorResponse} from "../utils/Utils";
 
 export default class UserRegister extends React.Component {
     constructor(props) {
@@ -34,8 +34,10 @@ export default class UserRegister extends React.Component {
         try {
             let response = await UserRegisterResource.createUser(this.userData.formData);
 
-            if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
+            handlePossibleErrorResponse(response);
+
             this._isMounted && this.setState({"loading": false, "error": undefined});
+
             this.props.history.push(Routes.BASE);
         } catch (e) {
             this.setState({"loading": false, "error": e});

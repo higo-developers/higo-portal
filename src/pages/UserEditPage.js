@@ -1,9 +1,9 @@
 import React from 'react';
 import UserForm from "../components/user/UserForm";
 import UserRegisterResource from "../resources/UserRegisterResource";
-import { Routes} from "../utils/Constants";
-import { isNotNullOrUndefined } from "../utils/Utils";
-import { logout } from "../utils/AuthenticationUtils";
+import {Routes} from "../utils/Constants";
+import {handlePossibleErrorResponse} from "../utils/Utils";
+import {logout} from "../utils/AuthenticationUtils";
 
 export default class UserEdit extends React.Component {
     
@@ -34,7 +34,7 @@ export default class UserEdit extends React.Component {
         try {
             let response = await UserRegisterResource.editUser(this.userData.formData);
 
-            if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
+            handlePossibleErrorResponse(response);
             this._isMounted && this.setState({"loading": false, "error": undefined});
             logout(() => {this.props.history.push(Routes.LOGIN)});
         } catch (e) {
