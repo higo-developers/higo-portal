@@ -4,6 +4,7 @@ import {getLoggedUserId} from "../utils/AuthenticationUtils";
 import {OperationRequest} from "../models/DTO";
 
 const ENDPOINT_OPERATIONS = "/operaciones";
+const ENDPOINT_CONTROL = "/control";
 
 const OperationResource = {
     create(details) {
@@ -33,6 +34,10 @@ const OperationResource = {
         };
 
         return RestClient.executeCall(url, options);
+    },
+    createInitialControl(operationId, control) {
+        const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_OPERATIONS}/${operationId}${ENDPOINT_CONTROL}`;
+        console.log(url);
     }
 };
 

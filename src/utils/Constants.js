@@ -65,6 +65,19 @@ export const UserOrigin = {
     FACEBOOK: "FACEBOOK"
 };
 
-export const FuelLevels = ["BAJO", "MEDIO", "ALTO"];
-export const HygieneLevels = ["MALO", "REGULAR", "BUENO"];
-export const TechnicalStatus = ["MALO", "BUENO"];
+export const FuelLevels = {
+    ALTO: "ALTO",
+    MEDIO: "MEDIO",
+    BAJO: "BAJO"
+};
+
+export const HygieneLevels = {
+    BUENO: "BUENO",
+    REGULAR: "REGULAR",
+    MALO: "MALO"
+};
+
+export const GeneralPerformance = {
+    BUENO: "BUENO",
+    MALO: "MALO"
+};
