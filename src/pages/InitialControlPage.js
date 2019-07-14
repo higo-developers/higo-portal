@@ -1,9 +1,10 @@
 import React from 'react';
 import GoBackButton from "../components/layout/GoBackButton";
 import ControlOperationSummary from "../components/operation/ControlOperationSummary";
-import {FuelLevels, GeneralPerformance, HygieneLevels} from "../utils/Constants";
+import {FuelLevels, GeneralPerformance, HygieneLevels, Routes} from "../utils/Constants";
 import OperationResource from "../resources/OperationResource";
 import {handlePossibleErrorResponse} from "../utils/Utils";
+import ChangeOperationStatusModal from "../components/operation/ChangeOperationStatusModal";
 
 export default class InitialControlPage extends React.Component {
     constructor(props) {
@@ -11,7 +12,10 @@ export default class InitialControlPage extends React.Component {
 
         this.state = {
             loading: false,
+            disabledSubmitButton: false,
             operation: this.props.history.location.state.operationResponse,
+            modalIsOpen: false,
+            modalContent: null,
             control: {
                 fuelLevel: FuelLevels.ALTO,
                 externalHygieneLevel: HygieneLevels.BUENO,
@@ -23,7 +27,15 @@ export default class InitialControlPage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.buildControlRequestBody = this.buildControlRequestBody.bind(this);
+        this.toggleChangeStatusModal = this.toggleChangeStatusModal.bind(this);
     }
+
+    toggleChangeStatusModal = () => {
+        this.setState((prev, props) => {
+            const isOpen = !prev.modalIsOpen;
+            return {modalIsOpen: isOpen};
+        });
+    };
 
     handleChange = (event) => {
         const target = event.target;
@@ -52,16 +64,24 @@ export default class InitialControlPage extends React.Component {
     handleSubmit = async (event) => {
         event.preventDefault();
 
-        this.setState({loading: true});
+        this.setState({loading: true, disabledSubmitButton: true});
 
         try {
             const response = await OperationResource.createInitialControl(this.state.operation.idOperacion, this.buildControlRequestBody());
 
             handlePossibleErrorResponse(response);
 
+            this.setState({
+                modalContent: <p><strong>Operaci&oacute;n {response.idOperacion}:</strong> &nbsp;{response.estadoOperacion}</p>
+            });
         } catch (error) {
             console.log(error);
+
+            this.setState({ modalContent: <p>{error.message}</p> });
         }
+
+        this.setState({loading: false});
+        this.toggleChangeStatusModal();
     };
 
     render() {
@@ -180,7 +200,7 @@ export default class InitialControlPage extends React.Component {
                                 <div className="column is-full">
                                     <div className="field is-grouped">
                                         <div className="control">
-                                            <button type="submit" className={`button is-dark ${this.state.loading && 'is-loading'}`}>
+                                            <button type="submit" className={`button is-dark ${this.state.loading && 'is-loading'}`} disabled={this.state.disabledSubmitButton}>
                                                 <span className="icon"><i className="fas fa-check" /></span>
                                                 <span>Confirmar</span>
                                             </button>
@@ -191,6 +211,12 @@ export default class InitialControlPage extends React.Component {
                         </form>
                     </div>
                 </section>
+
+                <ChangeOperationStatusModal
+                    onCloseModal={() => this.props.history.push(Routes.OPERATIONS)}
+                    modalState={this.state.modalIsOpen}
+                    content={this.state.modalContent}
+                />
             </React.Fragment>
         );
     }
