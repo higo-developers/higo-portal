@@ -64,3 +64,7 @@ export const UserOrigin = {
     PORTAL: "PORTAL",
     FACEBOOK: "FACEBOOK"
 };
+
+export const FuelLevels = ["BAJO", "MEDIO", "ALTO"];
+export const HygieneLevels = ["MALO", "REGULAR", "BUENO"];
+export const TechnicalStatus = ["MALO", "BUENO"];
