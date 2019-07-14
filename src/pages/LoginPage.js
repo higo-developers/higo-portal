@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginResource from "../resources/LoginResource";
-import {isNotNullOrUndefined} from "../utils/Utils";
+import {handlePossibleErrorResponse, isNotNullOrUndefined} from "../utils/Utils";
 import {login} from "../utils/AuthenticationUtils";
 import FacebookLoginButton from "../components/authentication/FacebookLoginButton";
 import UserResource from "../resources/UserResource";
@@ -83,7 +83,7 @@ export default class LoginPage extends React.Component {
         try {
             let response = await LoginResource.doLogin(loginRequest);
 
-            if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
+            handlePossibleErrorResponse(response);
 
             login(response, () => { this.props.history.goBack() });
 

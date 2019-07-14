@@ -5,7 +5,7 @@ import {ProfileVehicle} from "../models/DTO";
 import BrandResource from "../resources/BrandResource";
 import OptionsResource from "../resources/OptionsResource";
 import {Routes} from "../utils/Constants";
-import {isNotNullOrUndefined} from "../utils/Utils";
+import {handlePossibleErrorResponse} from "../utils/Utils";
 
 const TITLE_EDIT_VEHICLE = "Editar vehículo";
 const TITLE_NEW_VEHICLE = "Nuevo vehículo";
@@ -138,7 +138,7 @@ export default class ProfileVehicleFormPage extends React.Component {
         try {
             const response = await ProfileResource.saveVehicle(this.state.vehicle);
 
-            if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
+            handlePossibleErrorResponse(response);
 
             this.props.history.push(Routes.PROFILE_VEHICLES);
         } catch (error) {

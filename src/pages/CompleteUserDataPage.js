@@ -3,7 +3,7 @@ import GoBackButton from "../components/layout/GoBackButton";
 import LocationAutocomplete from "../components/location/LocationAutocomplete";
 import UserResource from "../resources/UserResource";
 import LoginResource from "../resources/LoginResource";
-import {isNotNullOrUndefined} from "../utils/Utils";
+import {handlePossibleErrorResponse} from "../utils/Utils";
 import {login} from "../utils/AuthenticationUtils";
 import {Routes} from "../utils/Constants";
 
@@ -77,7 +77,7 @@ export default class CompleteUserDataPage extends React.Component {
         try {
             let response = await LoginResource.doLogin(loginRequest);
 
-            if (isNotNullOrUndefined(response.errorMessage)) throw new Error(response.errorMessage);
+            handlePossibleErrorResponse(response);
 
             login(response, () => { this.props.history.push(Routes.BASE) });
 

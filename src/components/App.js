@@ -16,6 +16,8 @@ import ProfileVehiclesPage from "../pages/ProfileVehiclesPage";
 import ProfileVehicleFormPage from "../pages/ProfileVehicleFormPage";
 import CompleteUserDataPage from "../pages/CompleteUserDataPage";
 import OperationsPage from "../pages/OperationsPage";
+import InitialControlPage from "../pages/InitialControlPage";
+import FinalControlPage from "../pages/FinalControlPage";
 
 export default function App() {
     return (
@@ -38,6 +40,9 @@ export default function App() {
                 <ProtectedRoute exact path={Routes.PROFILE_VEHICLES_NEW} component={ProfileVehicleFormPage}/>
                 <ProtectedRoute exact path={Routes.PROFILE_VEHICLES_EDIT} component={ProfileVehicleFormPage}/>
                 <ProtectedRoute exact path={Routes.OPERATIONS} component={OperationsPage}/>
+
+                <ProtectedRoute exact path={Routes.OPERATIONS_INITIAL_CONTROL} component={InitialControlPage}/>
+                <ProtectedRoute exact path={Routes.OPERATIONS_FINAL_CONTROL} component={FinalControlPage}/>
 
                 <Route component={NotFoundPage}/>
             </Switch>

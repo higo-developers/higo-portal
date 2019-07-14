@@ -13,6 +13,8 @@ export const Routes = {
     BASE: "/",
     LOGIN: "/login",
     OPERATIONS: "/operations",
+    OPERATIONS_INITIAL_CONTROL: "/operations/:id/control/initial",
+    OPERATIONS_FINAL_CONTROL: "/operations/:id/control/final",
     SEARCH: "/search",
     SEARCH_BY_MAP: "/search/map",
     VEHICLES: "/vehicles",
@@ -33,12 +35,16 @@ export const OperationRoles = {
 };
 
 export const OperationStates = {
-    APROBADO: "APROBADO",
-    CANCELADO: "CANCELADO",
-    FINALIZADO: "FINALIZADO",
     PENDIENTE: "PENDIENTE",
+    APROBADO: "APROBADO",
     RECHAZADO: "RECHAZADO",
-    VIGENTE: "VIGENTE"
+    CANCELADO: "CANCELADO",
+    CONTROL_INICIAL: "CONTROL_INICIAL",
+    VIGENTE: "VIGENTE",
+    CONTROL_FINAL: "CONTROL_FINAL",
+    PAGO_PENDIENTE: "PAGO_PENDIENTE",
+    FINALIZADO: "FINALIZADO",
+    CALIFICADO: "CALIFICADO"
 };
 
 export const OperationStatesGroup = {
@@ -57,4 +63,21 @@ export const VehicleStates = {
 export const UserOrigin = {
     PORTAL: "PORTAL",
     FACEBOOK: "FACEBOOK"
+};
+
+export const FuelLevels = {
+    ALTO: "ALTO",
+    MEDIO: "MEDIO",
+    BAJO: "BAJO"
+};
+
+export const HygieneLevels = {
+    BUENO: "BUENO",
+    REGULAR: "REGULAR",
+    MALO: "MALO"
+};
+
+export const GeneralPerformance = {
+    BUENO: "BUENO",
+    MALO: "MALO"
 };
