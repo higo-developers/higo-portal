@@ -35,9 +35,18 @@ const OperationResource = {
 
         return RestClient.executeCall(url, options);
     },
-    createInitialControl(operationId, control) {
+    createInitialControl(operationId, request) {
         const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_OPERATIONS}/${operationId}${ENDPOINT_CONTROL}`;
-        console.log(url);
+
+        const options = {
+            method: HttpMethods.POST,
+            body: JSON.stringify(request),
+            headers: {
+                'Content-Type': ContentType.APPLICATION_JSON
+            }
+        };
+
+        return RestClient.executeCall(url, options);
     }
 };
 

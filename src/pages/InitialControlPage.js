@@ -2,6 +2,8 @@ import React from 'react';
 import GoBackButton from "../components/layout/GoBackButton";
 import ControlOperationSummary from "../components/operation/ControlOperationSummary";
 import {FuelLevels, GeneralPerformance, HygieneLevels} from "../utils/Constants";
+import OperationResource from "../resources/OperationResource";
+import {handlePossibleErrorResponse} from "../utils/Utils";
 
 export default class InitialControlPage extends React.Component {
     constructor(props) {
@@ -20,6 +22,7 @@ export default class InitialControlPage extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.buildControlRequestBody = this.buildControlRequestBody.bind(this);
     }
 
     handleChange = (event) => {
@@ -36,8 +39,29 @@ export default class InitialControlPage extends React.Component {
         });
     };
 
-    handleSubmit = (event) => {
+    buildControlRequestBody = () => {
+        return {
+            idOperacion: this.state.operation.idOperacion,
+            nivelCombustibleInicial: this.state.control.fuelLevel,
+            higieneExternaInicial: this.state.control.externalHygieneLevel,
+            higieneInternaInicial: this.state.control.internalHygieneLevel,
+            funcionamientoGeneralInicial: this.state.control.performance
+        };
+    };
+
+    handleSubmit = async (event) => {
         event.preventDefault();
+
+        this.setState({loading: true});
+
+        try {
+            const response = await OperationResource.createInitialControl(this.state.operation.idOperacion, this.buildControlRequestBody());
+
+            handlePossibleErrorResponse(response);
+
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     render() {
