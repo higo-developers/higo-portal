@@ -50,6 +50,19 @@ const OperationResource = {
     },
     getOperationInitialControl(operationId) {
         return RestClient.executeCall(`${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_OPERATIONS}/${operationId}${ENDPOINT_CONTROL}`);
+    },
+    updateControl(request) {
+        const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_OPERATIONS}/${request.idOperacion}${ENDPOINT_CONTROL}`;
+
+        const options = {
+            method: HttpMethods.PUT,
+            body: JSON.stringify(request),
+            headers: {
+                'Content-Type': ContentType.APPLICATION_JSON
+            }
+        };
+
+        return RestClient.executeCall(url, options);
     }
 };
 
