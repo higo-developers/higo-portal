@@ -1,6 +1,10 @@
 import React from 'react';
 import GoBackButton from "../components/layout/GoBackButton";
 import OperationPaymentSummary from "../components/operation/payment/OperationPaymentSummary";
+import {OperationStates, Routes} from "../utils/Constants";
+import OperationResource from "../resources/OperationResource";
+import {handlePossibleErrorResponse} from "../utils/Utils";
+import ChangeOperationStatusModal from "../components/operation/ChangeOperationStatusModal";
 
 export default class ConfirmOperationPaymentPage extends React.Component {
     constructor(props) {
@@ -8,13 +12,38 @@ export default class ConfirmOperationPaymentPage extends React.Component {
 
         this.state = {
             loading: false,
-            operation: this.props.history.location.state.operationResponse
+            done: false,
+            error: null,
+            operation: this.props.history.location.state.operationResponse,
+            modalIsOpen: false,
+            modalContent: null
         };
+
+        this.handleClick = this.handleClick.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
     }
 
-    handleClick = () => {
+    toggleModal = () => {
+        this.setState((prev, props) => {
+            const isOpen = !prev.modalIsOpen;
+            return {modalIsOpen: isOpen};
+        });
+    };
+
+    handleClick = async () => {
         this.setState({loading: true});
-        console.log("Cambiar de estado");
+
+        try {
+            const response = await OperationResource.changeStatus(this.state.operation.idOperacion, OperationStates.FINALIZADO);
+            handlePossibleErrorResponse(response);
+            this.setState({modalContent: <p><strong>Operaci&oacute;n {response.idOperacion}:</strong> &nbsp;{response.estado}</p>});
+        } catch (error) {
+            this.setState({modalContent: <p>{error.message}</p>});
+        }
+
+        this.setState({loading: false, done: true});
+
+        this.toggleModal();
     };
 
     render() {
@@ -42,14 +71,22 @@ export default class ConfirmOperationPaymentPage extends React.Component {
                             <div className="column is-two-thirds">
                                 <OperationPaymentSummary operation={this.state.operation}/>
 
-                                <button className={`button is-dark is-large is-fullwidth ${ this.state.loading && "is-loading" }`} onClick={this.handleClick}>
-                                    <span className="icon"><i className="fas fa-check"></i></span>
-                                    <span>Confirmar</span>
-                                </button>
+                                {!this.state.done && (
+                                    <button className={`button is-dark is-large is-fullwidth ${ this.state.loading && "is-loading" }`} onClick={this.handleClick}>
+                                        <span className="icon"><i className="fas fa-check"></i></span>
+                                        <span>Confirmar</span>
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>
                 </section>
+
+                <ChangeOperationStatusModal
+                    onCloseModal={() => this.props.history.push(Routes.OPERATIONS)}
+                    modalState={this.state.modalIsOpen}
+                    content={this.state.modalContent}
+                />
             </React.Fragment>
         );
     }
