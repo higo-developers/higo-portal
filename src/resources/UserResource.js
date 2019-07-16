@@ -6,6 +6,9 @@ const ENDPOINT_USERS = "/usuarios";
 const ENDPOINT_USER_OPERATIONS = "/operaciones";
 
 const UserResource = {
+    getById(userId) {
+        return RestClient.executeCall(`${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_USERS}/${userId}`);
+    },
     getByEmailFromFacebook(email) {
         const url = `${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_USERS}/${email}/origen/${UserOrigin.FACEBOOK}`;
         return RestClient.executeCall(url);
