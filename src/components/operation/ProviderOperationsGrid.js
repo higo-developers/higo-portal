@@ -51,7 +51,8 @@ export default class ProviderOperationsGrid extends React.Component {
 
     handleRedirectCases = (response) => {
         (response.codEstado === OperationStates.CONTROL_INICIAL
-            || response.codEstado === OperationStates.CONTROL_FINAL)
+            || response.codEstado === OperationStates.CONTROL_FINAL
+            || response.codEstado === OperationStates.CONFIRMACION_PAGO)
         && this.props.onRedirectCases(response, response.codEstado);
     };
 

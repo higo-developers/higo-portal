@@ -15,6 +15,7 @@ export const Routes = {
     OPERATIONS: "/operations",
     OPERATIONS_INITIAL_CONTROL: "/operations/:id/control/initial",
     OPERATIONS_FINAL_CONTROL: "/operations/:id/control/final",
+    OPERATIONS_PAYMENT: "/operations/:id/payment",
     SEARCH: "/search",
     SEARCH_BY_MAP: "/search/map",
     VEHICLES: "/vehicles",
@@ -43,6 +44,7 @@ export const OperationStates = {
     VIGENTE: "VIGENTE",
     CONTROL_FINAL: "CONTROL_FINAL",
     PAGO_PENDIENTE: "PAGO_PENDIENTE",
+    CONFIRMACION_PAGO: "CONFIRMACION_PAGO",
     FINALIZADO: "FINALIZADO",
     CALIFICADO: "CALIFICADO"
 };

@@ -45,6 +45,11 @@ export default class OperationsPage extends React.Component {
             pathname: `${Routes.OPERATIONS}/${operationResponse.idOperacion}/control/final`,
             state: {operationResponse}
         });
+
+        operationStatusCode === OperationStates.CONFIRMACION_PAGO && this.props.history.push({
+            pathname: `${Routes.OPERATIONS}/${operationResponse.idOperacion}/payment`,
+            state: {operationResponse}
+        });
     };
 
     render() {
