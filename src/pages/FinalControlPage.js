@@ -35,7 +35,7 @@ export default class FinalControlPage extends React.Component {
 
     getOperationControl = async () => {
         try {
-            const response = await OperationResource.getOperationInitialControl(this.state.operation.idOperacion);
+            const response = await OperationResource.getOperationControl(this.state.operation.idOperacion);
 
             handlePossibleErrorResponse(response);
 

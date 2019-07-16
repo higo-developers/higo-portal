@@ -58,12 +58,20 @@
     right: 1.125em;
 }
 
+.padding-1 {
+    padding: 1rem;
+}
+
 .padding-2 {
     padding: 2rem;
 }
 
 .padding-bottom-0 {
     padding-bottom: 0;
+}
+
+.table.has-centered-content tr * {
+    text-align: center !important;
 }
 
 .tabs li.is-active a {

@@ -1,5 +1,6 @@
 import React from 'react';
 import GoBackButton from "../components/layout/GoBackButton";
+import OperationPaymentSummary from "../components/operation/payment/OperationPaymentSummary";
 
 export default class ConfirmOperationPaymentPage extends React.Component {
     constructor(props) {
@@ -29,6 +30,16 @@ export default class ConfirmOperationPaymentPage extends React.Component {
                                 </div>
                             </div>
                         </nav>
+                    </div>
+                </section>
+
+                <section className="section">
+                    <div className="container">
+                        <div className="columns is-centered">
+                            <div className="column is-two-thirds">
+                                <OperationPaymentSummary operation={this.state.operation}/>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </React.Fragment>
