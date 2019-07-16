@@ -20,7 +20,7 @@ export default class OperationPaymentSummary extends React.Component {
     getOperationControl = async (operationId) => {
         try {
             const response = await OperationResource.getOperationControl(operationId);
-            console.log(response);
+            this.setState({control: response});
         } catch (error) {
             console.log(error);
         }
@@ -28,7 +28,6 @@ export default class OperationPaymentSummary extends React.Component {
 
     render() {
         return (
-
             <React.Fragment>
                 <div className="box">
                     <div className="columns is-multiline has-text-centered">
@@ -60,31 +59,55 @@ export default class OperationPaymentSummary extends React.Component {
                             </p>
                         </div>
 
-                        <div className="column is-full">
-                            <table className="table is-bordered is-fullwidth table is-striped is-hoverable has-centered-content">
-                                <thead>
-                                    <tr>
-                                        <th>Control</th>
-                                        <th>Inicial</th>
-                                        <th>Final</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>1</th>
-                                        <th>1</th>
-                                        <th>1</th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        {this.state.control && (
+                            <div className="column is-full">
+                                <table className="table is-bordered is-fullwidth table is-striped has-centered-content">
+                                    <thead>
+                                        <tr>
+                                            <th>Control</th>
+                                            <th>Inicial</th>
+                                            <th>Final</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>Nivel de combustible</th>
+                                            <td>{this.state.control.nivelCombustibleInicial}</td>
+                                            <td>{this.state.control.nivelCombustibleFinal}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Higiene externa</th>
+                                            <td>{this.state.control.higieneExternaInicial}</td>
+                                            <td>{this.state.control.higieneExternaFinal}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Higiene interna</th>
+                                            <td>{this.state.control.higieneInternaInicial}</td>
+                                            <td>{this.state.control.higieneInternaFinal}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Funcionamiento general</th>
+                                            <td>{this.state.control.funcionamientoGeneralInicial}</td>
+                                            <td>{this.state.control.funcionamientoGeneralFinal}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
 
                         <div className="column has-text-centered is-full">
                             <p className="subtitle has-background-grey-lighter padding-1">
                                 <strong>Monto final:</strong>
                                 <br/>
-                                {toCurrency(this.props.operation.montoEfectivo, "ARS", "es-AR")}
+                                <span className="is-size-3">{toCurrency(this.props.operation.montoEfectivo, "ARS", "es-AR")}</span>
                             </p>
+                        </div>
+
+                        <div className="column is-full">
+                            <button className="button is-dark is-medium is-fullwidth">
+                                <span className="icon"><i className="fas fa-check"></i></span>
+                                <span>Confirmar</span>
+                            </button>
                         </div>
                     </div>
                 </div>

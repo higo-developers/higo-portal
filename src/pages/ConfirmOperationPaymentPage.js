@@ -11,10 +11,7 @@ export default class ConfirmOperationPaymentPage extends React.Component {
         };
     }
 
-
     render() {
-        console.log(this.state.operation);
-
         return (
             <React.Fragment>
                 <section className="section padding-bottom-0">
