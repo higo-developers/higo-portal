@@ -35,6 +35,10 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8e44ad', endColorstr='#683280', GradientType=0); /* IE6-9 */
 }
 
+.higo-link:hover, .higo-link:focus {
+    color: #363636 !important;
+}
+
 .large-font-size {
     font-size: -webkit-xxx-large;
 }

@@ -19,6 +19,7 @@ import OperationsPage from "../pages/OperationsPage";
 import InitialControlPage from "../pages/InitialControlPage";
 import FinalControlPage from "../pages/FinalControlPage";
 import ConfirmOperationPaymentPage from "../pages/ConfirmOperationPaymentPage";
+import Footer from "./layout/Footer";
 
 export default function App() {
     return (
@@ -49,6 +50,8 @@ export default function App() {
 
                 <Route component={NotFoundPage}/>
             </Switch>
+
+            <Footer/>
         </BrowserRouter>
     );
 }
