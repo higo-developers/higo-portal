@@ -3,7 +3,7 @@ import React from 'react';
 export default function Footer() {
     return (
         <React.Fragment>
-            <footer className="footer has-text-grey-light">
+            <footer className="footer custom-footer has-text-grey-light">
                 <div className="container">
                     <nav className="level">
                         <p className="level-item has-text-centered">
