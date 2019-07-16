@@ -102,13 +102,6 @@ export default class OperationPaymentSummary extends React.Component {
                                 <span className="is-size-3">{toCurrency(this.props.operation.montoEfectivo, "ARS", "es-AR")}</span>
                             </p>
                         </div>
-
-                        <div className="column is-full">
-                            <button className="button is-dark is-medium is-fullwidth">
-                                <span className="icon"><i className="fas fa-check"></i></span>
-                                <span>Confirmar</span>
-                            </button>
-                        </div>
                     </div>
                 </div>
             </React.Fragment>

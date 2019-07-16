@@ -7,9 +7,15 @@ export default class ConfirmOperationPaymentPage extends React.Component {
         super(props);
 
         this.state = {
+            loading: false,
             operation: this.props.history.location.state.operationResponse
         };
     }
+
+    handleClick = () => {
+        this.setState({loading: true});
+        console.log("Cambiar de estado");
+    };
 
     render() {
         return (
@@ -35,6 +41,11 @@ export default class ConfirmOperationPaymentPage extends React.Component {
                         <div className="columns is-centered">
                             <div className="column is-two-thirds">
                                 <OperationPaymentSummary operation={this.state.operation}/>
+
+                                <button className={`button is-dark is-large is-fullwidth ${ this.state.loading && "is-loading" }`} onClick={this.handleClick}>
+                                    <span className="icon"><i className="fas fa-check"></i></span>
+                                    <span>Confirmar</span>
+                                </button>
                             </div>
                         </div>
                     </div>
