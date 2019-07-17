@@ -4,6 +4,10 @@ import OperationResource from "../../resources/OperationResource";
 import {isNotNullOrUndefined} from "../../utils/Utils";
 import ChangeOperationStatusModal from "./ChangeOperationStatusModal";
 import {OperationStates} from "../../utils/Constants";
+import UserDetailModal from "../user/UserDetailModal";
+import UserResource from "../../resources/UserResource";
+
+const USER_DETAILS_MODAL_TITLE = "Detalle de usuario";
 
 export default class ProviderOperationsGrid extends React.Component {
     constructor(props) {
@@ -13,19 +17,50 @@ export default class ProviderOperationsGrid extends React.Component {
             loading: false,
             expectedStatus: null,
             modalIsOpen: false,
-            modalContent: null
+            modalContent: null,
+            userModalIsOpen: false,
+            userToDetail: null
         };
+
+        this._isMounted = false;
 
         this.openUserDetails = this.openUserDetails.bind(this);
         this.changeOperationStatus = this.changeOperationStatus.bind(this);
         this.handleResponse = this.handleResponse.bind(this);
+        this.toggleUserDetailModal = this.toggleUserDetailModal.bind(this);
         this.toggleChangeStatusModal = this.toggleChangeStatusModal.bind(this);
         this.handleRedirectCases = this.handleRedirectCases.bind(this);
     }
 
-    /* TODO - Implementar método que abra modal con detalle de adquirente (NTH) */
-    openUserDetails = (userId) => {
-        console.log(`${new Date().toLocaleString()} - Mostrar detalle de usario ${userId}`);
+    componentDidMount() {
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+    openUserDetails = async (userId) => {
+        try {
+            const response = await UserResource.getById(userId);
+            this._isMounted && this.setState({userToDetail: response});
+        } catch (error) {
+            console.error(error);
+            this._isMounted && this.setState({userToDetail: null})
+        }
+
+        this.toggleUserDetailModal();
+    };
+
+    toggleUserDetailModal = () => {
+        let isOpen = false;
+
+        this.setState((prev, props) => {
+            isOpen = !prev.userModalIsOpen;
+            return {userModalIsOpen: isOpen};
+        });
+
+        if (!isOpen) this.setState({userToDetail: null});
     };
 
     toggleChangeStatusModal = () => {
@@ -51,7 +86,8 @@ export default class ProviderOperationsGrid extends React.Component {
 
     handleRedirectCases = (response) => {
         (response.codEstado === OperationStates.CONTROL_INICIAL
-            || response.codEstado === OperationStates.CONTROL_FINAL)
+            || response.codEstado === OperationStates.CONTROL_FINAL
+            || response.codEstado === OperationStates.CONFIRMACION_PAGO)
         && this.props.onRedirectCases(response, response.codEstado);
     };
 
@@ -117,6 +153,13 @@ export default class ProviderOperationsGrid extends React.Component {
                     onCloseModal={() => window.location.reload()}
                     modalState={this.state.modalIsOpen}
                     content={this.state.modalContent}
+                />
+
+                <UserDetailModal
+                    onCloseModal={this.toggleUserDetailModal}
+                    modalState={this.state.userModalIsOpen}
+                    title={USER_DETAILS_MODAL_TITLE}
+                    user={this.state.userToDetail}
                 />
             </React.Fragment>
         );

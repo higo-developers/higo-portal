@@ -18,6 +18,8 @@ import CompleteUserDataPage from "../pages/CompleteUserDataPage";
 import OperationsPage from "../pages/OperationsPage";
 import InitialControlPage from "../pages/InitialControlPage";
 import FinalControlPage from "../pages/FinalControlPage";
+import ConfirmOperationPaymentPage from "../pages/ConfirmOperationPaymentPage";
+import Footer from "./layout/Footer";
 
 export default function App() {
     return (
@@ -44,8 +46,12 @@ export default function App() {
                 <ProtectedRoute exact path={Routes.OPERATIONS_INITIAL_CONTROL} component={InitialControlPage}/>
                 <ProtectedRoute exact path={Routes.OPERATIONS_FINAL_CONTROL} component={FinalControlPage}/>
 
+                <ProtectedRoute exact path={Routes.OPERATIONS_PAYMENT} component={ConfirmOperationPaymentPage}/>
+
                 <Route component={NotFoundPage}/>
             </Switch>
+
+            <Footer/>
         </BrowserRouter>
     );
 }

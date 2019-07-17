@@ -48,7 +48,7 @@ const OperationResource = {
 
         return RestClient.executeCall(url, options);
     },
-    getOperationInitialControl(operationId) {
+    getOperationControl(operationId) {
         return RestClient.executeCall(`${process.env.REACT_APP_API_BASE_URL}${ENDPOINT_OPERATIONS}/${operationId}${ENDPOINT_CONTROL}`);
     },
     updateControl(request) {
